@@ -63,7 +63,7 @@
             <a href="https://uk.linkedin.com/?original_referer=https%3A%2F%2Fwww.google.com%2F"><img src="images/linkedin.png" alt="Linkedin"></a>
         </div>
         <div class="footer-right">
-            &copy; 2023 Home Heaven. Allsshashdhsadh Rights Reserved.
+            &copy; 2023 Home Heaven. Allsshashdhsadhasdasdasd Rights Reserved.
         </div>
     </footer>
     
