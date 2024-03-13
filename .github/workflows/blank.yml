@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+
+      # Check if the pull request author is the owner
+      - name: Check PR author
+        run: |
+          PR_AUTHOR=$(curl -s "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}" | jq -r .user.login)
+          OWNER=$(curl -s "https://api.github.com/repos/${{ github.repository }}" | jq -r .owner.login)
+
+          if [ "$PR_AUTHOR" != "$OWNER" ]; then
+            echo "Only the owner can merge to main. This pull request is not allowed."
+            exit 1
+          fi
+
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
