@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile - Warehouse Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="navbar">
+        <a href="dashboard.html" class="logo">
+            <img src="logo.png" alt="Warehouse Logo">
+            <span>Warehouse Management System</span>
+        </a>
+        <div id="menu-toggle" class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="right-nav">
+            <a href="#" id="alerts-link">Alerts (0)</a>
+            <button id="logout-btn">Logout</button>
+        </div>
+    </header>
+    <div class="container">
+        <nav class="sidebar">
+            <div class="profile">
+                <a href="profile.html">
+                    <img src="profile-pic.jpg" alt="Profile Picture">
+                    <span id="profile-name">John Doe</span>
+                </a>
+            </div>
+            <ul>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="reports.html">Reports</a></li>
+                <li class="has-dropdown">
+                    <a href="#">Products</a>
+                    <ul class="dropdown">
+                        <li><a href="products.html">View Products</a></li>
+                        <li><a href="add_product.html">Add Product</a></li>
+                    </ul>
+                </li>
+                <li><a href="purchase_orders.html">Purchase Orders</a></li>
+                <li><a href="raw_materials.html">Raw Materials</a>
+                    <ul class="dropdown">
+                        <li><a href="raw_materials.html">View Raw Materials</a></li>
+                        <li><a href="add_raw_material.html">Add Raw Material</a></li>
+                    </ul>
+                </li>
+                <li><a href="staff.html">Staff</a></li>
+                <li><a href="clients.html">Clients</a></li>
+            </ul>
+        </nav>
+        <main id="content">
+            <h2>Edit Profile</h2>
+            <form id="edit-profile-form">
+                <label for="profile-picture">Profile Picture:</label>
+                <input type="file" id="profile-picture" accept="image/*">
+                <label for="profile-name">Name:</label>
+                <input type="text" id="profile-name" value="John Doe">
+                <label for="profile-email">Email:</label>
+                <input type="email" id="profile-email" value="john@example.com">
+                <button type="submit">Save Changes</button>
+            </form>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
