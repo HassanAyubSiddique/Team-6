@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warehouse Management System - Purchase Orders</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="navbar">
+        <a href="dashboard.html" class="logo">
+            <img src="logo.png" alt="Warehouse Logo">
+            <span>Warehouse Management System</span>
+        </a>
+        <div id="menu-toggle" class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="right-nav">
+            <a href="#" id="alerts-link">Alerts (0)</a>
+            <button id="logout-btn">Logout</button>
+        </div>
+    </header>
+    <div class="container">
+        <nav class="sidebar">
+            <div class="profile">
+                <a href="profile.html">
+                    <img src="profile-pic.jpg" alt="Profile Picture">
+                    <span id="profile-name">John Doe</span>
+                </a>
+            </div>
+            <ul>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="reports.html">Reports</a></li>
+                <li class="has-dropdown">
+                    <a href="#">Products</a>
+                    <ul class="dropdown">
+                        <li><a href="products.html">View Products</a></li>
+                        <li><a href="add_product.html">Add Product</a></li>
+                    </ul>
+                </li>
+                <li class="active"><a href="purchased-order.html">Purchase Orders</a></li>
+                <li><a href="raw_materials.html">Raw Materials</a>
+                    <ul class="dropdown">
+                        <li><a href="raw_materials.html">View Raw Materials</a></li>
+                        <li><a href="add_raw_material.html">Add Raw Material</a></li>
+                    </ul>
+                </li>
+                <li><a href="staff.html">Staff</a></li>
+                <li><a href="clients.html">Clients</a></li>
+            </ul>
+        </nav>
+        <main id="content">
+            <h2>Purchase Orders</h2>
+            <!-- Purchase orders list section -->
+            <div id="purchase-orders-list">
+                <!-- Purchase order items will be dynamically generated here -->
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
