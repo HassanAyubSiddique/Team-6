@@ -15,7 +15,16 @@ body {
 .logo {
     display: flex;
     align-items: center;
+    font-size: 1.5rem;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bolder;
+    color: #3c3087;
+    text-decoration: none;
+  }
+    
+
 }
+
 
 .logo img {
     width: 50px;
@@ -31,7 +40,11 @@ body {
 .right-nav a {
     margin-right: 1rem;
     text-decoration: none;
+
+    color: #181414;
+
     color: #333;
+
 }
 
 .container {
