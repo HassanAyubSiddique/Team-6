@@ -8,7 +8,7 @@
 </head>
 <body>
     <header class="navbar">
-        <a href="dashboard.html" class="logo">
+        <a href="dashboard.php" class="logo">
             <img src="logo.png" alt="Warehouse Logo">
             <span>Warehouse Management System</span>
         </a>
@@ -22,44 +22,41 @@
     </header>
     <div class="container">
         <nav class="sidebar">
-            <div class="profile">
-                <a href="profile.html">
-                    <img src="profile-pic.jpg" alt="Profile Picture">
-                    <span id="profile-name">John Doe</span>
-                </a>
+        <div class="profile">
+                <?php include './php/retrieve_admin_info.php'; ?>
             </div>
             <ul>
-                <li><a href="dashboard.html">Dashboard</a></li>
-                <li><a href="reports.html">Reports</a></li>
+                <li><a href="dashboard.php">Dashboard</a></li>
+                <li><a href="reports.php">Reports</a></li>
                 <li class="has-dropdown">
                     <a href="#">Products</a>
                     <ul class="dropdown">
-                        <li><a href="products.html">View Products</a></li>
-                        <li class="active"><a href="add_product.html">Add Product</a></li>
+                        <li><a href="products.php">View Products</a></li>
+                        <li class="active"><a href="./php/add_product.php">Add Product</a></li>
                     </ul>
                 </li>
-                <li><a href="purchased-order.html">Purchase Orders</a></li>
-                <li><a href="raw_materials.html">Raw Materials</a>
+                <li><a href="purchase_orders.php">Purchase Orders</a></li>
+                <li><a href="raw_materials.php">Raw Materials</a>
                     <ul class="dropdown">
-                        <li><a href="raw_materials.html">View Raw Materials</a></li>
-                        <li><a href="add_raw_material.html">Add Raw Material</a></li>
+                        <li><a href="raw_materials.php">View Raw Materials</a></li>
+                        <li><a href="./php/add_raw_material.php">Add Raw Material</a></li>
                     </ul>
                 </li>
-                <li><a href="staff.html">Staff</a></li>
-                <li><a href="clients.html">Clients</a></li>
+                <li><a href="staff.php">Staff</a></li>
+                <li><a href="clients.php">Clients</a></li>
             </ul>
         </nav>
         <main id="content">
             <h2>Add Product</h2>
             <!-- Form to add new product -->
-            <form id="add-product-form">
+            <form id="add-product-form" action="./php/add_product_query.php" method="post" enctype="multipart/form-data">
                 <label for="product-name">Product Name:</label>
-                <input type="text" id="product-name" required>
+                <input type="text" id="product-name" name="product_name" required>
                 <label for="product-description">Product Description:</label>
-                <textarea id="product-description" required></textarea>
+                <textarea id="product-description" name="product_description" required></textarea>
                 <label for="product-image">Product Image:</label>
-                <input type="file" id="product-image" accept="image/*" required>
-                <button type="submit">Create Product</button>
+                <input type="file" id="product-image" name="product_image" accept="image/*" required>
+                <button type="submit" name="submit">Create Product</button>
             </form>
         </main>
     </div>

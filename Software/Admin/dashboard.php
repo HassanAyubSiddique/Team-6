@@ -10,7 +10,7 @@
 </head>
 <body>
     <header class="navbar">
-        <a href="dashboard.html" class="logo">
+        <a href="dashboard.php" class="logo">
             <img src="logo.png" alt="Warehouse Logo">
             <span>Warehouse Management System</span>
         </a>
@@ -25,29 +25,26 @@
     <div class="container">
         <nav class="sidebar">
             <div class="profile">
-                <a href="profile.html">
-                    <img src="profile-pic.jpg" alt="Profile Picture">
-                    <span id="profile-name">John Doe</span>
-                </a>
+                <?php include './php/retrieve_admin_info.php'; ?>
             </div>
             <ul>
-                <li class="active"><a href="dashboard.html">Dashboard</a></li>
-                <li><a href="reports.html">Reports</a></li>
+                <li class="active"><a href="dashboard.php">Dashboard</a></li>
+                <li><a href="reports.php">Reports</a></li>
                 <li class="has-dropdown"><a href="#">Products</a>
                     <ul class="dropdown">
-                        <li><a href="products.html">View Products</a></li>
-                        <li><a href="add_product.html">Add Product</a></li>
+                        <li><a href="products.php">View Products</a></li>
+                        <li><a href="add_product.php">Add Product</a></li>
                     </ul>
                 </li>
-                <li><a href="purchase_orders.html">Purchase Orders</a></li>
-                <li><a href="raw_materials.html">Raw Materials</a>
+                <li><a href="purchase_orders.php">Purchase Orders</a></li>
+                <li><a href="raw_materials.php">Raw Materials</a>
                     <ul class="dropdown">
-                        <li><a href="raw_materials.html">View Raw Materials</a></li>
-                        <li><a href="add_raw_material.html">Add Raw Material</a></li>
+                        <li><a href="raw_materials.php">View Raw Materials</a></li>
+                        <li><a href="add_raw_material.php">Add Raw Material</a></li>
                     </ul>
                 </li>
-                <li><a href="staff.html">Staff</a></li>
-                <li><a href="clients.html">Clients</a></li>
+                <li><a href="staff.php">Staff</a></li>
+                <li><a href="clients.php">Clients</a></li>
             </ul>
         </nav>
         <main id="content">
