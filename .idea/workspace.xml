@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="60a2e125-00b1-4d09-8681-110a9e600cb0" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Software/Admin/php/tcpdf/VERSION" beforeDir="false" afterPath="$PROJECT_DIR$/Software/Admin/php/tcpdf/VERSION" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software/Admin/php/tcpdf/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/Software/Admin/php/tcpdf/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software/Admin/php/tcpdf/examples/images/tcpdf_logo.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software/Admin/php/tcpdf/include/sRGB.icc" beforeDir="false" afterPath="$PROJECT_DIR$/Software/Admin/php/tcpdf/include/sRGB.icc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software/Admin/php/tcpdf/include/tcpdf_static.php" beforeDir="false" afterPath="$PROJECT_DIR$/Software/Admin/php/tcpdf/include/tcpdf_static.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software/Admin/php/tcpdf/tcpdf.php" beforeDir="false" afterPath="$PROJECT_DIR$/Software/Admin/php/tcpdf/tcpdf.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software/Admin/php/tcpdf/tools/tcpdf_addfont.php" beforeDir="false" afterPath="$PROJECT_DIR$/Software/Admin/php/tcpdf/tools/tcpdf_addfont.php" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 2
+}]]></component>
+  <component name="ProjectId" id="2eCLfxPQ8mWDZ8FdYvNzuujltXg" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "Admin",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="Flight" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Flight" />
+      <module name="Team-6" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Flight" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="60a2e125-00b1-4d09-8681-110a9e600cb0" name="Changes" comment="" />
+      <created>1711403722274</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1711403722274</updated>
+      <workItem from="1711403725485" duration="325000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
