@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raw Materials</title>
+
+    <!--font awesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
+
+    <!--css file that links all styles on this page-->
+    <link rel="stylesheet" href="StaffDashboard.css"/>
+</head>
+<body>
+
+
+<!-- ======================= menu ================== -->
+<div class="sidebar close">
+    <div class="logo">
+        <!-- if we want to add logo inside the menu -->
+        <span class="logo-name"></span>
+    </div>
+
+    <ul class="nav-list">
+        <li>
+            <a href="Staffdashboard.HTML">
+                <i class="fab fa-microsoft"></i>
+                <span class="link-name">Dashboard</span>
+            </a>
+
+            <ul class="sub-menu blank">
+                <li><a href="Staffdashboard.HTML" class="link-name">Dashboard</a></li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="PurchaseOrder.html">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="link-name">Purchase Orders</span>
+            </a>
+
+            <ul class="sub-menu blank">
+                <li><a href="PurchaseOrder.html" class="link-name">Purchase Orders</a></li>
+            </ul>
+        </li>
+
+
+        <li>
+            <div class="icon-link">
+                <a href="#">
+                    <i class="fas fa-boxes"></i>
+                    <span class="link-name">Raw Materials</span>
+                </a>
+                <i class="fas fa-caret-down arrow"></i>
+            </div>
+
+            <ul class="sub-menu">
+                <li><a href="#" class="link-name">Raw Materials</a></li>
+                <li><a href="RawMaterials.html">View Raw Materials</a></li>
+                <li><a href="RawMaterials.html">Add Raw Materials</a></li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="AdProfile.html">
+                <i class="fas fa-id-card-alt"></i>
+                <span class="link-name">Profile</span>
+            </a>
+
+            <ul class="sub-menu blank">
+                <li><a href="AdProfile.html" class="link-name">Profile</a></li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#" onclick="confirmSignout()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span class="link-name">Signout</span>
+            </a>
+
+            <ul class="sub-menu blank">
+                <li><a href="#" onclick="confirmSignout()">Signout</a></li>
+            </ul>
+        </li>
+
+
+    </ul>
+
+</div>
+
+
+
+<div class="home-section">
+    <!-- ======================= nav ================== -->
+    <div class="main">
+
+        <div class="topbar">
+            <div class="toggle">
+                <ion-icon name="menu-outline"></ion-icon>
+                <div class="home-content">
+                    <i class="fas fa-bars"></i>
+
+
+                </div>
+            </div>
+            <img src="img/Screenshot 2024-03-16 at 01.30.56.png" alt="" class="lo">
+
+            <div class="search">
+
+
+                <label>
+                    <input type="text" placeholder="Search here">
+                    <i class="fas fa-search"></i>
+
+                </label>
+            </div>
+
+            <div class="user">
+                <img src="img/Screenshot 2024-03-15 at 19.56.42.png" alt="">
+            </div>
+
+        </div>
+        <div class="product-table-container">
+            <h2 class="product-heading">List of Raw Material</h2>
+            <table class="product-table">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Raw Material Name</th>
+                        <th>Stock</th>
+                        <th>Description</th>
+                        <th>Created At</th>
+                        <th>Updated At</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Product data will be dynamically inserted here -->
+                    <tr>
+                        <td><img src="img/eggs.jpg" alt="Product Image"></td>
+                        <td>Product 1</td>
+                        <td>50</td>
+                        <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+                        <td>2024-04-11</td>
+                        <td>2024-04-12</td>
+                        <td>
+                            <button class="edit-btn"><i class="fas fa-edit"></i>Edit</button>
+                            <button class="delete-btn"><i class="fas fa-trash-alt"></i>Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><img src="img/milk_2pint.png" alt="Product Image"></td>
+                        <td>Product 2</td>
+                        <td>30</td>
+                        <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+                        <td>2024-04-10</td>
+                        <td>2024-04-11</td>
+                        <td>
+                            <button class="edit-btn"><i class="fas fa-edit"></i>Edit</button>
+                            <button class="delete-btn"><i class="fas fa-trash-alt"></i>Delete</button>
+                        </td>
+                    </tr>
+                  
+                </tbody>
+            </table>
+        </div>
+        
+        
+        
+    </div>
+
+  
+</div>
+
+
+
+<script src="StaffDashboard.js"></script>
+
+
+</body>
+</html>
