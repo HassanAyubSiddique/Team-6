@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dropdown Sidebar - Tivotal</title>
+    <title>Order Raw Material</title>
 
     <!--font awesome-->
     <link
@@ -38,33 +38,6 @@
         </li>
 
         <li>
-        <a href="report.html">
-          <i class="fas fa-chart-bar"></i>
-          <span class="link-name">Report</span>
-        </a>
-
-        <ul class="sub-menu blank">
-          <li><a href="report.html" class="link-name">Report</a></li>
-        </ul>
-      </li>
-
-        <li>
-          <div class="icon-link">
-            <a href="#">
-              <i class="fas fa-box-open"></i>
-              <span class="link-name">Products</span>
-            </a>
-            <i class="fas fa-caret-down arrow"></i>
-          </div>
-
-          <ul class="sub-menu">
-            <li><a href="#" class="link-name">Products</a></li>
-            <li><a href="ViewProduct.html">View Product</a></li>
-            <li><a href="AddProduct.html">Add Product</a></li>
-          </ul>
-        </li>
-
-        <li>
           <a href="PurchaseOrder.html">
             <i class="fas fa-shopping-cart"></i>
             <span class="link-name">Purchase Orders</span>
@@ -87,35 +60,11 @@
 
           <ul class="sub-menu">
             <li><a href="#" class="link-name">Raw Materials</a></li>
-            <li><a href="ViewrawMaterial.html">View Raw Materials</a></li>
-            <li><a href="AddRawMaterial.html">Add Raw Materials</a></li>
+            <li><a href="StaffOrderRawMaterial.html">Order Raw Materials</a></li>
+            <li><a href="StaffViewRawMaterials.html">View Raw Materials</a></li>
           </ul>
         </li> 
-
-        
-        <li>
-        <a href="Staff.html">
-          <i class="fas fa-users"></i>
-          <span class="link-name">Staff</span>
-        </a>
-
-        <ul class="sub-menu blank">
-          <li><a href="Staff.html" class="link-name">Staff</a></li>
-        </ul>
-      </li>
-     
-
-        <li>
-          <a href="Customer.html">
-            <i class="fas fa-handshake"></i>
-            <span class="link-name">Customers</span>
-          </a>
-
-          <ul class="sub-menu blank">
-            <li><a href="Customer.html" class="link-name">Customers</a></li>
-          </ul>
-        </li>
-
+    
         <li>
           <a href="AdProfile.html">
             <i class="fas fa-id-card-alt"></i>
@@ -183,7 +132,7 @@
       <div>
 
       </div>
-        <h2 class="product-heading">Add Raw Material</h2>
+        <h2 class="product-heading"> Order Raw Material </h2>
       <form>
           <div class="form-group">
               <label for="productName">Product Name:</label>
@@ -193,15 +142,8 @@
               <label for="quantity">Quantity:</label>
               <input type="number" id="quantity" name="quantity" min="0">
           </div>
-          <div class="form-group">
-              <label for="description">Description:</label>
-              <textarea id="description" name="description" rows="4" required></textarea>
-          </div>
-          <div class="form-group">
-              <label for="image">Upload Image:</label>
-              <input type="file" id="image" name="image" accept="image/*" required>
-          </div>
-          <button type="submit" class="create-btn"><i class="fas fa-plus"></i>Create</button>
+          <button type="submit" class="create-btn"><i class="fas fa-plus"></i> Order
+           </button>
       </form>
   </div>
 </div>
