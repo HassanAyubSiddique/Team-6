@@ -58,7 +58,7 @@
 
   <script>
     function closePopup() {
-      window.location.href = "../products.php";
+      window.location.href = "../ViewProduct.php";
     }
   </script>
 
