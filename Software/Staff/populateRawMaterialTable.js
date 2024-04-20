@@ -42,15 +42,45 @@ function populateRawMaterialTable() {
 
 // Function to handle edit button click
 function handleEditButtonClick(event) {
-    const rawMaterialId = event.target.dataset.id;
-    // Implement edit functionality...
+    const row = event.target.closest('tr');
+    const rawMaterialId = row.dataset.id; // Assuming you have a data-id attribute on the <tr> containing the raw material id
+
+    // Redirect to the edit page with the raw material id
+    window.location.href = `edit_raw_material.php?id=${rawMaterialId}`;
 }
 
 // Function to handle delete button click
 function handleDeleteButtonClick(event) {
-    const rawMaterialId = event.target.dataset.id;
-    // Implement delete functionality...
+    const row = event.target.closest('tr');
+    const rawMaterialId = row.dataset.id; // Assuming you have a data-id attribute on the <tr> containing the raw material id
+
+    // Confirm deletion
+    if (confirm('Are you sure you want to delete this raw material?')) {
+        // Send an AJAX request to delete the raw material
+        fetch(`delete_raw_material.php?id=${rawMaterialId}`, { method: 'DELETE' })
+            .then(response => {
+                if (response.ok) {
+                    // Remove the row from the table
+                    row.remove();
+                } else {
+                    console.error('Failed to delete raw material:', response.statusText);
+                }
+            })
+            .catch(error => {
+                console.error('Error deleting raw material:', error);
+            });
+    }
 }
+
+// Add event listeners for edit and delete buttons
+document.querySelectorAll('.edit-btn').forEach(btn => {
+    btn.addEventListener('click', handleEditButtonClick);
+});
+
+document.querySelectorAll('.delete-btn').forEach(btn => {
+    btn.addEventListener('click', handleDeleteButtonClick);
+});
+
 
 // Populate the table when the page loads
 document.addEventListener('DOMContentLoaded', populateRawMaterialTable);
