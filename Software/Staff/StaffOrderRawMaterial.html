@@ -17,7 +17,6 @@
   </head>
   <body>
 
-
   <!-- ======================= menu ================== -->
     <div class="sidebar close">
       <div class="logo">
@@ -59,7 +58,7 @@
           </div>
 
           <ul class="sub-menu">
-            <li><a href="#" class="link-name">Raw Materials</a></li>
+            <li><a href="StaffViewRawMaterials.html" class="link-name">Raw Materials</a></li>
             <li><a href="StaffOrderRawMaterial.html">Order Raw Materials</a></li>
             <li><a href="StaffViewRawMaterials.html">View Raw Materials</a></li>
           </ul>
@@ -92,9 +91,7 @@
       </ul>
       
     </div>
-    
-    
-
+  
     <div class="home-section">
        <!-- ======================= nav ================== -->
       <div class="main">
@@ -133,29 +130,24 @@
 
       </div>
         <h2 class="product-heading"> Order Raw Material </h2>
-      <form>
+        <<form action="submit_orderRawMaterial.php" method="post">
           <div class="form-group">
-              <label for="productName">Product Name:</label>
-              <input type="text" id="productName" name="productName" required>
+              <label for="rawMaterialProductName">Raw Material Product Name:</label>
+              <select id="rawMaterialProductName" name="rawMaterialProductName" required>
+                  <?php include 'populate_raw_material_product_names.php'; ?>
+              </select>
           </div>
           <div class="form-group">
               <label for="quantity">Quantity:</label>
-              <input type="number" id="quantity" name="quantity" min="0">
+              <input type="number" id="quantity" name="quantity" min="0" required>
           </div>
-          <button type="submit" class="create-btn"><i class="fas fa-plus"></i> Order
-           </button>
+          <button type="submit" class="create-btn"><i class="fas fa-plus"></i> Order</button>
       </form>
+      
   </div>
 </div>
       
     </div>
-
-
-     
-
-    
-    
-
     <script src="AdminDashboard.js"></script>
   </body>
 </html>
