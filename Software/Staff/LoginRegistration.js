@@ -67,8 +67,8 @@ document.querySelector('.sign-up-form').addEventListener('submit', function(even
     event.preventDefault();
     if (validateForm('.sign-up-form')) {
         alert('Validation successful. Sign-up form submitted.');
-        // Uncomment the following line to submit the form
-        // this.submit();
+        // Redirect to another page
+        window.location.href = 'another-page.html';
     }
 });
 
@@ -76,7 +76,7 @@ document.querySelector('.sign-in-form').addEventListener('submit', function(even
     event.preventDefault();
     if (validateForm('.sign-in-form')) {
         alert('Validation successful. Sign-in form submitted.');
-        // Uncomment the following line to submit the form
-        // this.submit();
+        // Redirect to another page
+        window.location.href = 'another-page.html';
     }
 });
