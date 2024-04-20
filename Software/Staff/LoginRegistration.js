@@ -14,7 +14,8 @@ function validateForm(formSelector) {
     const form = document.querySelector(formSelector);
     const emailInput = form.querySelector('input[name="email"]');
     const phoneNumberInput = form.querySelector('input[name="phoneNumber"]');
-    const passwordInput = form.querySelector('input[type="password"]');
+    const passwordInput = form.querySelector('input[name="password"]');
+    const confirmPasswordInput = form.querySelector('input[name="confirmPassword"]');
     let isValid = true;
 
     // Validate email
@@ -33,9 +34,13 @@ function validateForm(formSelector) {
 
     // Validate password
     const passwordValue = passwordInput.value.trim();
-    if (passwordValue === '') {
+    const confirmPasswordValue = confirmPasswordInput.value.trim();
+    if (passwordValue.length < 8 || !/[A-Z]/.test(passwordValue) || !/\d/.test(passwordValue)) {
         isValid = false;
-        alert('Password must not be empty.');
+        alert('Password must be at least 8 characters long and contain at least one uppercase letter and one number.');
+    } else if (passwordValue !== confirmPasswordValue) {
+        isValid = false;
+        alert('Password and confirm password must match.');
     }
 
     if (!isValid) {
@@ -44,6 +49,7 @@ function validateForm(formSelector) {
 
     return isValid;
 }
+
 
 
 
