@@ -11,22 +11,32 @@ sign_in_btn.addEventListener("click", () => {
 });
 
 function validateForm(formSelector) {
-    const inputs = document.querySelectorAll(`${formSelector} input`);
+    const form = document.querySelector(formSelector);
+    const usernameInput = form.querySelector('input[type="text"]');
+    const passwordInput = form.querySelector('input[type="password"]');
     let isValid = true;
 
-    inputs.forEach(input => {
-        const value = input.value.trim();
-        if (value === '') {
-            isValid = false;
-        }
-    });
+    // Validate username
+    const usernameValue = usernameInput.value.trim();
+    if (usernameValue === '' || !usernameValue.includes('@')) {
+        isValid = false;
+        alert('Username must not be empty and must contain "@" symbol.');
+    }
+
+    // Validate password
+    const passwordValue = passwordInput.value.trim();
+    if (passwordValue === '') {
+        isValid = false;
+        alert('Password must not be empty.');
+    }
 
     if (!isValid) {
-        alert('Please fill in all fields.');
+        alert('Please fill in all fields correctly.');
     }
 
     return isValid;
 }
+
 
 document.querySelector('.sign-up-form').addEventListener('submit', function(event) {
     event.preventDefault();
