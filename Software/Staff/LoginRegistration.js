@@ -13,14 +13,22 @@ sign_in_btn.addEventListener("click", () => {
 function validateForm(formSelector) {
     const form = document.querySelector(formSelector);
     const emailInput = form.querySelector('input[name="email"]');
+    const phoneNumberInput = form.querySelector('input[name="phoneNumber"]');
     const passwordInput = form.querySelector('input[type="password"]');
     let isValid = true;
 
-    // Validate username
+    // Validate email
     const emailValue = emailInput.value.trim();
     if (emailValue === '' || !emailValue.includes('@')) {
         isValid = false;
         alert('Email must not be empty and must contain "@" symbol.');
+    }
+
+    // Validate phone number
+    const phoneNumberValue = phoneNumberInput.value.trim();
+    if (phoneNumberValue.length < 11) {
+        isValid = false;
+        alert('Phone number must contain at least 11 digits.');
     }
 
     // Validate password
@@ -36,6 +44,7 @@ function validateForm(formSelector) {
 
     return isValid;
 }
+
 
 
 
