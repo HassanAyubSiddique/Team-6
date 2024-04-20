@@ -59,10 +59,6 @@ function validateForm(formSelector) {
 }
 
 
-
-
-
-
 document.querySelector('.sign-up-form').addEventListener('submit', function(event) {
     event.preventDefault();
     if (validateForm('.sign-up-form')) {

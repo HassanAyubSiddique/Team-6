@@ -1058,3 +1058,21 @@ button[type="submit"]:hover {
   height: 650px;
   margin-left: 220px;
 }
+
+/* Selector*/
+
+.input-field select {
+  background-color: #f0f0f0;
+  outline: none;
+  border: none;
+  line-height: 1;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #333;
+  width: 100%;
+  height: 100%;
+  appearance: none; /* Removes default arrow */
+  padding: 0.4rem;
+  border-radius: 55px;
+  cursor: pointer;
+}
