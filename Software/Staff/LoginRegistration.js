@@ -16,6 +16,7 @@ function validateForm(formSelector) {
     const phoneNumberInput = form.querySelector('input[name="phoneNumber"]');
     const passwordInput = form.querySelector('input[name="password"]');
     const confirmPasswordInput = form.querySelector('input[name="confirmPassword"]');
+    const roleSelect = form.querySelector('select[name="role"]');
     let isValid = true;
 
     // Validate email
@@ -43,12 +44,20 @@ function validateForm(formSelector) {
         alert('Password and confirm password must match.');
     }
 
+    // Validate role selection
+    const roleValue = roleSelect.value;
+    if (roleValue === '') {
+        isValid = false;
+        alert('Please select your role.');
+    }
+
     if (!isValid) {
         alert('Please fill in all fields correctly.');
     }
 
     return isValid;
 }
+
 
 
 
