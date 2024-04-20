@@ -25,7 +25,7 @@
                     <!-- Username input field -->
                     <div class="input-field">
                         <i class="fas fa-user"></i>
-                        <input type="text" placeholder="Username" />
+                        <input type="text" placeholder="Email" name="email"/>
                     </div>
                     <!-- Password input field -->
                     <div class="input-field">
@@ -48,14 +48,14 @@
                             <td>
                                 <div class="input-field">
                                     <i class="fas fa-user"></i>
-                                    <input type="text" placeholder="First Name" />
+                                    <input type="text" placeholder="First Name" name="firstName" />
                                 </div>
                             </td>
                             <!-- Last name input field -->
                             <td>
                                 <div class="input-field">
                                     <i class="fas fa-user"></i>
-                                    <input type="text" placeholder="Last Name" />
+                                    <input type="text" placeholder="Last Name" name="lastName" />
                                 </div>
                             </td>
                         </tr>
@@ -64,64 +64,63 @@
                             <td>
                               <div class="input-field">
                                 <i class="fas fa-envelope"></i>
-                                <input type="email" placeholder="Email" />
+                                <input type="email" placeholder="Email" name="email" />
                               </div>
                             </td>
                             <td>
                               <div class="input-field">
                                 <i class="fas fa-phone"></i>
-                                <input type="tel" placeholder="Phone Number" />
+                                <input type="tel" placeholder="Phone Number" name="phoneNumber" />
                               </div>
                             </td>
-                          </tr>
-                          <tr>
-                              <td>
-                                  <div class="input-field">
-                                      <i class="fas fa-address-card"></i>
-                                      <input type="text" placeholder="Address" />
-                                  </div>
-                              </td>
-                              <td>
-                                  <div class="input-field">
-                                      <i class="fas fa-city"></i>
-                                      <input type="text" placeholder="City" />
-                                  </div>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td>
-                                  <div class="input-field">
-                                      <i class="fas fa-map-marker-alt"></i>
-                                      <input type="text" placeholder="Postcode" />
-                                  </div>
-                              </td>
-                              <td>
+                        </tr>
+                        <tr>
+                            <td>
                                 <div class="input-field">
-                                    <i class="fas fa-globe"></i>
-                                    <input type="text" placeholder="Country" />
+                                    <i class="fas fa-address-card"></i>
+                                    <input type="text" placeholder="Address" name="address" />
                                 </div>
                             </td>
-                          </tr>
-                         
-                          <tr>
-                              <td>
-                                  <div class="input-field">
-                                      <i class="fas fa-lock"></i>
-                                      <input type="password" placeholder="Password" />
-                                  </div>
-                              </td>
-                              <td>
-                                  <div class="input-field">
-                                      <i class="fas fa-lock"></i>
-                                      <input type="password" placeholder="Confirm Password" />
-                                  </div>
-                              </td>
-                          </tr>
-                          <tr>
+                            <td>
+                                <div class="input-field">
+                                    <i class="fas fa-city"></i>
+                                    <input type="text" placeholder="City" name="city" />
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="input-field">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <input type="text" placeholder="Postcode" name="postcode" />
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-field">
+                                    <i class="fas fa-globe"></i>
+                                    <input type="text" placeholder="Country" name="country" />
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="input-field">
+                                    <i class="fas fa-lock"></i>
+                                    <input type="password" placeholder="Password" name="password" />
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-field">
+                                    <i class="fas fa-lock"></i>
+                                    <input type="password" placeholder="Confirm Password" name="confirmPassword" />
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
                             <td colspan="2">
                                 <div class="input-field">
                                     <i class="fas fa-user"></i>
-                                    <select>
+                                    <select name="role">
                                         <option value="" disabled selected>Select your role</option>
                                         <option value="client">Client</option>
                                         <option value="staff">Staff Member</option>
@@ -133,6 +132,7 @@
                     <!-- Sign up button -->
                     <input type="submit" class="btn" value="Sign up" />
                 </form>
+                
             </div>
         </div>
 

@@ -12,15 +12,15 @@ sign_in_btn.addEventListener("click", () => {
 
 function validateForm(formSelector) {
     const form = document.querySelector(formSelector);
-    const usernameInput = form.querySelector('input[type="text"]');
+    const emailInput = form.querySelector('input[name="email"]');
     const passwordInput = form.querySelector('input[type="password"]');
     let isValid = true;
 
     // Validate username
-    const usernameValue = usernameInput.value.trim();
-    if (usernameValue === '' || !usernameValue.includes('@')) {
+    const emailValue = emailInput.value.trim();
+    if (emailValue === '' || !emailValue.includes('@')) {
         isValid = false;
-        alert('Username must not be empty and must contain "@" symbol.');
+        alert('Email must not be empty and must contain "@" symbol.');
     }
 
     // Validate password
@@ -36,6 +36,7 @@ function validateForm(formSelector) {
 
     return isValid;
 }
+
 
 
 document.querySelector('.sign-up-form').addEventListener('submit', function(event) {
