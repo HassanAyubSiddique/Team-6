@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Order Raw Material</title>
+    <title>Dropdown Sidebar - Tivotal</title>
 
     <!--font awesome-->
     <link
@@ -12,12 +12,23 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
     />
 
-    <!--css file-->
+    <!--css file that links all styles on this page-->
     <link rel="stylesheet" href="StaffDashboard.css" />
+
+    <!--css for the purchase order table-->
+    <link
+    rel="stylesheet" href="PurchaseOrder.css"
+    />
+
+
+    
   </head>
+
+  <!--Below are code for the body of the page-->
   <body>
 
-  <!-- ======================= menu ================== -->
+
+   <!-- ======================= menu ================== -->
     <div class="sidebar close">
       <div class="logo">
         <!-- if we want to add logo inside the menu -->
@@ -26,18 +37,20 @@
 
       <ul class="nav-list">
         <li>
-          <a href="AdminDashboard.HTML">
+          <a href="Staffdashboard.HTML">
             <i class="fab fa-microsoft"></i>
             <span class="link-name">Dashboard</span>
           </a>
 
           <ul class="sub-menu blank">
-            <li><a href="AdminDashboard.HTML" class="link-name">Dashboard</a></li>
+            <li><a href="Staffdashboard.HTML" class="link-name">Dashboard</a></li>
           </ul>
         </li>
 
+      </li>
+
         <li>
-          <a href="purchaseOrder.html">
+          <a href="PurchaseOrder.html">
             <i class="fas fa-shopping-cart"></i>
             <span class="link-name">Purchase Orders</span>
           </a>
@@ -63,7 +76,10 @@
             <li><a href="StaffViewRawMaterials.html">View Raw Materials</a></li>
           </ul>
         </li> 
-    
+
+      </li>
+     
+
         <li>
           <a href="AdProfile.html">
             <i class="fas fa-id-card-alt"></i>
@@ -85,69 +101,74 @@
               <li><a href="#" onclick="confirmSignout()">Signout</a></li>
           </ul>
       </li>
-      
 
       
-      </ul>
-      
     </div>
-  
+    
+
     <div class="home-section">
-       <!-- ======================= navigation bar ================== -->
+       <!-- The code below is the navigation bar on the left hand side-->
       <div class="main">
         
         <div class="topbar">
-            <div class="toggle">
-                <ion-icon name="menu-outline"></ion-icon>
-                <div class="home-content">
-                  <i class="fas fa-bars"></i>
-                  
-              
-                </div>
-            </div>
-            <img src="img/Screenshot 2024-03-16 at 01.30.56.png" alt="" class="lo">
+              <div class="toggle">
+                  <ion-icon name="menu-outline"></ion-icon>
+                  <div class="home-content">
+                    <i class="fas fa-bars"></i>
+                    
+                
+                  </div>
+              </div>
+              <img src="img/Screenshot 2024-03-16 at 01.30.56.png" alt="" class="lo">
 
-            <div class="search">
-              
+              <div class="search">
+                
             
-                <label>
-                    <input type="text" placeholder="Search here">
-                    <i class="fas fa-search"></i>
+                  <label>
+                      <input type="text" placeholder="Search here">
+                      <i class="fas fa-search"></i>
 
-                </label>
-            </div>
+                  </label>
+              </div>
 
-            <div class="user">
-                <img src="img/Screenshot 2024-03-15 at 19.56.42.png" alt="">
-            </div>
-       
+              <div class="user">
+                  <img src="img/Screenshot 2024-03-15 at 19.56.42.png" alt="">
+              </div>
+        </div>
+
+        <h2 class="PurchaseOrder_header">PURCHASE ORDERS LIST</h2> <!--the header for the purchase orders-->
+
+          <table id="entriesTable">
+            <thead class="thread_table">
+              <!-- Table header -->
+              <tr class="table">
+                <th>Order ID</th>
+                <th>Client ID</th>
+                <th>Status</th>
+                <th>Created</th>
+                <th>Delivery Reference</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            
+            <tbody id="entriesBody">
+             <!-- Table rows will be inserted here -->
+            </tbody>
+          </table>
     </div>
+    
+
+
+    </div>
+    
+    
+    <script src="AdminDashboard.js"></script>
 
     
 
-    <div class="add-product-form">
-      <div>
+   
 
-      </div>
-        <h2 class="product-heading"> Order Raw Material </h2>
-        <<form action="submit_orderRawMaterial.php" method="post">
-          <div class="form-group">
-              <label for="rawMaterialProductName">Raw Material Product Name:</label>
-              <select id="rawMaterialProductName" name="rawMaterialProductName" required>
-                  <?php include 'populate_raw_material_product_names.php'; ?>
-              </select>
-          </div>
-          <div class="form-group">
-              <label for="quantity">Quantity:</label>
-              <input type="number" id="quantity" name="quantity" min="0" required>
-          </div>
-          <button type="submit" class="create-btn"><i class="fas fa-plus"></i> Order</button>
-      </form>
-      
-  </div>
-</div>
-      
-    </div>
-    <script src="AdminDashboard.js"></script>
+
+
   </body>
 </html>
