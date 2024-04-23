@@ -126,5 +126,5 @@ box-sizing: border-box;
 
 /* Hover Effect for Columns */
 #entriesTable tbody tr:hover td {
-    background-color: rgba(0, 123, 255, 0.05); /* Faint blue hover effect for columns */
+    background-color: rgba(114, 129, 146, 0.1); /* Faint blue hover effect for columns */
 }
