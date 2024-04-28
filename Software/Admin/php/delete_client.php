@@ -13,7 +13,7 @@ if (isset($_GET['client_id'])) {
         $sql_delete_client = "DELETE FROM clients WHERE client_id = $client_id";
         if ($conn->query($sql_delete_client) === TRUE) {
             // Redirect back to clients page with success message
-            header("Location: ../clients.php?success=Client and associated orders deleted successfully");
+            header("Location: ../Customer.php?success=Client and associated orders deleted successfully");
             exit();
         } else {
             echo "Error deleting client record: " . $conn->error;

@@ -2,23 +2,23 @@
 // Include database connection
 include 'db_connection.php';
 
-// Get product ID from the URL
-if (isset($_GET['product_id'])) {
-    $product_id = $_GET['product_id'];
+// Get raw material ID from the URL
+if (isset($_GET['raw_material_id'])) {
+    $raw_material_id = $_GET['raw_material_id'];
 
-    // Retrieve product details based on the product ID
-    $sql_product = "SELECT * FROM products WHERE product_id = $product_id";
-    $result_product = $conn->query($sql_product);
+    // Retrieve raw material details based on the raw material ID
+    $sql_raw_material = "SELECT * FROM raw_materials WHERE raw_material_id = $raw_material_id";
+    $result_raw_material = $conn->query($sql_raw_material);
 
-    // Check if product exists
-    if ($result_product->num_rows > 0) {
-        $row_product = $result_product->fetch_assoc();
+    // Check if raw material exists
+    if ($result_raw_material->num_rows > 0) {
+        $row_raw_material = $result_raw_material->fetch_assoc();
     } else {
-        echo "Product not found";
+        echo "Raw material not found";
         exit();
     }
 } else {
-    echo "Product ID not provided";
+    echo "Raw material ID not provided";
     exit();
 }
 
@@ -37,8 +37,8 @@ $conn->close();
 <body>
     <div class="container">
         <h2>Add Batch</h2>
-        <form action="./update_batch.php" method="post" onsubmit="return validateForm()">
-            <input type="hidden" id="product_id" name="product_id" value="<?php echo $product_id; ?>">
+        <form action="./update_batch_raw_material.php" method="post" onsubmit="return validateForm()">
+            <input type="hidden" id="raw_material_id" name="raw_material_id" value="<?php echo $raw_material_id; ?>">
             <div class="form-group">
                 <label for="bbd">Best Before Date:</label>
                 <input type="date" id="bbd" name="bbd" required>
@@ -48,7 +48,9 @@ $conn->close();
                 <input type="number" id="quantity" name="quantity" required>
             </div>
             <button type="submit">Add Batch</button>
-            <button type="button" onclick="cancel()">Cancel</button>
+            <form action="/php/ViewRawMaterials.php" method="get">
+            <button type="submit" class="close-button">Close</button>
+        </form>
         </form>
     </div>
     <script>

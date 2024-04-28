@@ -2,55 +2,102 @@
 // Include database connection
 include 'db_connection.php';
 
-// Retrieve admin profile information
-$sql = "SELECT * FROM admins LIMIT 1";
-$result = $conn->query($sql);
+function retrieveAdminProfile($conn, $admin_id, &$firstName, &$lastName, &$email, &$phoneNumber, &$address, &$city, &$country, &$postcode) {
+  // Prepare and execute SQL query to retrieve admin profile
+  $sql = "SELECT * FROM admins WHERE admin_id = $admin_id";
+  $result = $conn->query($sql);
 
-// Check if any rows were returned
-if ($result->num_rows > 0) {
-    // Fetch admin profile details
+  if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
-    $firstName = $row["first_name"];
-    $lastName = $row["last_name"];
-    // You can add more fields here if needed
-
-    // Close the previous database query
-    $result->close();
-} else {
-    // Handle the case where no admin profile is found
-    echo "No admin profile found";
-    exit();
+    $firstName = $row['first_name'];
+    $lastName = $row['last_name'];
+    $email = $row['email'];
+    $phoneNumber = $row['phone_number'];
+    $address = $row['address'];
+    $city = $row['city'];
+    $country = $row['country'];
+    $postcode = $row['postcode'];
+  } else {
+    echo "Admin profile not found.";
+  }
 }
 
-// Close connection
-$conn->close();
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  if (isset($_POST['update_profile'])) { // Adjust button name if needed
+
+    // Get form data
+    $admin_id = $_POST['admin_id'];
+    $firstName = $_POST['newFirstName'];
+    $lastName = $_POST['newLastName'];
+    $phoneNumber = $_POST['newPhoneNumber'];
+    $address = $_POST['newAddress'];
+    $city = $_POST['newCity'];
+    $country = $_POST['newCountry'];
+    $postcode = $_POST['newPostcode'];
+
+    // Prepare SQL statement to update admin profile
+    $sql = "UPDATE admins SET first_name = '$firstName', last_name = '$lastName', phone_number = '$phoneNumber', address = '$address', city = '$city', country = '$country', postcode = '$postcode' WHERE admin_id = $admin_id";
+
+    // Execute SQL statement
+    if ($conn->query($sql) === TRUE) {
+      // Redirect to AdProfile.php after updating
+      header("Location: ../AdProfile.php");
+      exit();
+    } else {
+      echo "Error updating profile: " . $conn->error;
+    }
+  } else {
+    echo "Form not submitted properly. 'update-profile' not set.";
+  }
+} 
+    // Change Password Section
+    if (isset($_POST['change_password'])) { // Check if the password change form is submitted
+  
+      // Get form data
+      $admin_id = $_POST['admin_id'];
+      $oldPassword = $_POST['oldPassword'];
+      $newPassword = $_POST['newPassword'];
+      $confirmPassword = $_POST['confirmPassword'];
+  
+      // Validate passwords
+      if ($newPassword != $confirmPassword) {
+        echo "<script>alert('New password and confirm password do not match.');</script>";
+        echo "<script>window.location.href = '../AdProfile.php';</script>";
+        exit();
+      }
+  
+      // Retrieve old password hash from the database
+      $sql = "SELECT password FROM admins WHERE admin_id = $admin_id";
+      $result = $conn->query($sql);
+      if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $storedPassword = $row['password'];
+        // Verify old password
+        if ($oldPassword=== $storedPassword) {
+          // Hash the new password
+          $hashedPassword = $newPassword ;
+          // Update password in the database
+          $updateSql = "UPDATE admins SET password = '$hashedPassword' WHERE admin_id = $admin_id";
+          if ($conn->query($updateSql) === TRUE) {
+            echo "<script>alert('Password updated successfully.');</script>";
+            echo "<script>window.location.href = '../AdProfile.php';</script>";
+            exit();
+          } else {
+            echo "<script>alert('Error updating password: " . $conn->error . "');</script>";
+            echo "<script>window.location.href = '../AdProfile.php';</script>";
+            exit();
+          }
+        } else {
+          echo "<script>alert('Old password is incorrect.');</script>";
+          echo "<script>window.location.href = '../AdProfile.php';</script>";
+          exit();
+        }
+      } else {
+        echo "<script>alert('Admin profile not found.');</script>";
+        echo "<script>window.location.href = '../AdProfile.php';</script>";
+        exit();
+      }
+    }
+ 
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Profile - Warehouse Management System</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="container">
-
-        <main id="content">
-            <h2>Edit Profile</h2>
-            <form id="edit-profile-form" action="./php/update_admin_profile.php" method="post" enctype="multipart/form-data">
-                <label for="profile-picture">Profile Picture:</label>
-                <input type="file" id="profile-picture" name="profile-picture" accept="image/*"><br><br>
-                <label for="first-name">First Name:</label>
-                <input type="text" id="first-name" name="first-name" value="<?php echo $firstName; ?>"><br><br>
-                <label for="last-name">Last Name:</label>
-                <input type="text" id="last-name" name="last-name" value="<?php echo $lastName; ?>"><br><br>
-                <!-- You can add more fields here if needed -->
-                <button type="submit" name="submit">Save Changes</button>
-            </form>
-        </main>
-    </div>
-    <script src="script.js"></script>
-</body>
-</html>

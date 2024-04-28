@@ -21,10 +21,10 @@ if(isset($_POST['submit'])) {
     // Execute the statement
     if ($stmt->execute()) {
         // Redirect to add_product_query.php with success message
-        echo "<script>alert('Product added successfully'); window.location.href = '../add_product.php';</script>";
+        echo "<script>alert('Product added successfully'); window.location.href = '../AddProduct.php';</script>";
     } else {
         // Redirect to add_product_query.php with error message
-        echo "<script>alert('Error adding product: " . $stmt->error . "'); window.location.href = '../add_product.php';</script>";
+        echo "<script>alert('Error adding product: " . $stmt->error . "'); window.location.href = '../AddProduct.php';</script>";
     }
     
     // Close the prepared statement
@@ -34,7 +34,7 @@ if(isset($_POST['submit'])) {
     $conn->close();
 } else {
     // If form is not submitted, redirect to add_product_query.php
-    header("Location: ../add_product.php");
+    header("Location: ../AddProduct.php");
     exit(); // Stop further execution
 }
 ?>

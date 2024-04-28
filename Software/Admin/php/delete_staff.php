@@ -20,12 +20,12 @@ if (isset($_GET['staff_id'])) {
     }
 } else {
     // Redirect if staff_id is not set
-    header("Location: ../staff.php");
+    header("Location: ../Staff.php");
 }
 
 // Close connection
 $conn->close();
 
-// Redirect to staff.php
-echo "<script>window.location.href = '../staff.php';</script>";
+// Redirect to Staff.php
+echo "<script>window.location.href = '../Staff.php';</script>";
 ?>

@@ -27,7 +27,7 @@ if(isset($_GET['product_id'])) {
     echo "Product ID not specified";
 }
 
-// Redirect back to products.php
-header("Location: ../products.php");
+// Redirect back to ViewProduct.php
+header("Location: ../ViewProduct.php");
 exit();
 ?>
