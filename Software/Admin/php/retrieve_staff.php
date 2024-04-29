@@ -1,64 +1,24 @@
-<style>
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 20px;
-    }
-
-    th, td {
-        padding: 8px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-    }
-
-    th {
-        background-color: #f2f2f2;
-        color: #333;
-    }
-
-    .pending {
-        background-color: #ffcc00;
-        color: #333;
-        padding: 5px 10px;
-        border-radius: 5px;
-    }
-
-    .approved {
-        background-color: #4caf50;
-        color: #fff;
-        padding: 5px 10px;
-        border-radius: 5px;
-    }
-
-    .rejected {
-        background-color: #ff0000;
-        color: #fff;
-        padding: 5px 10px;
-        border-radius: 5px;
-    }
-
-    .button-container {
-        display: flex;
-    }
-
-    .button-container button {
-        margin-right: 5px;
-    }
-</style>
-
 <?php
 // Include database connection
 include 'db_connection.php';
 
-// Query to fetch staff data
-$sql = "SELECT * FROM staff";
+// Define variables for pagination and staff per page
+$staffPerPage = isset($_GET['per_page']) ? $_GET['per_page'] : 10;
+$currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
+$start = ($currentPage - 1) * $staffPerPage;
+
+// Query to fetch staff data with pagination
+$sql = "SELECT * FROM staff LIMIT $start, $staffPerPage";
 $result = $conn->query($sql);
+
+echo "<link rel='stylesheet' type='text/css' href='../style.css'>";
 
 // Check for successful execution
 if ($result) {
     // Check if any rows were returned
-    if ($result->num_rows > 0) {
-        // Loop through results and build table rows
+    if ($result->num_rows >= 0) {
+        // Loop through results and build table rows 
+ 
         while($row = $result->fetch_assoc()) {
             echo "<tr>";
             echo "<td>" . $row["staff_id"] . "</td>";
@@ -90,13 +50,36 @@ if ($result) {
                 echo "<button class='reject-button' onclick='rejectStaff(" . $row["staff_id"] . ")'>Reject</button>";
             }
 
+            // Upgrade button if status is Approved
+            if ($row["status"] == "Approved") {
+                echo "<button class='upgrade-button' onclick='upgradeStaff(" . $row["staff_id"] . ")'>Upgrade</button>";
+            }
+
             // Delete button
             echo "<button class='delete-button' onclick='deleteStaff(" . $row["staff_id"] . ")'>Delete</button>";
             echo "</td>";
             echo "</tr>";
         }
+        
+        echo "</table>";
+
+        // Pagination controls and Staff per page dropdown
+        echo "<div class='pagination'>"; 
+        echo "<select id='perPage' onchange='changePerPage()'>";
+        $perPageOptions = [10, 20, 50, 100];
+        foreach ($perPageOptions as $option) {
+            echo "<option value='$option' ";
+            if ($option == $staffPerPage) {
+                echo "selected";
+            }
+            echo ">$option</option>";
+        }
+        echo "</select>"; 
+        echo "<button onclick='previousPage()'>Previous</button>";
+        echo "<button onclick='nextPage()'>Next</button>";
+        echo "</div>";
     } else {
-        echo "<tr><td colspan='6'>No staff found</td></tr>"; // Adjusting colspan for the added column
+        echo "<p>No staff found</p>";
     }
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
@@ -105,6 +88,7 @@ if ($result) {
 // Close connection
 $conn->close();
 ?>
+
 <script>
 function deleteStaff(staff_id) {
     if (confirm("Are you sure you want to delete this staff member?")) {
@@ -123,4 +107,33 @@ function rejectStaff(staff_id) {
         window.location.href = "php/reject_staff.php?staff_id=" + staff_id;
     }
 }
+
+function upgradeStaff(staff_id) {
+    if (confirm("Are you sure you want to upgrade this staff member?")) {
+        window.location.href = "php/upgrade_staff.php?staff_id=" + staff_id;
+    }
+}
+
+function previousPage() {
+    <?php
+    if ($currentPage > 1) {
+        $prevPage = $currentPage - 1;
+        echo "window.location.href = 'Staff.php?page=$prevPage&per_page=$staffPerPage';";
+    }
+    ?>
+}
+
+function nextPage() {
+    <?php
+        $nextPage = $currentPage + 1;
+        echo "window.location.href = 'Staff.php?page=$nextPage&per_page=$staffPerPage';";
+    ?>
+}
+
+function changePerPage() {
+    var perPage = document.getElementById("perPage").value;
+    <?php
+    echo "window.location.href = 'Staff.php?page=1&per_page=' + perPage;";
+    ?>
+} 
 </script>

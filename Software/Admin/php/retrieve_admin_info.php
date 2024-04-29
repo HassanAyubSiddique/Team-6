@@ -9,7 +9,7 @@ $result = $conn->query($sql);
 // Fetch and display admin info with profile picture
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
-    echo "<a href='profile.php'>";
+    echo "<a href='AdProfile.php'>";
     // Check if profile picture exists
     if ($row['profile_pic']) {
         // Display profile picture from BLOB data

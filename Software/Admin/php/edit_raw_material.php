@@ -58,7 +58,7 @@
 
   <script>
     function closePopup() {
-      window.location.href = "../raw_materials.php";
+      window.location.href = "../ViewRawMaterial.php";
     }
   </script>
 

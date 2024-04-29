@@ -10,7 +10,7 @@ if (isset($_GET['client_id'])) {
     $sql = "UPDATE clients SET status = 'Rejected' WHERE client_id = $client_id";
     if ($conn->query($sql) === TRUE) {
         // Redirect back to clients page
-        header("Location: ../clients.php");
+        header("Location: ../Customer.php");
         exit();
     } else {
         echo "Error updating record: " . $conn->error;

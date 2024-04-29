@@ -14,6 +14,23 @@ if(isset($_POST['submit'])){
         // Retrieve image data
         $rawMaterialImage = file_get_contents($_FILES['image']['tmp_name']);
 
+        // Check if file is an image
+        $fileName = $_FILES['image']['name'];
+        $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+        $allowedExtensions = ['tif', 'tiff', 'bmp', 'jpeg', 'jpg', 'gif', 'png', 'eps', 'raw'];
+        if (!in_array($fileExtension, $allowedExtensions)) {
+            echo "<script>alert('Only TIFF, BMP, JPEG, GIF, PNG, EPS, and RAW image files are allowed.');</script>";
+            exit(); // Stop execution if invalid image format
+        }
+
+        // Check file size
+        $fileSize = $_FILES['image']['size'];
+        $maxSize = 16777215; // Maximum size for MEDIUMBLOB
+        if ($fileSize > $maxSize) {
+            echo "<script>alert('Image size exceeds maximum allowed size.');</script>";
+            exit(); // Stop execution if image size exceeds maximum
+        }
+
         // Prepare image data for insertion
         $rawMaterialImage = $conn->real_escape_string($rawMaterialImage);
 
@@ -34,12 +51,12 @@ if(isset($_POST['submit'])){
     // Close connection
     $conn->close();
 
-    // Redirect back to raw_materials.php
-    header("Location: ../raw_materials.php");
+    // Redirect back to ViewRawMaterial.php
+    header("Location: ../ViewRawMaterial.php");
     exit();
 } else {
-    // If form is not submitted, redirect back to raw_materials.php
-    header("Location: ../raw_materials.php");
+    // If form is not submitted, redirect back to ViewRawMaterial.php
+    header("Location: ../ViewRawMaterial.php");
     exit();
 }
 ?>

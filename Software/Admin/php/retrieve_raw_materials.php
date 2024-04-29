@@ -2,81 +2,26 @@
 // Include database connection
 include 'db_connection.php';
 
-// Query to fetch raw materials data
-$sql = "SELECT * FROM raw_materials";
+// Define variables for pagination and materials per page
+$materialsPerPage = isset($_GET['per_page']) ? $_GET['per_page'] : 10;
+$currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
+$start = ($currentPage - 1) * $materialsPerPage;
+
+// Query to fetch raw material data with pagination
+$sql = "SELECT * FROM raw_materials LIMIT $start, $materialsPerPage";
 $result = $conn->query($sql);
+echo "<link rel='stylesheet' type='text/css' href='../style.css'>";
 
 // Check for successful execution
 if ($result) {
     // Check if any rows were returned
-    if ($result->num_rows > 0) {
+    if ($result->num_rows >= 0) {
         // Loop through results and build table rows
-        echo "<style>";
-        echo "
-            table {
-                border-collapse: collapse;
-                width: 100%;
-            }
-
-            th, td {
-                border: 1px solid #ddd;
-                padding: 10px;
-                text-align: left;
-            }
-
-            th {
-                background-color: #f2f2f2;
-            }
-
-            .raw-material-image {
-                max-width: 100px;
-                max-height: 100px;
-            }
-
-            .status-listed {
-                background-color: lightgreen;
-            }
-
-            .status-unlisted {
-                background-color: lightcoral;
-            }
-
-            .btn {
-                padding: 5px 10px;
-                margin-right: 5px;
-                cursor: pointer;
-            }
-
-            .btn-delete {
-                background-color: #f44336;
-                color: white;
-            }
-
-            .btn-edit {
-                background-color: #4CAF50;
-                color: white;
-            }
-
-            .btn-list {
-                background-color: #2196F3;
-                color: white;
-            }
-
-            .btn-unlist {
-                background-color: #ff9800;
-                color: white;
-            }
-
-            .btn:hover {
-                opacity: 0.8;
-            }
-        ";
-        echo "</style>";
 
         while($row = $result->fetch_assoc()) {
             echo "<tr>";
             echo "<td>" . $row["raw_material_id"] . "</td>";
-            echo "<td>" . $row["name"] . "</td>";
+            echo "<td class='raw-material-name' onclick='toggleBatches(" . $row["raw_material_id"] . ")'>" . $row["name"] . "</td>"; // Update here to include onclick event
             echo "<td>" . $row["description"] . "</td>";
             echo "<td>" . $row["total_quantity"] . "</td>";
             echo "<td class='" . getStatusClass($row["status"]) . "'>" . $row["status"] . "</td>"; // Status column
@@ -85,18 +30,63 @@ if ($result) {
             $src = 'data:image/jpeg;base64,'.$imageData; // Specify image MIME type
             echo "<td><img src='{$src}' alt='Raw Material Image' class='raw-material-image'></td>";
             echo "<td>";
-            echo "<button class='btn btn-delete' onclick='deleteRawMaterial(" . $row["raw_material_id"] . ")'>Delete</button>";
-            echo "<button class='btn btn-edit' onclick='editRawMaterial(" . $row["raw_material_id"] . ")'>Edit</button>";
             if ($row["status"] == "Listed") {
                 echo "<button class='btn btn-unlist' onclick='unlistRawMaterial(" . $row["raw_material_id"] . ")'>Unlist</button>";
             } else {
                 echo "<button class='btn btn-list' onclick='listRawMaterial(" . $row["raw_material_id"] . ")'>List</button>";
             }
+            echo "<button class='btn btn-delete' onclick='deleteRawMaterial(" . $row["raw_material_id"] . ")'>Delete</button>";
+            echo "<button class='btn btn-edit' onclick='editRawMaterial(" . $row["raw_material_id"] . ")'>Edit</button>";
+            echo "<button class='btn btn-add-batch' onclick='addBatch(" . $row["raw_material_id"] . ")'>Add Batch</button>"; // Button for adding batch
+            echo "<button class='btn btn-use-raw-materials' onclick='useRawMaterials(" . $row["raw_material_id"] . ")'>Use Raw Materials</button>"; // Button for using raw materials
             echo "</td>";
             echo "</tr>";
+
+            // Fetch and display batches for each raw material
+            echo "<tr id='batches-" . $row["raw_material_id"] . "' style='display: none;'>";
+            echo "<td colspan='7'>";
+            echo "<table class='batches-table'>"; // Subtable for batches
+            echo "<thead><tr><th>Batch ID</th><th>BB Date</th><th>Quantity</th><th>SKU</th></tr></thead>";
+            echo "<tbody>";
+            $raw_material_id = $row["raw_material_id"];
+            $sql_batches = "SELECT * FROM raw_material_batches WHERE raw_material_id = $raw_material_id";
+            $result_batches = $conn->query($sql_batches);
+            if ($result_batches->num_rows > 0) {
+                while($batch_row = $result_batches->fetch_assoc()) {
+                    echo "<tr>";
+                    echo "<td>" . $batch_row["batch_id"] . "</td>";
+                    echo "<td>" . $batch_row["bbd"] . "</td>";
+                    echo "<td>" . $batch_row["quantity"] . "</td>";
+                    echo "<td>" . $batch_row["sku_code"] . "</td>";
+                    echo "</tr>";
+                }
+            } else {
+                echo "<tr><td colspan='3'>No batches found</td></tr>";
+            }
+            echo "</tbody>";
+            echo "</table>";
+            echo "</td>";
+            echo "</tr>";
+        }  
+        echo "</table>";
+
+        // Pagination controls and Products per page dropdown
+        echo "<div class='pagination'>"; 
+        echo "<select id='perPage' onchange='changePerPage()'>";
+        $perPageOptions = [10, 20, 50, 100];
+        foreach ($perPageOptions as $option) {
+            echo "<option value='$option' ";
+            if ($option == $materialsPerPage) {
+                echo "selected";
+            }
+            echo ">$option</option>";
         }
+        echo "</select>"; 
+        echo "<button onclick='previousPage()'>Previous</button>";
+        echo "<button onclick='nextPage()'>Next</button>";
+        echo "</div>";
     } else {
-        echo "<tr><td colspan='7'>No raw materials found</td></tr>";
+        echo "<p>No products found</p>";
     }
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
@@ -128,4 +118,45 @@ function listRawMaterial(raw_material_id) {
 function unlistRawMaterial(raw_material_id) {
     window.location.href = "php/unlist_raw_material.php?raw_material_id=" + raw_material_id;
 }
+
+function addBatch(raw_material_id) {
+    window.location.href = "php/add_batch_raw_material.php?raw_material_id=" + raw_material_id;
+}
+
+function useRawMaterials(raw_material_id) {
+    window.location.href = "php/use_raw_materials.php?raw_material_id=" + raw_material_id;
+}
+
+function toggleBatches(raw_material_id) {
+    var batches = document.getElementById("batches-" + raw_material_id);
+    if (batches.style.display === "none") {
+        batches.style.display = "table-row";
+    } else {
+        batches.style.display = "none";
+    }
+}
+
+function previousPage() {
+    <?php
+    if ($currentPage > 1) {
+        $prevPage = $currentPage - 1;
+        echo "window.location.href = 'ViewRawMaterial.php?page=$prevPage&per_page=$materialsPerPage';";
+    }
+    ?>
+}
+
+function nextPage() {
+    <?php
+        $nextPage = $currentPage + 1;
+        echo "window.location.href = 'ViewRawMaterial.php?page=$nextPage&per_page=$materialsPerPage';";
+    ?>
+}
+
+function changePerPage() {
+    var perPage = document.getElementById("perPage").value;
+    <?php
+    echo "window.location.href = 'ViewRawMaterial.php?page=1&per_page=' + perPage;";
+    ?>
+} 
+
 </script>

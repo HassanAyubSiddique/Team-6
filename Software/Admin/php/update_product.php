@@ -10,9 +10,9 @@ if(isset($_POST['submit'])){
     $productDescription = $_POST['description'];
 
     // Check if an image is uploaded
-    if(isset($_FILES['main_image']) && $_FILES['main_image']['size'] > 0) {
+    if(isset($_FILES['image']) && $_FILES['image']['size'] > 0) {
         // Retrieve image data
-        $productImage = $_FILES['main_image']['tmp_name'];
+        $productImage = $_FILES['image']['tmp_name'];
 
         // Read the image file content and convert it to binary
         $productImageBinary = file_get_contents($productImage);
@@ -37,12 +37,12 @@ if(isset($_POST['submit'])){
     // Close connection
     $conn->close();
 
-    // Redirect back to products.php
-    header("Location: ../products.php");
+    // Redirect back to ViewProduct.php
+    header("Location: ../ViewProduct.php");
     exit();
 } else {
-    // If form is not submitted, redirect back to products.php
-    header("Location: ../products.php");
+    // If form is not submitted, redirect back to ViewProduct.php
+    header("Location: ../ViewProduct.php");
     exit();
 }
 ?>

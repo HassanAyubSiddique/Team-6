@@ -13,18 +13,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("si", $new_status, $order_id);
 
     if ($stmt->execute()) {
-        // Redirect to purchase_orders.php with success message
-        echo "<script>alert('Order updated successfully'); window.location.href = '../purchase_orders.php';</script>";
+        // Redirect to PurchaseOrder.php with success message
+        echo "<script>alert('Order updated successfully'); window.location.href = '../PurchaseOrder.php';</script>";
     } else {
-        // Redirect to purchase_orders.php with error message
-        echo "<script>alert('Error updating order: " . $stmt->error . "'); window.location.href = '../purchase_orders.php';</script>";
+        // Redirect to PurchaseOrder.php with error message
+        echo "<script>alert('Error updating order: " . $stmt->error . "'); window.location.href = '../PurchaseOrder.php';</script>";
     }
 
     // Close statement
     $stmt->close();
 } else {
-    // If form is not submitted, redirect back to purchase_orders.php
-    header("Location: ../purchase_orders.php");
+    // If form is not submitted, redirect back to PurchaseOrder.php
+    header("Location: ../PurchaseOrder.php");
     exit();
 }
 

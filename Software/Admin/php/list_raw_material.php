@@ -22,7 +22,7 @@ if(isset($_GET['raw_material_id'])) {
     echo "Raw Material ID not specified";
 }
 
-// Redirect back to raw_materials.php or any desired page
-header("Location: ../raw_materials.php");
+// Redirect back to ViewRawMaterial.php or any desired page
+header("Location: ../ViewRawMaterial.php");
 exit();
 ?>

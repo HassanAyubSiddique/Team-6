@@ -26,11 +26,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("sss", $profile_pic, $first_name, $last_name);
 
     if ($stmt->execute()) {
-        // Redirect to profile.php with success message
-        echo "<script>alert('Profile updated successfully'); window.location.href = '../profile.php';</script>";
+        // Redirect to AdProfile.php with success message
+        echo "<script>alert('Profile updated successfully'); window.location.href = '../AdProfile.php';</script>";
     } else {
-        // Redirect to profile.php with error message
-        echo "<script>alert('Error updating profile: " . $stmt->error . "'); window.location.href = 'profile.php';</script>";
+        // Redirect to AdProfile.php with error message
+        echo "<script>alert('Error updating profile: " . $stmt->error . "'); window.location.href = 'AdProfile.php';</script>";
     }
 
     // Close statement
