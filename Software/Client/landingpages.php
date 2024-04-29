@@ -12,7 +12,7 @@ require_once 'cart.php';
 
 
     <title>Landing page</title>
-    <link rel="stylesheet" href="VendorCss/style.css">    link css
+    <link rel="stylesheet" href="VendorCss/style.css">    <!-- link css -->
 </head>
 <body>
     <!-- this is for the nav bar of the page -->

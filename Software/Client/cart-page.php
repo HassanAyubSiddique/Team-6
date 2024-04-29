@@ -159,9 +159,7 @@ $fetch = mysqli_fetch_array($result);
 														<thead>
 															<tr>
 																<th class="product-thumbnail">Product</th>
-																<th class="product-price">Price</th>
 																<th class="product-quantity">Quantity</th>
-																<th class="product-subtotal">Total</th>
 																<th class="product-remove">Remove</th>
 															</tr>
 														</thead>
@@ -188,11 +186,9 @@ $fetch = mysqli_fetch_array($result);
 																	</div>
 																	<!-- Single-product end -->												
 																</td>
-																<td class="product-price">£ <?= $product['price'] ?></td>
 																<td class="product-quantity">
 																<span><?= $product['quantity'] ?></span>
 																</td>
-																<td class="product-subtotal">£ <?= $product['quantity'] * $product['price'] ?></td>
 																<td class="product-remove">
 																	<a href="cart.php?delete=<?php echo $product['id']; ?>">X</a>
 																</td>
@@ -217,11 +213,11 @@ $fetch = mysqli_fetch_array($result);
 															<tbody>
 																
 																<hr>
-																<tr>
+																<!-- <tr>
 																	<td class="text-left">Order Total</td>
-																	<td class="text-end">£<?php echo $total;?></td>
+																	<td class="text-end">£< php echo $total;?></td>
 
-																</tr>
+																</tr> -->
                                                                 
 															</tbody>
                                                             
@@ -300,7 +296,6 @@ $fetch = mysqli_fetch_array($result);
         <div class="pro" onclick="window.location.href='productPage.php?id=<?= $row1['id'] ?>';">
             <img src="uploads/<?= $row1["main_photo"] ?>" alt="">
             <div class="description">
-                <span><?= $row1["price"] ?> </span>
                 <h5><?= $row1["name"] ?></h5>
               
             

@@ -1,6 +1,14 @@
 <?php
 require_once 'cart.php';
-$statusMsg = '';
+
+if(!isset($_SESSION['uname'])){
+
+    
+header('Location: register-page.php');
+
+}else{
+  $logged_in_user = $_SESSION['uname'];
+}
 
 
 
@@ -9,6 +17,10 @@ $id = $_GET['id'];
 $qry = "SELECT * FROM products WHERE id = '$id'";
 $result = mysqli_query($db, $qry);
 $fetch = mysqli_fetch_array($result);
+
+$qry1 = "SELECT * FROM users WHERE uname = '$logged_in_user'";
+$result1 = mysqli_query($db, $qry1);
+$fetch1 = mysqli_fetch_array($result1);
 
 ?>
 
@@ -20,10 +32,11 @@ $fetch = mysqli_fetch_array($result);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
-    <title>Product page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Cart page</title>
     <link rel="stylesheet" href="VendorCss/style.css">    <!-- link css -->
     <style>
         button#add_to_cart{
@@ -52,7 +65,7 @@ $fetch = mysqli_fetch_array($result);
                     </div>
                 </li>
                 
-                <li><a class="active" href="landingpage.php">Home</a></li>
+                <li><a class="active" href="landingpages.php">Home</a></li>
                 <li><a href="shop.php">Shop</a></li>
                 <li><a href="about.php">About</a></li>
                 <li><a href="contact.php">Contact</a></li>
@@ -65,10 +78,9 @@ $fetch = mysqli_fetch_array($result);
                      </a>
                 </li>
 
-                
-
             
              
+
                 <img src="img/user1.png"  class="user-pro" onclick="toggleMenu()">    
 
                 <div class="sub-menu-wrap" id="subMenu">
@@ -114,7 +126,6 @@ $fetch = mysqli_fetch_array($result);
 
                 </div>
             </div>
-
             </ul>
         </div>
      </section>
@@ -140,46 +151,87 @@ $fetch = mysqli_fetch_array($result);
         </div>
     
         <div class="single-prot-details">
+            <h6> Order Invoice</h6>
+        
 
-        <h6> Rakusen’s</h6>
-           
-            <h4><?= $fetch['name'] ?> </h4>
-            
+            <!-- Tab panes -->
+								<div class="tab-content">
+									<!-- shopping-cart start -->
+									<div class="tab-pane active" id="shopping-cart">
+
+
+                                    <h4>Name: <?= $fetch1['fname'] ?></h4>
+
+                                    <h4>Address: <?= $fetch1['address'] ?></h4>
+
+                                    <h4>Email: <?= $fetch1['email'] ?></h4>
+
+                                    <h2>
+                                        Ordered Items
+                                    </h2>
+
+                                    <table>
+														<thead>
+															<tr>
+																<th class="product-thumbnail">Product</th>
+																<th class="product-quantity">Quantity</th>
+																<th class="product-remove">Remove</th>
+															</tr>
+														</thead>
+														<tbody>
+														
+														<?php 
+
+														foreach ($_SESSION['shopping_cart'] as $key => $product) {
+															# code...
+
+														?>
+															
+															<tr>
+																<td class="product-thumbnail  text-left">
+																	<!-- Single-product start -->
+																	<div class="single-product">
+																		<div class="product-img">
+																			<a href="productPage.php?id=<?= $product['id'] ?>"> </a>
+																		</div>
+																		<div class="product-info">
+																			<h4 class="post-title"><a class="text-light-black" href="#"> <?= $product['name'] ?> </a></h4>
+																			
+																		</div>
+																	</div>
+																	<!-- Single-product end -->												
+																</td>
+																<td class="product-quantity">
+																<span><?= $product['quantity'] ?></span>
+																</td>
+																<td class="product-remove">
+																	<a href="cart.php?delete=<?php echo $product['id']; ?>">X</a>
+																</td>
+															</tr>
+
+															<?php
+
+																$total = $total + ($product['quantity'] * $product['price']);
+
+															} ?>
+
+
+														</tbody>
+													</table>
+
+                                    <button class="btn btn-primary" onclick="window.print()">Print Invoice</button>
+									
+									</div>
+
+        
+									
+								
+								</div>
           
-            <form method="post" action="">
+           
             
-            <input type="hidden" name="id" value="<?php echo $fetch['id']; ?>" />
-            <input type="hidden" name="name" value="<?php echo $fetch['name']; ?>" />
-            <input type="hidden" name="photo" value="<?php echo $fetch['photo']; ?>" />
-            <input type="hidden" name="price" value="<?php echo $fetch['price']; ?>" />
-            <input type="number" name="quantity" class="form-control" value="1" />
-            
-            <input type="submit" style="background-color: #088178 !important;
-    color: snow !important;
-    font-size: 1.2rem !important;
-    font-weight: bold !important;
-    padding: 10px 20px !important;
-    border-radius: 5px !important;
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-    position: absolute;
-    top:320px;
-    left:800px;
-    font-weight:bolder
-}" name="add_to_cart" id="add_to_cart" value="Add To Cart" class="btn btn-primary">
 
-            </form>
-            <div class=" m">
-             
-            </div>
-            
-            <h4>Product Detail</h4>
-            <span>
-
-             <?= $fetch['description'] ?>
-            </span>
-
-            
+           
         </div>
       
        
@@ -188,83 +240,36 @@ $fetch = mysqli_fetch_array($result);
      </section>
 
    
+  
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
     
-
-     <!-- here is the freature of the e-commers website offers to it's customers -->
-<section id="feature" class = "section-p1" >
-    <div class="feature-box2">
-        <a href="#"><img src="img/features/free shiping.png" alt=""> </a>
-        <h6>Free Shiaping</h6>  
-    </div>
-    <div class="feature-box2">
-        <a href="#"><img src="img/features/easyExchange.png" alt=""></a>
-        <h6>Online Order</h6>  
-    </div>
-    <div class="feature-box2">
-       <a href="#"> <img src="img/features/HighQuality.png" alt=""></a>
-        <h6>Save Money</h6>  
-    </div>
-</section>
-
-
-<!-- this is for the product -->
-
-<section id="product1" class = "section-p1">
-    <h2>"Our Products"</h2>
-    <p></p>
-
-    <div class="pro-container">
-     
-    <?php 
-        	$query1 = $db->query("SELECT * FROM products WHERE `category` = 'regular'");
-
-        if($query1->num_rows > 0){
-        while($row1 = $query1->fetch_assoc()){
-    ?>
-
-        <div class="pro" onclick="window.location.href='productPage.php?id=<?= $row1['id'] ?>';">
-            <img src="uploads/<?= $row1["main_photo"] ?>" alt="">
-            <div class="description">
-                <span><?= $row1["price"] ?> </span>
-                <h5><?= $row1["name"] ?></h5>
-              
-            
-            </div>
-
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Confirm Order</h4>
         </div>
-
-    <?php }
-    }else{ ?>
-        <p>No featured products added yet...</p>
-    <?php } ?>
- 
-
-
-</div>
-</section>
-<!-- this is the footer -->
-<footer>
-    <div class="footerContainer">
-        <div class="socialIcon">
-            <a href="#"><i class="fab fa-facebook"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-google-plus"></i></a>
-            <a href="#"><i class="fab fa-envelope"></i></a>
+        <div class="modal-body">
+          <p>
+           <a href="checkout.php">Proceed the order</a> 
+        </p>
         </div>
-        <div class="footerNav">
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
-                <li><a href="#">Our Team</a></li>
-                <li><a href="#">Services</a></li>
-            </ul>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
-        <div class="footerBottom">
-        </div>
+      </div>
+      
     </div>
-</footer>
+  </div>
+
 
 
 
@@ -299,6 +304,10 @@ $fetch = mysqli_fetch_array($result);
 
     
    
+  </script>
+
+  <script>
+    $('#modal').modal('toggle')
   </script>
 
 </body>

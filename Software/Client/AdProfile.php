@@ -1,4 +1,3 @@
-
 <?php
 require_once 'cart.php';
 
@@ -155,43 +154,43 @@ $sql = "SELECT * FROM users WHERE uname='$uname'";
                         <div class="info-item">
                           <div class="form-group">
                             <label for="newFirstName">First Name:</label>
-                            <input required type="text" min="2" max="30" id="newFirstName" name="fname">
+                            <input required type="text" min="2" value="<?=$row['fname'] ?>" max="30" id="newFirstName" name="fname">
                           </div>
                         </div>
                         <div class="info-item">
                           <div class="form-group">
                             <label for="newLastName">User Name:</label>
-                            <input required type="text" min="2" max="30" id="newLastName" name="uname">
+                            <input required type="text" min="2" max="30" value="<?=$row['uname'] ?>" id="newLastName" name="uname">
                           </div>
                         </div>
                         <div class="info-item">
                           <div class="form-group">
                             <label for="newPhoneNumber">Phone Number:</label>
-                            <input required type="text" id="newPhoneNumber" name="phone">
+                            <input required type="text" value="<?=$row['phone'] ?>" id="newPhoneNumber" name="phone">
                           </div>
                         </div>
                         <div class="info-item">
                           <div class="form-group">
                             <label for="newAddress">Address:</label>
-                            <input required type="text" min="2" max="100"  id="newAddress" name="address">
+                            <input required type="text" value="<?=$row['address'] ?>" min="2" max="100"  id="newAddress" name="address">
                           </div>
                         </div>
                         <div class="info-item">
                           <div class="form-group">
                             <label for="newCity">City:</label>
-                            <input required type="text" min="2" max="50"  id="newCity" name="city">
+                            <input required type="text" value="<?=$row['city'] ?>" min="2" max="50"  id="newCity" name="city">
                           </div>
                         </div>
                         <div class="info-item">
                           <div class="form-group">
                             <label for="newCountry">Country:</label>
-                            <input required type="text" id="newCountry" name="country">
+                            <input required type="text" value="<?=$row['country'] ?>" id="newCountry" name="country">
                           </div>
                         </div>
                         <div class="info-item">
                           <div class="form-group">
                             <label for="newPostcode">Postcode:</label>
-                            <input required type="text" min="3" max="15"  id="newPostcode" name="postcode">
+                            <input required type="text" min="3" value="<?=$row['postcode'] ?>" max="15"  id="newPostcode" name="postcode">
                           </div>
                         </div>
                       
@@ -204,7 +203,7 @@ $sql = "SELECT * FROM users WHERE uname='$uname'";
          <!-- ======================= Change Password section================== -->
 <div class="change-password-section">
   <h2 class="product-heading">Change Password</h2>
-  <form id="changePasswordForm" method="POST" action="update-script.php">
+  <form id="changePasswordForm" method="POST" action="update-password.php">
     <div class="profile-info">
       <div class="info-item">
         <div class="form-group">
