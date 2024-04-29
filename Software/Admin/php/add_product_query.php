@@ -2,6 +2,47 @@
 // Include database connection
 include 'db_connection.php';
 
+/**
+ * Class to handle product operations
+ */
+class ProductHandler {
+    private $conn;
+
+    /**
+     * ProductHandler constructor.
+     * @param $conn mysqli The database connection object
+     */
+    public function __construct($conn) {
+        $this->conn = $conn;
+    }
+
+    /**
+     * Add a new product to the database.
+     * @param string $productName The name of the product
+     * @param string $productDescription The description of the product
+     * @param string $productImage The image of the product
+     * @return bool True if the product is added successfully, otherwise false
+     */
+    public function addProduct($productName, $productDescription, $productImage) {
+        // Prepare the SQL statement with placeholders for the parameters
+        $sql = "INSERT INTO products (name, description, main_image) VALUES (?, ?, ?)";
+
+        // Create a prepared statement
+        $stmt = $this->conn->prepare($sql);
+
+        // Bind parameters
+        $stmt->bind_param("sss", $productName, $productDescription, $productImage);
+
+        // Execute the statement
+        $result = $stmt->execute();
+
+        // Close the prepared statement
+        $stmt->close();
+
+        return $result;
+    }
+}
+
 // Check if the form is submitted
 if(isset($_POST['submit'])) {
     // Retrieve form data
@@ -9,32 +50,23 @@ if(isset($_POST['submit'])) {
     $productDescription = $_POST['product_description'];
     $productImage = file_get_contents($_FILES['product_image']['tmp_name']);
 
-    // Prepare the SQL statement with a placeholder for the binary data
-    $sql = "INSERT INTO products (name, description, main_image) VALUES (?, ?, ?)";
+    // Create ProductHandler object
+    $productHandler = new ProductHandler($conn);
 
-    // Create a prepared statement
-    $stmt = $conn->prepare($sql);
-
-    // Bind parameters
-    $stmt->bind_param("sss", $productName, $productDescription, $productImage);
-
-    // Execute the statement
-    if ($stmt->execute()) {
-        // Redirect to add_product_query.php with success message
-        echo "<script>alert('Product added successfully'); window.location.href = '../add_product.php';</script>";
+    // Add product
+    if ($productHandler->addProduct($productName, $productDescription, $productImage)) {
+        // If execution is successful, redirect to AddProduct.php with success message
+        echo "<script>alert('Product added successfully'); window.location.href = '../AddProduct.php';</script>";
     } else {
-        // Redirect to add_product_query.php with error message
-        echo "<script>alert('Error adding product: " . $stmt->error . "'); window.location.href = '../add_product.php';</script>";
+        // If execution fails, redirect to AddProduct.php with error message
+        echo "<script>alert('Error adding product'); window.location.href = '../AddProduct.php';</script>";
     }
-    
-    // Close the prepared statement
-    $stmt->close();
 
     // Close connection
     $conn->close();
 } else {
-    // If form is not submitted, redirect to add_product_query.php
-    header("Location: ../add_product.php");
+    // If form is not submitted, redirect to AddProduct.php
+    header("Location: ../AddProduct.php");
     exit(); // Stop further execution
 }
 ?>

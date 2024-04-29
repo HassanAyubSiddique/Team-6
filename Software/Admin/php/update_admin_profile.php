@@ -2,41 +2,59 @@
 // Include database connection
 include 'db_connection.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Check if file is uploaded
-    if (isset($_FILES["profile-picture"]) && $_FILES["profile-picture"]["error"] == 0) {
-        $profile_pic = file_get_contents($_FILES["profile-picture"]["tmp_name"]);
-    } else {
-        // If no file uploaded, keep the existing profile picture
-        $sql = "SELECT profile_pic FROM admins LIMIT 1";
-        $result = $conn->query($sql);
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            $profile_pic = $row["profile_pic"];
+class AdminProfileUpdater {
+    private $conn;
+
+    public function __construct($conn) {
+        $this->conn = $conn;
+    }
+
+    public function updateProfile($firstName, $lastName, $profilePicture) {
+        // Check if file is uploaded
+        if (!empty($profilePicture)) {
+            // If file uploaded, get its contents
+            $profilePicData = file_get_contents($profilePicture["tmp_name"]);
+        } else {
+            // If no file uploaded, keep the existing profile picture
+            $sql = "SELECT profile_pic FROM admins LIMIT 1";
+            $result = $this->conn->query($sql);
+            if ($result && $result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                $profilePicData = $row["profile_pic"];
+            }
+        }
+    
+        // Update admin profile information excluding email
+        $sql = "UPDATE admins SET profile_pic=?, first_name=?, last_name=? LIMIT 1";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("sss", $profilePicData, $firstName, $lastName);
+    
+        if ($stmt->execute()) {
+            $stmt->close(); // Close statement
+            return "Profile updated successfully";
+        } else {
+            $stmt->close(); // Close statement
+            return "Error updating profile: " . $stmt->error;
         }
     }
 
-    // Get other profile information from the form
-    $first_name = $_POST["first-name"];
-    $last_name = $_POST["last-name"];
-    
-    // Update admin profile information excluding email
-    $sql = "UPDATE admins SET profile_pic=?, first_name=?, last_name=? LIMIT 1";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sss", $profile_pic, $first_name, $last_name);
-
-    if ($stmt->execute()) {
-        // Redirect to profile.php with success message
-        echo "<script>alert('Profile updated successfully'); window.location.href = '../profile.php';</script>";
-    } else {
-        // Redirect to profile.php with error message
-        echo "<script>alert('Error updating profile: " . $stmt->error . "'); window.location.href = 'profile.php';</script>";
-    }
-
-    // Close statement
-    $stmt->close();
 }
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $adminProfileUpdater = new AdminProfileUpdater($conn);
 
+    // Get profile information from the form
+    $firstName = $_POST["first-name"];
+    $lastName = $_POST["last-name"];
+    $profilePicture = $_FILES["profile-picture"];
+
+    $message = $adminProfileUpdater->updateProfile($firstName, $lastName, $profilePicture);
+    
+    // Redirect to AdProfile.php with appropriate message
+    redirectToAdminProfile($message);
+}
+function redirectToAdminProfile($message) {
+    echo "<script>alert('" . $message . "'); window.location.href = '../AdProfile.php';</script>";
+}
 // Close connection
 $conn->close();
 ?>
