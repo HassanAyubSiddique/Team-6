@@ -2,23 +2,34 @@
 // Include database connection
 include 'db_connection.php';
 
-// Function to update image in the database
-function updateImage($productId, $imageNumber, $newImageData, $conn)
-{
-    // Prepare the update query
-    $columnName = ($imageNumber === 0) ? 'main_image' : 'image' . $imageNumber;
-    $sql = "UPDATE products SET $columnName = '$newImageData' WHERE product_id = $productId";
+class ImageUpdater {
+    private $conn;
 
-    // Execute the query
-    if ($conn->query($sql) === TRUE) {
-        echo "Image updated successfully";
-    } else {
-        echo "Error updating image: " . $conn->error;
+    public function __construct($conn) {
+        $this->conn = $conn;
+    }
+
+    public function updateImage($productId, $imageNumber, $newImageData) {
+        // Prepare the update query
+        $columnName = ($imageNumber === 0) ? 'main_image' : 'image' . $imageNumber;
+        $sql = "UPDATE products SET $columnName = ? WHERE product_id = ?";
+
+        // Execute the query
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("si", $newImageData, $productId);
+
+        if ($stmt->execute()) {
+            return "Image updated successfully";
+        } else {
+            return "Error updating image: " . $this->conn->error;
+        }
     }
 }
 
 // Check if form is submitted to update the image
 if(isset($_POST['submit'])){
+    $imageUpdater = new ImageUpdater($conn);
+
     // Retrieve form data
     $productId = $_POST['product_id'];
     $imageNumber = $_POST['image_number'];
@@ -31,14 +42,12 @@ if(isset($_POST['submit'])){
         // Read the image file content and convert it to binary
         $newImageBinary = file_get_contents($newImageData);
 
-        // Prepare image data for insertion
-        $newImageBlob = $conn->real_escape_string($newImageBinary);
-
         // Update image
-        updateImage($productId, $imageNumber, $newImageBlob, $conn);
+        $message = $imageUpdater->updateImage($productId, $imageNumber, $newImageBinary);
 
-        // Redirect back to the product images page
-        header("Location: ../product_images.php?product_id=$productId");
+        // Redirect back to the product images page with appropriate message
+        echo "<script>alert('$message');</script>";
+        echo "<script>window.location.href = '../product_images.php?product_id=$productId';</script>";
         exit();
     } else {
         echo "No image uploaded.";

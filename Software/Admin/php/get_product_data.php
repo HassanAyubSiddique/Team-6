@@ -1,16 +1,33 @@
 <?php
+// Include database connection
 include 'db_connection.php';
 
-$query = "SELECT name, total_quantity FROM products";
-$result = mysqli_query($connection, $query);
+class ProductDataRetriever {
+    private $connection;
 
-$product_data = [];
+    public function __construct($connection) {
+        $this->connection = $connection;
+    }
 
-while ($row = mysqli_fetch_assoc($result)) {
-    $product_data[] = $row; // Push each row to the $product_data array
+    public function getProductData() {
+        $query = "SELECT name, total_quantity FROM products";
+        $result = mysqli_query($this->connection, $query);
+
+        $productData = [];
+
+        while ($row = mysqli_fetch_assoc($result)) {
+            $productData[] = $row; // Push each row to the $productData array
+        }
+
+        mysqli_close($this->connection);
+
+        return json_encode($productData);
+    }
 }
 
-mysqli_close($connection);
+// Create an instance of ProductDataRetriever class
+$productDataRetriever = new ProductDataRetriever($connection);
 
-echo json_encode($product_data);
+// Call getProductData method to fetch product data
+echo $productDataRetriever->getProductData();
 ?>

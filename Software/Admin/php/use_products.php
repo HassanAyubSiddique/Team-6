@@ -2,114 +2,130 @@
 // Include database connection
 include 'db_connection.php';
 
+class ProductUser {
+    private $conn;
+
+    public function __construct($conn) {
+        $this->conn = $conn;
+    }
+
+    public function useProduct($productId, $requestedQuantity) {
+        // Fetch product information
+        $sqlProduct = "SELECT * FROM products WHERE product_id = $productId";
+        $resultProduct = $this->conn->query($sqlProduct);
+
+        if ($resultProduct->num_rows > 0) {
+            $rowProduct = $resultProduct->fetch_assoc();
+            $productName = $rowProduct['name'];
+            $productTotalQuantity = $rowProduct['total_quantity'];
+            ?>
+            <h2>Use Product: <?php echo $productName; ?></h2>
+            <p>Total Quantity Available: <?php echo $productTotalQuantity; ?></p>
+            <form action="" method="post">
+                <label for="quantity">Select Quantity:</label>
+                <input type="number" id="quantity" name="quantity" min="1" max="<?php echo $productTotalQuantity; ?>" required>
+                <?php if(isset($_POST['use']) && $_POST['quantity'] > $productTotalQuantity): ?>
+                    <span style="color: red;">Requested quantity exceeds available stock.</span>
+                <?php endif; ?>
+                <button type="submit" name="use">Use</button>
+                <button onclick="window.location.href = '../ViewProduct.php';">Close</button>
+            </form>
+            <?php
+            if(isset($_POST['use']) && $_POST['quantity'] <= $productTotalQuantity) {
+                $useQuantity = $_POST['quantity'];
+
+                // Fetch batches where the product is used and their corresponding quantities
+                $sqlBatches = "SELECT * FROM product_batches WHERE product_id = $productId AND quantity > 0 ORDER BY bbd ASC";
+                $resultBatches = $this->conn->query($sqlBatches);
+
+                if ($resultBatches->num_rows > 0) {
+                    ?>
+                    <h3>Used Batches:</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Batch ID</th>
+                                <th>BB Date</th>
+                                <th>Quantity Used</th>
+                                <th>SKU</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            while($rowBatch = $resultBatches->fetch_assoc()) {
+                                $batchId = $rowBatch['batch_id'];
+                                $bbd = $rowBatch['bbd'];
+                                $batchQuantity = $rowBatch['quantity'];
+                                $skuCode = $rowBatch['sku_code'];
+
+                                // Determine the quantity to use from this batch
+                                $quantityToUse = min($useQuantity, $batchQuantity);
+                                $useQuantity -= $quantityToUse;
+
+                                // Update the batch quantity and delete batch if quantity becomes zero
+                                $newBatchQuantity = $batchQuantity - $quantityToUse;
+                                if ($newBatchQuantity <= 0) {
+                                    $sqlDeleteBatch = "DELETE FROM product_batches WHERE batch_id = $batchId";
+                                    if ($this->conn->query($sqlDeleteBatch) !== TRUE) {
+                                        echo "Error deleting batch: " . $this->conn->error;
+                                    }
+                                } else {
+                                    $sqlUpdateBatch = "UPDATE product_batches SET quantity = $newBatchQuantity WHERE batch_id = $batchId";
+                                    if ($this->conn->query($sqlUpdateBatch) !== TRUE) {
+                                        echo "Error updating batch quantity: " . $this->conn->error;
+                                    }
+                                }
+                                ?>
+                                <tr>
+                                    <td><?php echo $batchId; ?></td>
+                                    <td><?php echo $bbd; ?></td>
+                                    <td><?php echo $quantityToUse; ?></td>
+                                    <td><?php echo $skuCode; ?></td>
+                                </tr>
+                                <?php
+
+                                if($useQuantity <= 0) {
+                                    break; // All requested quantity has been allocated
+                                }
+                            }
+
+                            // If some quantity is still left unused, display a message
+                            if($useQuantity > 0) {
+                                ?>
+                                <tr>
+                                    <td colspan="3">Requested quantity exceeds available stock.</td>
+                                </tr>
+                                <?php
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                    <?php
+                    // Update total quantity in products table
+                    $newProductQuantity = $productTotalQuantity - ($_POST['quantity'] - $useQuantity);
+                    $sqlUpdateProduct = "UPDATE products SET total_quantity = $newProductQuantity WHERE product_id = $productId";
+                    if ($this->conn->query($sqlUpdateProduct) !== TRUE) {
+                        echo "Error updating product total quantity: " . $this->conn->error;
+                    }
+                } else {
+                    echo "<p>No available batches found.</p>";
+                }
+            }
+        } else {
+            echo "<p>Product not found.</p>";
+        }
+    }
+}
+
 // Check if product_id is provided in the URL
 if(isset($_GET['product_id'])) {
-    $product_id = $_GET['product_id'];
+    $productId = $_GET['product_id'];
 
-    // Fetch product information
-    $sql_product = "SELECT * FROM products WHERE product_id = $product_id";
-    $result_product = $conn->query($sql_product);
+    // Initialize ProductUser
+    $productUser = new ProductUser($conn);
 
-    if ($result_product->num_rows > 0) {
-        $row_product = $result_product->fetch_assoc();
-        $product_name = $row_product['name'];
-        $product_total_quantity = $row_product['total_quantity'];
-        ?>
-        <h2>Use Product: <?php echo $product_name; ?></h2>
-        <p>Total Quantity Available: <?php echo $product_total_quantity; ?></p>
-        <form action="" method="post">
-            <label for="quantity">Select Quantity:</label>
-            <input type="number" id="quantity" name="quantity" min="1" max="<?php echo $product_total_quantity; ?>" required>
-            <?php if(isset($_POST['use']) && $_POST['quantity'] > $product_total_quantity): ?>
-                <span style="color: red;">Requested quantity exceeds available stock.</span>
-            <?php endif; ?>
-            <button type="submit" name="use">Use</button>
-            <button onclick="window.location.href = '../ViewProduct.php';">Close</button>
-        </form>
-        <?php
-        if(isset($_POST['use']) && $_POST['quantity'] <= $product_total_quantity) {
-            $use_quantity = $_POST['quantity'];
-
-            // Fetch batches where the product is used and their corresponding quantities
-            $sql_batches = "SELECT * FROM product_batches WHERE product_id = $product_id AND quantity > 0 ORDER BY bbd ASC";
-            $result_batches = $conn->query($sql_batches);
-
-            if ($result_batches->num_rows > 0) {
-                ?>
-                <h3>Used Batches:</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Batch ID</th>
-                            <th>BB Date</th>
-                            <th>Quantity Used</th>
-                            <th>SKU</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        while($row_batch = $result_batches->fetch_assoc()) {
-                            $batch_id = $row_batch['batch_id'];
-                            $bbd = $row_batch['bbd'];
-                            $batch_quantity = $row_batch['quantity'];
-                            $sku_code = $row_batch['sku_code'];
-
-                            // Determine the quantity to use from this batch
-                            $quantity_to_use = min($use_quantity, $batch_quantity);
-                            $use_quantity -= $quantity_to_use;
-
-                            // Update the batch quantity and delete batch if quantity becomes zero
-                            $new_batch_quantity = $batch_quantity - $quantity_to_use;
-                            if ($new_batch_quantity <= 0) {
-                                $sql_delete_batch = "DELETE FROM product_batches WHERE batch_id = $batch_id";
-                                if ($conn->query($sql_delete_batch) !== TRUE) {
-                                    echo "Error deleting batch: " . $conn->error;
-                                }
-                            } else {
-                                $sql_update_batch = "UPDATE product_batches SET quantity = $new_batch_quantity WHERE batch_id = $batch_id";
-                                if ($conn->query($sql_update_batch) !== TRUE) {
-                                    echo "Error updating batch quantity: " . $conn->error;
-                                }
-                            }
-                            ?>
-                            <tr>
-                                <td><?php echo $batch_id; ?></td>
-                                <td><?php echo $bbd; ?></td>
-                                <td><?php echo $quantity_to_use; ?></td>
-                                <td><?php echo $sku_code; ?></td>
-                            </tr>
-                            <?php
-
-                            if($use_quantity <= 0) {
-                                break; // All requested quantity has been allocated
-                            }
-                        }
-
-                        // If some quantity is still left unused, display a message
-                        if($use_quantity > 0) {
-                            ?>
-                            <tr>
-                                <td colspan="3">Requested quantity exceeds available stock.</td>
-                            </tr>
-                            <?php
-                        }
-                        ?>
-                    </tbody>
-                </table>
-                <?php
-                // Update total quantity in products table
-                $new_product_quantity = $product_total_quantity - ($_POST['quantity'] - $use_quantity);
-                $sql_update_product = "UPDATE products SET total_quantity = $new_product_quantity WHERE product_id = $product_id";
-                if ($conn->query($sql_update_product) !== TRUE) {
-                    echo "Error updating product total quantity: " . $conn->error;
-                }
-            } else {
-                echo "<p>No available batches found.</p>";
-            }
-        }
-    } else {
-        echo "<p>Product not found.</p>";
-    }
+    // Use product
+    $productUser->useProduct($productId, $_POST['quantity'] ?? null);
 } else {
     echo "<p>No product ID provided.</p>";
 }

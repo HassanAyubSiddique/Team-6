@@ -2,38 +2,60 @@
 // Include database connection
 include 'db_connection.php';
 
-// Check if staff_id is provided in the URL
-if (isset($_GET['staff_id'])) {
-    $staff_id = $_GET['staff_id'];
+class StaffUpgrader {
+    private $conn;
 
-    // Retrieve staff details based on the staff_id
-    $sql_staff = "SELECT * FROM staff WHERE staff_id = $staff_id";
-    $result_staff = $conn->query($sql_staff);
+    public function __construct($conn) {
+        $this->conn = $conn;
+    }
 
-    // Check if staff exists
-    if ($result_staff->num_rows > 0) {
-        $row_staff = $result_staff->fetch_assoc();
-        
-        // Insert staff details into the admins table
-        $insert_admin_sql = "INSERT INTO admins(first_name, last_name, email, address, profile_pic, password, phone_number, city, country, postcode)
-                             VALUES ('" . $row_staff["first_name"] . "', '" . $row_staff["last_name"] . "', '" . $row_staff["email"] . "', '" . $row_staff["address"] . "', '" . $row_staff["profile_pic"] . "', '" . $row_staff["password"] . "', '" . $row_staff["phone_number"] . "', '" . $row_staff["city"] . "', '" . $row_staff["country"] . "', '" . $row_staff["postcode"] . "')";
+    public function upgradeStaffToAdmin($staffId) {
+        // Retrieve staff details based on the staff_id
+        $sqlStaff = "SELECT * FROM staff WHERE staff_id = $staffId";
+        $resultStaff = $this->conn->query($sqlStaff);
 
-        if ($conn->query($insert_admin_sql) === TRUE) {
-            // Successfully added to adminstable, now delete from staff table
-            $delete_staff_sql = "DELETE FROM staff WHERE staff_id = $staff_id";
+        // Check if staff exists
+        if ($resultStaff->num_rows > 0) {
+            $rowStaff = $resultStaff->fetch_assoc();
 
-            if ($conn->query($delete_staff_sql) === TRUE) {
-                // Redirect to ../Staff.php after successful upgrade
-                header("Location: ../Staff.php?upgrade_success=true");
-                exit();
+            // Insert staff details into the admins table
+            $insertAdminSql = "INSERT INTO admins(first_name, last_name, email, address, profile_pic, password, phone_number, city, country, postcode)
+                                VALUES ('" . $rowStaff["first_name"] . "', '" . $rowStaff["last_name"] . "', '" . $rowStaff["email"] . "', '" . $rowStaff["address"] . "', '" . $rowStaff["profile_pic"] . "', '" . $rowStaff["password"] . "', '" . $rowStaff["phone_number"] . "', '" . $rowStaff["city"] . "', '" . $rowStaff["country"] . "', '" . $rowStaff["postcode"] . "')";
+
+            if ($this->conn->query($insertAdminSql) === TRUE) {
+                // Successfully added to admins table, now delete from staff table
+                $deleteStaffSql = "DELETE FROM staff WHERE staff_id = $staffId";
+
+                if ($this->conn->query($deleteStaffSql) === TRUE) {
+                    return true;
+                } else {
+                    return "Error deleting record from staff table: " . $this->conn->error;
+                }
             } else {
-                echo "Error deleting record from staff table: " . $conn->error;
+                return "Error inserting record into admins table: " . $this->conn->error;
             }
         } else {
-            echo "Error inserting record into adminstable: " . $conn->error;
+            return "Staff not found";
         }
+    }
+}
+
+// Check if staff_id is provided in the URL
+if (isset($_GET['staff_id'])) {
+    $staffId = $_GET['staff_id'];
+
+    // Initialize StaffUpgrader
+    $staffUpgrader = new StaffUpgrader($conn);
+
+    // Upgrade staff to admin
+    $result = $staffUpgrader->upgradeStaffToAdmin($staffId);
+
+    if ($result === true) {
+        // Redirect to ../Staff.php after successful upgrade
+        header("Location: ../Staff.php?upgrade_success=true");
+        exit();
     } else {
-        echo "Staff not found";
+        echo $result;
     }
 } else {
     echo "Staff ID not provided";

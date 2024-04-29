@@ -2,27 +2,69 @@
 // Include database connection
 include 'db_connection.php';
 
-// Get raw material ID from the URL
-if (isset($_GET['raw_material_id'])) {
-    $raw_material_id = $_GET['raw_material_id'];
+/**
+ * Represents a Raw Material with its details fetched from the database.
+ */
+class RawMaterial {
+    private $rawMaterialId;
+    private $rawMaterialDetails;
 
-    // Retrieve raw material details based on the raw material ID
-    $sql_raw_material = "SELECT * FROM raw_materials WHERE raw_material_id = $raw_material_id";
-    $result_raw_material = $conn->query($sql_raw_material);
-
-    // Check if raw material exists
-    if ($result_raw_material->num_rows > 0) {
-        $row_raw_material = $result_raw_material->fetch_assoc();
-    } else {
-        echo "Raw material not found";
-        exit();
+    /**
+     * Constructor to initialize the RawMaterial object with the provided ID.
+     * @param int $rawMaterialId The ID of the raw material.
+     */
+    public function __construct($rawMaterialId) {
+        $this->rawMaterialId = $rawMaterialId;
     }
+
+    /**
+     * Fetches the details of the raw material from the database.
+     * @param mysqli $conn The database connection object.
+     */
+    public function fetchRawMaterialDetails($conn) {
+        // Prepare SQL query to retrieve raw material details based on ID
+        $sql = "SELECT * FROM raw_materials WHERE raw_material_id = $this->rawMaterialId";
+
+        // Execute SQL query
+        $result = $conn->query($sql);
+
+        // Check if raw material exists
+        if ($result->num_rows > 0) {
+            // Fetch raw material details
+            $this->rawMaterialDetails = $result->fetch_assoc();
+        } else {
+            // Display error message if raw material not found
+            echo "Raw material not found";
+            exit();
+        }
+    }
+
+    /**
+     * Gets the details of the raw material.
+     * @return array The details of the raw material.
+     */
+    public function getRawMaterialDetails() {
+        return $this->rawMaterialDetails;
+    }
+}
+
+// Check if raw material ID is provided in the URL
+if (isset($_GET['raw_material_id'])) {
+    // Retrieve raw material ID from the URL
+    $rawMaterialId = $_GET['raw_material_id'];
+
+    // Create RawMaterial object
+    $rawMaterial = new RawMaterial($rawMaterialId);
+
+    // Fetch raw material details
+    $rawMaterial->fetchRawMaterialDetails($conn);
 } else {
+    // Display error message if raw material ID is not provided
     echo "Raw material ID not provided";
     exit();
 }
 
-// Close connection
+// Close database connection
 $conn->close();
 ?>
 
@@ -38,7 +80,8 @@ $conn->close();
     <div class="container">
         <h2>Add Batch</h2>
         <form action="./update_batch_raw_material.php" method="post" onsubmit="return validateForm()">
-            <input type="hidden" id="raw_material_id" name="raw_material_id" value="<?php echo $raw_material_id; ?>">
+            <!-- Hidden input field to pass raw material ID -->
+            <input type="hidden" id="raw_material_id" name="raw_material_id" value="<?php echo $rawMaterialId; ?>">
             <div class="form-group">
                 <label for="bbd">Best Before Date:</label>
                 <input type="date" id="bbd" name="bbd" required>
@@ -48,16 +91,19 @@ $conn->close();
                 <input type="number" id="quantity" name="quantity" required>
             </div>
             <button type="submit">Add Batch</button>
+            <!-- Form to close the page without submitting -->
             <form action="/php/ViewRawMaterials.php" method="get">
-            <button type="submit" class="close-button">Close</button>
-        </form>
+                <button type="submit" class="close-button">Close</button>
+            </form>
         </form>
     </div>
     <script>
+        // Function to cancel form submission and go back
         function cancel() {
             window.history.back();
         }
 
+        // Function to validate form data before submission
         function validateForm() {
             var bbd = document.getElementById("bbd").value;
             var quantity = document.getElementById("quantity").value;

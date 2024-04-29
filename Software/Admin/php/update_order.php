@@ -2,26 +2,41 @@
 // Include database connection
 include 'db_connection.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Retrieve form data
-    $order_id = $_POST['order_id'];
-    $new_status = $_POST['new_status'];
+class OrderUpdater {
+    private $conn;
 
-    // Update order status
-    $sql = "UPDATE orders SET status = ? WHERE order_id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("si", $new_status, $order_id);
-
-    if ($stmt->execute()) {
-        // Redirect to PurchaseOrder.php with success message
-        echo "<script>alert('Order updated successfully'); window.location.href = '../PurchaseOrder.php';</script>";
-    } else {
-        // Redirect to PurchaseOrder.php with error message
-        echo "<script>alert('Error updating order: " . $stmt->error . "'); window.location.href = '../PurchaseOrder.php';</script>";
+    public function __construct($conn) {
+        $this->conn = $conn;
     }
 
-    // Close statement
-    $stmt->close();
+    public function updateOrder($orderId, $newStatus) {
+        // Update order status
+        $sql = "UPDATE orders SET status = ? WHERE order_id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("si", $newStatus, $orderId);
+
+        if ($stmt->execute()) {
+            $stmt->close(); // Close statement
+            return "Order updated successfully";
+        } else {
+            $stmt->close(); // Close statement
+            return "Error updating order: " . $stmt->error;
+        }
+    }
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $orderUpdater = new OrderUpdater($conn);
+
+    // Retrieve form data
+    $orderId = $_POST['order_id'];
+    $newStatus = $_POST['new_status'];
+
+    // Update order
+    $message = $orderUpdater->updateOrder($orderId, $newStatus);
+
+    // Redirect to PurchaseOrder.php with appropriate message
+    echo "<script>alert('$message'); window.location.href = '../PurchaseOrder.php';</script>";
 } else {
     // If form is not submitted, redirect back to PurchaseOrder.php
     header("Location: ../PurchaseOrder.php");
