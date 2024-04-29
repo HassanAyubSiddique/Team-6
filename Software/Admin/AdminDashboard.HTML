@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dropdown Sidebar - Tivotal</title>
+    
+
+    <!--font awesome-->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    />
+
+    <!--css file-->
+    <link rel="stylesheet" href="AdminDashboard.css" />
+
+    <!-- this script is for the chart  -->
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    
+
+  </head>
+  <body>
+
+
+  <!-- ======================= menu ================== -->
+    <div class="sidebar close">
+      <div class="logo">
+        <!-- if we want to add logo inside the menu -->
+        <span class="logo-name"></span>
+      </div>
+
+      <ul class="nav-list">
+        <li>
+          <a href="AdminDashboard.HTML">
+            <i class="fab fa-microsoft"></i>
+            <span class="link-name">Dashboard</span>
+          </a>
+
+          <ul class="sub-menu blank">
+            <li><a href="AdminDashboard.HTML" class="link-name">Dashboard</a></li>
+          </ul>
+        </li>
+
+        <li>
+        <a href="report.php">
+          <i class="fas fa-chart-bar"></i>
+          <span class="link-name">Report</span>
+        </a>
+
+        <ul class="sub-menu blank">
+          <li><a href="report.php" class="link-name">Report</a></li>
+        </ul>
+      </li>
+
+        <li>
+          <div class="icon-link">
+            <a href="#">
+              <i class="fas fa-box-open"></i>
+              <span class="link-name">Products</span>
+            </a>
+            <i class="fas fa-caret-down arrow"></i>
+          </div>
+
+          <ul class="sub-menu">
+            <li><a href="#" class="link-name">Products</a></li>
+            <li><a href="ViewProduct.php">View Product</a></li>
+            <li><a href="AddProduct.php">Add Product</a></li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="PurchaseOrder.php">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="link-name">Purchase Orders</span>
+          </a>
+
+          <ul class="sub-menu blank">
+            <li><a href="PurchaseOrder.php" class="link-name">Purchase Orders</a></li>
+          </ul>
+        </li>
+
+        
+        <li>
+          <div class="icon-link">
+            <a href="#">
+              <i class="fas fa-boxes"></i>
+              <span class="link-name">Raw Materials</span>
+            </a>
+            <i class="fas fa-caret-down arrow"></i>
+          </div>
+
+          <ul class="sub-menu">
+            <li><a href="#" class="link-name">Raw Materials</a></li>
+            <li><a href="ViewRawMaterial.php">View Raw Materials</a></li>
+            <li><a href="AddRawMaterial.php">Add Raw Materials</a></li>
+          </ul>
+        </li> 
+
+        
+        <li>
+        <a href="Staff.php">
+          <i class="fas fa-users"></i>
+          <span class="link-name">Staff</span>
+        </a>
+
+        <ul class="sub-menu blank">
+          <li><a href="Staff.php" class="link-name">Staff</a></li>
+        </ul>
+      </li>
+     
+
+        <li>
+          <a href="Customer.php">
+            <i class="fas fa-handshake"></i>
+            <span class="link-name">Customers</span>
+          </a>
+
+          <ul class="sub-menu blank">
+            <li><a href="Customer.php" class="link-name">Customers</a></li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="AdProfile.php">
+            <i class="fas fa-id-card-alt"></i>
+            <span class="link-name">Profile</span>
+          </a>
+
+          <ul class="sub-menu blank">
+            <li><a href="AdProfile.php" class="link-name">Profile</a></li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="#" onclick="confirmSignout()">
+              <i class="fas fa-sign-out-alt"></i>
+              <span class="link-name">Signout</span>
+          </a>
+      
+          <ul class="sub-menu blank">
+              <li><a href="#" onclick="confirmSignout()">Signout</a></li>
+          </ul>
+      </li>
+      
+
+      
+      </ul>
+      
+    </div>
+    
+    
+
+    <div class="home-section">
+       <!-- ======================= nav ================== -->
+      <div class="main">
+        
+        <div class="topbar">
+            <div class="toggle">
+                <ion-icon name="menu-outline"></ion-icon>
+                <div class="home-content">
+                  <i class="fas fa-bars"></i>
+                  
+              
+                </div>
+            </div>
+           
+            
+           <img src="img/Screenshot 2024-03-16 at 01.30.56.png" alt="" class="lo">
+          
+      
+            <div class="search">
+              
+            
+                <label>
+                    <input type="text" placeholder="Search here">
+                    <i class="fas fa-search"></i>
+
+                </label>
+            </div>
+
+            <a href="AdProfile.php">
+              <div class="user">
+                <img src="img/Screenshot 2024-03-15 at 19.56.42.png" alt="">
+            </div>
+            </a>
+        </div>
+
+
+      
+   
+      
+
+
+         <!-- ======================= Cards ================== -->
+         <div class="cardBox">
+          <div class="card">
+              <div>
+                  <div class="numbers">1,504</div>
+                  <div class="cardName">Daily Views</div>
+              </div>
+
+              <div class="iconBx">
+                  <ion-icon name="eye-outline"></ion-icon>
+              </div>
+          </div>
+
+          <div class="card">
+              <div>
+                  <div class="numbers">80</div>
+                  <div class="cardName">Sales</div>
+              </div>
+
+              <div class="iconBx">
+                  <ion-icon name="cart-outline"></ion-icon>
+              </div>
+          </div>
+
+          <div class="card">
+              <div>
+                  <div class="numbers">284</div>
+                  <div class="cardName">Notification</div>
+              </div>
+
+              <div class="iconBx">
+                  <ion-icon name="chatbubbles-outline"></ion-icon>
+                  <i class="fas fa-bell notification-icon"></i>
+              </div>
+          </div>
+
+          <div class="card">
+              <div>
+                  <div class="numbers">$7,842</div>
+                  <div class="cardName">Earning</div>
+              </div>
+
+              <div class="iconBx">
+                  <ion-icon name="cash-outline"></ion-icon>
+                 
+
+              </div>
+          </div>
+      </div>
+
+      <div class="cardBox">
+        <!-- Pie chart container -->
+    <div class="pie-chart-container">
+      <canvas id="inventory-pie-chart" width="600" height="400"></canvas>
+    </div>
+
+    
+     <!-- Bar chart container -->
+     <div class="bar-chart-container">
+      <canvas id="inventory-bar-chart" width="600" height="400"></canvas>
+    </div>
+
+  </div>
+
+   <!-- Line chart container -->
+     <div class="line-chart-container">
+      <canvas id="inventory-line-chart" width="600" height="400"></canvas>
+    </div>
+
+  
+           <!-- ================ Order Details List ================= -->
+           <div class="details">
+            <div class="recentOrders">
+                <div class="cardHeader">
+                    <h2>Recent Orders</h2>
+                    <a href="#" class="btn">View All</a>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Name</td>
+                            <td>Price</td>
+                            <td>Payment</td>
+                            <td>Status</td>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>Rakusens Crackers</td>
+                            <td>£1200</td>
+                            <td>Paid</td>
+                            <td><span class="status delivered">Delivered</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>Rakusens Snackers</td>
+                            <td>£1110</td>
+                            <td>Due</td>
+                            <td><span class="status pending">Pending</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>Rakusens Crackers</td>
+                            <td>£100</td>
+                            <td>Paid</td>
+                            <td><span class="status return">Return</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>Rakusens Snackers</td>
+                            <td>£400</td>
+                            <td>Due</td>
+                            <td><span class="status inProgress">In Progress</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>Rakusens Crackersr</td>
+                            <td>£200</td>
+                            <td>Paid</td>
+                            <td><span class="status delivered">Delivered</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>Rakusens Thins</td>
+                            <td>£100</td>
+                            <td>Due</td>
+                            <td><span class="status pending">Pending</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>Rakusens Crackers</td>
+                            <td>£420</td>
+                            <td>Paid</td>
+                            <td><span class="status return">Return</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>Rakusens Crackers</td>
+                            <td>£440</td>
+                            <td>Due</td>
+                            <td><span class="status inProgress">In Progress</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+              <!-- ================= New Customers ================ -->
+              <div class="recentCustomers">
+                <div class="cardHeader">
+                    <h2>Recent Customers</h2>
+                </div>
+            
+                <table>
+                    <tr>
+                        <td width="60px">
+                            <div class="imgBx"><img src="img/Screenshot 2024-03-15 at 19.56.42.png" alt=""></div>
+                        </td>
+                        <td>
+                            <h4>Mohammed <br> <span>Yemen</span></h4>
+                        </td>
+                        <td>
+                            <button class="approve-btn">Approve</button>
+                            <button class="decline-btn">Decline</button>
+                        </td>
+                    </tr>
+                    <tr>
+                      <td width="60px">
+                          <div class="imgBx"><img src="img/Screenshot 2024-03-15 at 19.56.42.png" alt=""></div>
+                      </td>
+                      <td>
+                          <h4>Mohammed <br> <span>Yemen</span></h4>
+                      </td>
+                      <td>
+                          <button class="approve-btn">Approve</button>
+                          <button class="decline-btn">Decline</button>
+                      </td>
+                  </tr>
+                  <tr>
+                    <td width="60px">
+                        <div class="imgBx"><img src="img/Screenshot 2024-03-15 at 19.56.42.png" alt=""></div>
+                    </td>
+                    <td>
+                        <h4>Mohammed <br> <span>Yemen</span></h4>
+                    </td>
+                    <td>
+                        <button class="approve-btn">Approve</button>
+                        <button class="decline-btn">Decline</button>
+                    </td>
+                </tr>
+                <tr>
+                  <td width="60px">
+                      <div class="imgBx"><img src="img/Screenshot 2024-03-15 at 19.56.42.png" alt=""></div>
+                  </td>
+                  <td>
+                      <h4>Mohammed <br> <span>Yemen</span></h4>
+                  </td>
+                  <td>
+                      <button class="approve-btn">Approve</button>
+                      <button class="decline-btn">Decline</button>
+                  </td>
+              </tr>
+              <tr>
+                <td width="60px">
+                    <div class="imgBx"><img src="img/Screenshot 2024-03-15 at 19.56.42.png" alt=""></div>
+                </td>
+                <td>
+                    <h4>Mohammed <br> <span>Yemen</span></h4>
+                </td>
+                <td>
+                    <button class="approve-btn">Approve</button>
+                    <button class="decline-btn">Decline</button>
+                </td>
+            </tr>
+            <tr>
+              <td width="60px">
+                  <div class="imgBx"><img src="img/Screenshot 2024-03-15 at 19.56.42.png" alt=""></div>
+              </td>
+              <td>
+                  <h4>Mohammed <br> <span>Yemen</span></h4>
+              </td>
+              <td>
+                  <button class="approve-btn">Approve</button>
+                  <button class="decline-btn">Decline</button>
+              </td>
+          </tr>
+          <tr>
+            <td width="60px">
+                <div class="imgBx"><img src="img/Screenshot 2024-03-15 at 19.56.42.png" alt=""></div>
+            </td>
+            <td>
+                <h4>Mohammed <br> <span>Yemen</span></h4>
+            </td>
+            <td>
+                <button class="approve-btn">Approve</button>
+                <button class="decline-btn">Decline</button>
+            </td>
+        </tr>
+        <tr>
+          <td width="60px">
+              <div class="imgBx"><img src="img/Screenshot 2024-03-15 at 19.56.42.png" alt=""></div>
+          </td>
+          <td>
+              <h4>Mohammed <br> <span>Yemen</span></h4>
+          </td>
+          <td>
+              <button class="approve-btn">Approve</button>
+              <button class="decline-btn">Decline</button>
+          </td>
+      </tr>
+                    <!-- Repeat the same structure for other customers -->
+                </table>
+            </div>
+            
+        </div>
+    </div>
+</div>
+      
+    </div>
+
+
+  
+    
+
+    <script src="AdminDashboard.js"></script>
+  </body>
+</html>
+
