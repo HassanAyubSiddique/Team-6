@@ -17,6 +17,7 @@ class Sidebar {
 }
 
 
+
 // Arrow class is for the  menu navigation
 class Arrow {
   constructor(arrowSelector) {
@@ -39,9 +40,14 @@ class Signout {
   static confirmSignout() {
     var confirmSignout = confirm("Are you sure you want to sign out?");
     if (confirmSignout) {
-      window.location.href = "registeration.html";
+      window.location.href = "login.php";
     }
   }
+}
+
+// Function to confirm signout
+function confirmSignout() {
+  Signout.confirmSignout();
 }
 
 // DeleteButton class for handling delete confirmation in the product , raw , staff and customer page 
@@ -200,63 +206,63 @@ document.addEventListener('DOMContentLoaded', function() {
   
 
   // this is for the edit button 
-  class ProductEditor {
-    constructor() {
-      this.editButtons = document.querySelectorAll(".edit-btn");
-      this.modal = document.getElementById("editModal");
-      this.closeBtn = this.modal.querySelector(".close");
-      this.productTable = document.querySelector(".product-table-container");
+  // class ProductEditor {
+  //   constructor() {
+  //     this.editButtons = document.querySelectorAll(".edit-btn");
+  //     this.modal = document.getElementById("editModal");
+  //     this.closeBtn = this.modal.querySelector(".close");
+  //     this.productTable = document.querySelector(".product-table-container");
   
-      // Bind event listeners
-      this.bindEvents();
-    }
+  //     // Bind event listeners
+  //     this.bindEvents();
+  //   }
   
-    bindEvents() {
-      // Open modal when Edit button is clicked
-      this.editButtons.forEach(button => {
-        button.addEventListener("click", () => this.openModal());
-      });
+  //   bindEvents() {
+  //     // Open modal when Edit button is clicked
+  //     this.editButtons.forEach(button => {
+  //       button.addEventListener("click", () => this.openModal());
+  //     });
   
-      // Close modal when close button is clicked
-      this.closeBtn.addEventListener("click", () => this.closeModal());
+  //     // Close modal when close button is clicked
+  //     this.closeBtn.addEventListener("click", () => this.closeModal());
   
-      // Close modal when user clicks outside of it
-      window.addEventListener("click", event => {
-        if (event.target === this.modal) {
-          this.closeModal();
-        }
-      });
+  //     // Close modal when user clicks outside of it
+  //     window.addEventListener("click", event => {
+  //       if (event.target === this.modal) {
+  //         this.closeModal();
+  //       }
+  //     });
   
-      // Handle form submission
-      const editForm = document.getElementById("editForm");
-      editForm.addEventListener("submit", event => this.handleSubmit(event));
-    }
+  //     // Handle form submission
+  //     const editForm = document.getElementById("editForm");
+  //     editForm.addEventListener("submit", event => this.handleSubmit(event));
+  //   }
   
-    openModal() {
-      // Hide product table and show edit form
-      this.productTable.style.display = "none";
-      this.modal.style.display = "block";
-    }
+  //   openModal() {
+  //     // Hide product table and show edit form
+  //     this.productTable.style.display = "none";
+  //     this.modal.style.display = "block";
+  //   }
   
-    closeModal() {
-      // Show product table and hide edit form
-      this.productTable.style.display = "block";
-      this.modal.style.display = "none";
-    }
+  //   closeModal() {
+  //     // Show product table and hide edit form
+  //     this.productTable.style.display = "block";
+  //     this.modal.style.display = "none";
+  //   }
   
-    handleSubmit(event) {
-      event.preventDefault();
-      // here we need to Perform form submission logic, such as sending data to the server (database )
-      // After successful submission, we will close the modal and update the product details on the page as well 
+  //   handleSubmit(event) {
+  //     event.preventDefault();
+  //     // here we need to Perform form submission logic, such as sending data to the server (database )
+  //     // After successful submission, we will close the modal and update the product details on the page as well 
       
-      this.closeModal();
+  //     this.closeModal();
       
       
-    }
+  //   }
     
-  }
+  // }
   
-  document.addEventListener("DOMContentLoaded", () => {
-    new ProductEditor();
-  });
+  // document.addEventListener("DOMContentLoaded", () => {
+  //   new ProductEditor();
+  // });
   

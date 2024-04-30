@@ -191,12 +191,6 @@ $conn->close();
 
             <div class="search">
               
-            
-                <label>
-                    <input type="text" placeholder="Search here">
-                    <i class="fas fa-search"></i>
-
-                </label>
             </div>
 
             <div class="user">
@@ -296,8 +290,8 @@ $conn->close();
 
 <!-- Admins Table -->
 <div class="admins-table-container">
-                <h2>Admins</h2>
-                <table>
+<h2 class="product-heading">Admins</h2>
+            <table class="product-table">
                     <thead>
                         <tr>
                             <th>Admin ID</th>

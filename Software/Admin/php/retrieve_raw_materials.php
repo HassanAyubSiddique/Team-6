@@ -10,7 +10,7 @@ $start = ($currentPage - 1) * $materialsPerPage;
 // Query to fetch raw material data with pagination
 $sql = "SELECT * FROM raw_materials LIMIT $start, $materialsPerPage";
 $result = $conn->query($sql);
-echo "<link rel='stylesheet' type='text/css' href='../style.css'>";
+// echo "<link rel='stylesheet' type='text/css' href='../style.css'>";
 
 // Check for successful execution
 if ($result) {
@@ -31,16 +31,17 @@ if ($result) {
             echo "<td><img src='{$src}' alt='Raw Material Image' class='raw-material-image'></td>";
             echo "<td>";
             if ($row["status"] == "Listed") {
-                echo "<button class='btn btn-unlist' onclick='unlistRawMaterial(" . $row["raw_material_id"] . ")'>Unlist</button>";
+                echo "<button class='edit-btn' onclick='unlistRawMaterial(" . $row["raw_material_id"] . ")'><i class='fas fa-times'></i>Unlist</button>";
             } else {
-                echo "<button class='btn btn-list' onclick='listRawMaterial(" . $row["raw_material_id"] . ")'>List</button>";
+                echo "<button class='edit-btn' onclick='listRawMaterial(" . $row["raw_material_id"] . ")'><i class='fas fa-list'></i>List</button>";
             }
-            echo "<button class='btn btn-delete' onclick='deleteRawMaterial(" . $row["raw_material_id"] . ")'>Delete</button>";
-            echo "<button class='btn btn-edit' onclick='editRawMaterial(" . $row["raw_material_id"] . ")'>Edit</button>";
-            echo "<button class='btn btn-add-batch' onclick='addBatch(" . $row["raw_material_id"] . ")'>Add Batch</button>"; // Button for adding batch
-            echo "<button class='btn btn-use-raw-materials' onclick='useRawMaterials(" . $row["raw_material_id"] . ")'>Use Raw Materials</button>"; // Button for using raw materials
+            echo "<button class='delete-btn' onclick='deleteRawMaterial(" . $row["raw_material_id"] . ")'><i class='fas fa-trash'></i>Delete</button>";
+            echo "<button class='edit-btn' onclick='editRawMaterial(" . $row["raw_material_id"] . ")'><i class='fas fa-edit'></i>Edit</button>";
+            echo "<button class='edit-btn' onclick='addBatch(" . $row["raw_material_id"] . ")'><i class='fas fa-plus'></i>Add Batch</button>"; // Button for adding batch
+            echo "<button class='edit-btn' onclick='useRawMaterials(" . $row["raw_material_id"] . ")'><i class='fas fa-check'></i>Use Raw Materials</button>"; // Button for using raw materials
             echo "</td>";
             echo "</tr>";
+
 
             // Fetch and display batches for each raw material
             echo "<tr id='batches-" . $row["raw_material_id"] . "' style='display: none;'>";
@@ -82,8 +83,8 @@ if ($result) {
             echo ">$option</option>";
         }
         echo "</select>"; 
-        echo "<button onclick='previousPage()'>Previous</button>";
-        echo "<button onclick='nextPage()'>Next</button>";
+        echo "<button class='edit-btn' onclick='previousPage()'><i class='fa-solid fa-left-long'></i>Previous</button>";
+        echo "<button class='edit-btn' onclick='nextPage()'><i class='fa-solid fa-right-long'></i>Next</button>";
         echo "</div>";
     } else {
         echo "<p>No products found</p>";

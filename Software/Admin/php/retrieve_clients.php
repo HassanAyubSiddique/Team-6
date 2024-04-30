@@ -48,16 +48,16 @@ class ClientRetriever {
                     
                     // Approve button if status is Pending
                     if ($row["status"] == "Pending") {
-                        echo "<button class='approve-button' onclick='approveClient(" . $row["client_id"] . ")'>Approve</button>";
+                        echo "<button class='edit-btn' onclick='approveClient(" . $row["client_id"] . ")'><i class='fas fa-check'></i>Approve</button>";
                     }
 
                     // Reject button if status is Pending
                     if ($row["status"] == "Pending") {
-                        echo "<button class='reject-button' onclick='rejectClient(" . $row["client_id"] . ")'>Reject</button>";
+                        echo "<button class='edit-btn' onclick='rejectClient(" . $row["client_id"] . ")'><i class='fas fa-trash'></i>Reject</button>";
                     }
 
                     // Delete button
-                    echo "<button class='delete-button' onclick='deleteClient(" . $row["client_id"] . ")'>Delete</button>";
+                    echo "<button class='delete-btn' onclick='deleteClient(" . $row["client_id"] . ")'><i class='fas fa-trash'></i>Delete</button>";
                     echo "</td>";
                     echo "</tr>";
                 }
@@ -76,8 +76,8 @@ class ClientRetriever {
                     echo ">$option</option>";
                 }
                 echo "</select>"; 
-                echo "<button onclick='previousPage()'>Previous</button>";
-                echo "<button onclick='nextPage()'>Next</button>";
+                echo "<button class='edit-btn' onclick='previousPage()'><i class='fa-solid fa-left-long'></i>Previous</button>";
+                echo "<button class='edit-btn' onclick='nextPage()'><i class='fa-solid fa-right-long'></i>Next</button>";
                 echo "</div>";
             } else {
                 echo "<p>No clients found</p>";

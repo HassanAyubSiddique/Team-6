@@ -164,11 +164,6 @@
             <div class="search">
               
             
-                <label>
-                    <input type="text" placeholder="Search here">
-                    <i class="fas fa-search"></i>
-
-                </label>
             </div>
 
             <div class="user">

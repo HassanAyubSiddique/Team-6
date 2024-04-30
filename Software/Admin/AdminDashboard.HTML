@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dropdown Sidebar - Tivotal</title>
     
-
     <!--font awesome-->
     <link
       rel="stylesheet"
@@ -18,8 +17,13 @@
 
     <!-- this script is for the chart  -->
     
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+    
+    
+    <link rel="stylesheet" href="DATA.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+    <script src="DATAexport.php"></script> <!-- Include PHP file -->
     
 
   </head>
@@ -175,11 +179,11 @@
             <div class="search">
               
             
-                <label>
+                <!-- <label>
                     <input type="text" placeholder="Search here">
                     <i class="fas fa-search"></i>
 
-                </label>
+                </label> -->
             </div>
 
             <a href="AdProfile.php">
@@ -196,265 +200,61 @@
 
 
          <!-- ======================= Cards ================== -->
-         <div class="cardBox">
-          <div class="card">
-              <div>
-                  <div class="numbers">1,504</div>
-                  <div class="cardName">Daily Views</div>
-              </div>
-
-              <div class="iconBx">
-                  <ion-icon name="eye-outline"></ion-icon>
-              </div>
-          </div>
-
-          <div class="card">
-              <div>
-                  <div class="numbers">80</div>
-                  <div class="cardName">Sales</div>
-              </div>
-
-              <div class="iconBx">
-                  <ion-icon name="cart-outline"></ion-icon>
-              </div>
-          </div>
-
-          <div class="card">
-              <div>
-                  <div class="numbers">284</div>
-                  <div class="cardName">Notification</div>
-              </div>
-
-              <div class="iconBx">
-                  <ion-icon name="chatbubbles-outline"></ion-icon>
-                  <i class="fas fa-bell notification-icon"></i>
-              </div>
-          </div>
-
-          <div class="card">
-              <div>
-                  <div class="numbers">$7,842</div>
-                  <div class="cardName">Earning</div>
-              </div>
-
-              <div class="iconBx">
-                  <ion-icon name="cash-outline"></ion-icon>
-                 
-
-              </div>
-          </div>
-      </div>
-
-      <div class="cardBox">
-        <!-- Pie chart container -->
-    <div class="pie-chart-container">
-      <canvas id="inventory-pie-chart" width="600" height="400"></canvas>
-    </div>
-
-    
-     <!-- Bar chart container -->
-     <div class="bar-chart-container">
-      <canvas id="inventory-bar-chart" width="600" height="400"></canvas>
-    </div>
-
-  </div>
-
-   <!-- Line chart container -->
-     <div class="line-chart-container">
-      <canvas id="inventory-line-chart" width="600" height="400"></canvas>
-    </div>
-
-  
-           <!-- ================ Order Details List ================= -->
-           <div class="details">
-            <div class="recentOrders">
-                <div class="cardHeader">
-                    <h2>Recent Orders</h2>
-                    <a href="#" class="btn">View All</a>
-                </div>
-
-                <table>
-                    <thead>
-                        <tr>
-                            <td>Name</td>
-                            <td>Price</td>
-                            <td>Payment</td>
-                            <td>Status</td>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr>
-                            <td>Rakusens Crackers</td>
-                            <td>£1200</td>
-                            <td>Paid</td>
-                            <td><span class="status delivered">Delivered</span></td>
-                        </tr>
-
-                        <tr>
-                            <td>Rakusens Snackers</td>
-                            <td>£1110</td>
-                            <td>Due</td>
-                            <td><span class="status pending">Pending</span></td>
-                        </tr>
-
-                        <tr>
-                            <td>Rakusens Crackers</td>
-                            <td>£100</td>
-                            <td>Paid</td>
-                            <td><span class="status return">Return</span></td>
-                        </tr>
-
-                        <tr>
-                            <td>Rakusens Snackers</td>
-                            <td>£400</td>
-                            <td>Due</td>
-                            <td><span class="status inProgress">In Progress</span></td>
-                        </tr>
-
-                        <tr>
-                            <td>Rakusens Crackersr</td>
-                            <td>£200</td>
-                            <td>Paid</td>
-                            <td><span class="status delivered">Delivered</span></td>
-                        </tr>
-
-                        <tr>
-                            <td>Rakusens Thins</td>
-                            <td>£100</td>
-                            <td>Due</td>
-                            <td><span class="status pending">Pending</span></td>
-                        </tr>
-
-                        <tr>
-                            <td>Rakusens Crackers</td>
-                            <td>£420</td>
-                            <td>Paid</td>
-                            <td><span class="status return">Return</span></td>
-                        </tr>
-
-                        <tr>
-                            <td>Rakusens Crackers</td>
-                            <td>£440</td>
-                            <td>Due</td>
-                            <td><span class="status inProgress">In Progress</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-              <!-- ================= New Customers ================ -->
-              <div class="recentCustomers">
-                <div class="cardHeader">
-                    <h2>Recent Customers</h2>
-                </div>
-            
-                <table>
-                    <tr>
-                        <td width="60px">
-                            <div class="imgBx"><img src="img/Screenshot 2024-03-15 at 19.56.42.png" alt=""></div>
-                        </td>
-                        <td>
-                            <h4>Mohammed <br> <span>Yemen</span></h4>
-                        </td>
-                        <td>
-                            <button class="approve-btn">Approve</button>
-                            <button class="decline-btn">Decline</button>
-                        </td>
-                    </tr>
-                    <tr>
-                      <td width="60px">
-                          <div class="imgBx"><img src="img/Screenshot 2024-03-15 at 19.56.42.png" alt=""></div>
-                      </td>
-                      <td>
-                          <h4>Mohammed <br> <span>Yemen</span></h4>
-                      </td>
-                      <td>
-                          <button class="approve-btn">Approve</button>
-                          <button class="decline-btn">Decline</button>
-                      </td>
-                  </tr>
-                  <tr>
-                    <td width="60px">
-                        <div class="imgBx"><img src="img/Screenshot 2024-03-15 at 19.56.42.png" alt=""></div>
-                    </td>
-                    <td>
-                        <h4>Mohammed <br> <span>Yemen</span></h4>
-                    </td>
-                    <td>
-                        <button class="approve-btn">Approve</button>
-                        <button class="decline-btn">Decline</button>
-                    </td>
-                </tr>
-                <tr>
-                  <td width="60px">
-                      <div class="imgBx"><img src="img/Screenshot 2024-03-15 at 19.56.42.png" alt=""></div>
-                  </td>
-                  <td>
-                      <h4>Mohammed <br> <span>Yemen</span></h4>
-                  </td>
-                  <td>
-                      <button class="approve-btn">Approve</button>
-                      <button class="decline-btn">Decline</button>
-                  </td>
-              </tr>
-              <tr>
-                <td width="60px">
-                    <div class="imgBx"><img src="img/Screenshot 2024-03-15 at 19.56.42.png" alt=""></div>
-                </td>
-                <td>
-                    <h4>Mohammed <br> <span>Yemen</span></h4>
-                </td>
-                <td>
-                    <button class="approve-btn">Approve</button>
-                    <button class="decline-btn">Decline</button>
-                </td>
-            </tr>
-            <tr>
-              <td width="60px">
-                  <div class="imgBx"><img src="img/Screenshot 2024-03-15 at 19.56.42.png" alt=""></div>
-              </td>
-              <td>
-                  <h4>Mohammed <br> <span>Yemen</span></h4>
-              </td>
-              <td>
-                  <button class="approve-btn">Approve</button>
-                  <button class="decline-btn">Decline</button>
-              </td>
-          </tr>
-          <tr>
-            <td width="60px">
-                <div class="imgBx"><img src="img/Screenshot 2024-03-15 at 19.56.42.png" alt=""></div>
-            </td>
-            <td>
-                <h4>Mohammed <br> <span>Yemen</span></h4>
-            </td>
-            <td>
-                <button class="approve-btn">Approve</button>
-                <button class="decline-btn">Decline</button>
-            </td>
-        </tr>
-        <tr>
-          <td width="60px">
-              <div class="imgBx"><img src="img/Screenshot 2024-03-15 at 19.56.42.png" alt=""></div>
-          </td>
-          <td>
-              <h4>Mohammed <br> <span>Yemen</span></h4>
-          </td>
-          <td>
-              <button class="approve-btn">Approve</button>
-              <button class="decline-btn">Decline</button>
-          </td>
-      </tr>
-                    <!-- Repeat the same structure for other customers -->
-                </table>
-            </div>
-            
+          
+  <div class="container">
+    <!-- HTML container for the main product chart with horizontal scrolling -->
+         <canvas id="chart1"></canvas>
+        <!-- Export icon for product chart -->
+        <i class="fas fa-file-download export-icon" onclick="exportChart('chart1', 'Product Chart')"></i>
+        <!-- Icon to change chart type to pie chart --> 
+        <i class="fas fa-chart-pie chart-type-icon" onclick="changeChartType('chart1', 'pie')"></i>
+        <!-- Icon to change chart type to bar chart -->
+        <i class="fas fa-chart-bar chart-type-icon" onclick="changeChartType('chart1', 'bar')"></i>
+        <!-- Icon to change chart type to line graph -->
+        <i class="fas fa-chart-line chart-type-icon" onclick="changeChartType('chart1', 'line')"></i>
+ 
+    <!-- HTML container for the raw material chart -->
+         <canvas id="chart2"></canvas>
+        <!-- Export icon for raw material chart -->
+        <i class="fas fa-file-download export-icon" onclick="exportChart('chart2', 'Raw Material Chart')"></i>
+        <!-- Icon to change chart type to pie chart -->
+        <i class="fas fa-chart-pie chart-type-icon" onclick="changeChartType('chart2', 'pie')"></i>
+        <!-- Icon to change chart type to bar chart -->
+        <i class="fas fa-chart-bar chart-type-icon" onclick="changeChartType('chart2', 'bar')"></i>
+        <!-- Icon to change chart type to line graph -->
+        <i class="fas fa-chart-line chart-type-icon" onclick="changeChartType('chart2', 'line')"></i>
+ 
+    <!-- HTML container for the additional orders chart -->
+    <div class="graph-container-3">
+        <div>
+            <label for="start_date">Start Date:</label>
+            <input type="date" id="start_date">
+            <label for="end_date">End Date:</label>
+            <input type="date" id="end_date">
+            <button onclick="updateOrdersChart()">Generate Orders Chart</button>
         </div>
+        <canvas id="chart3"></canvas>
+        <!-- Export icon for orders chart -->
+        <i class="fas fa-file-download export-icon" onclick="exportChart('chart3', 'Orders Chart')"></i>
+        <!-- Icon to change chart type to pie chart -->
+        <i class="fas fa-chart-pie chart-type-icon" onclick="changeChartType('chart3', 'pie')"></i>
+        <!-- Icon to change chart type to bar chart -->
+        <i class="fas fa-chart-bar chart-type-icon" onclick="changeChartType('chart3', 'bar')"></i>
+        <!-- Icon to change chart type to line graph -->
+        <i class="fas fa-chart-line chart-type-icon" onclick="changeChartType('chart3', 'line')"></i>
+    </div>
+    <!-- HTML container for the additional orders chart -->
+    <div class="graph-container-3">
+        <canvas id="chart4"></canvas>
+        <!-- Export icon for client orders chart -->
+        <i class="fas fa-file-download export-icon" onclick="exportChart('chart4', 'Client Orders Chart')"></i>
+        <!-- Icon to change chart type to radar chart -->
+        <i class="fas fa-chart-area chart-type-icon" onclick="changeChartType('chart4', 'radar')"></i>
     </div>
 </div>
-      
-    </div>
+<script src="DATA.js"></script> 
+
+          
 
 
   

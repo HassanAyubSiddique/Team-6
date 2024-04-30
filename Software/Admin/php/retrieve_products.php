@@ -54,14 +54,14 @@ if ($products) {
         echo "<td><img src='data:image/jpeg;base64," . base64_encode($product["main_image"]) . "' alt='" . $product["name"] . "' style='max-width: 100%; height: auto;' onclick='openImagePopup(" . $product["product_id"] . ")'></td>";
         echo "<td>";
         if ($product["status"] == "Listed") {
-            echo "<button onclick='unlistProduct(" . $product["product_id"] . ")'>Unlist</button>";
+            echo "<button class='edit-btn' onclick='unlistProduct(" . $product["product_id"] . ")'><i class='fas fa-times'></i>Unlist</button>";
         } else {
-            echo "<button onclick='listProduct(" . $product["product_id"] . ")'>List</button>";
+            echo "<button class='edit-btn' onclick='listProduct(" . $product["product_id"] . ")'><i class='fas fa-list'></i>List</button>";
         }
-        echo "<button onclick='deleteProduct(" . $product["product_id"] . ")'>Delete</button>";
-        echo "<button onclick='editProduct(" . $product["product_id"] . ")'>Edit</button>";
-        echo "<button onclick='addBatch(" . $product["product_id"] . ")'>Add Batch</button>"; // Button for adding batch
-        echo "<button onclick='useProducts(" . $product["product_id"] . ")'>Use Products</button>"; // Button for using products
+        echo "<button class='delete-btn' onclick='deleteProduct(" . $product["product_id"] . ")'> <i class='fas fa-trash'></i>Delete</button>";
+        echo "<button class='edit-btn' onclick='editProduct(" . $product["product_id"] . ")'><i class='fas fa-edit'></i>Edit</button>";
+        echo "<button class='edit-btn' onclick='addBatch(" . $product["product_id"] . ")'><i class='fas fa-plus'></i>Add Batch</button>"; // Button for adding batch
+        echo "<button class='edit-btn' onclick='useProducts(" . $product["product_id"] . ")'><i class='fas fa-check'></i>Use Products</button>"; // Button for using products
         echo "</td>";
         echo "</tr>";
 
@@ -106,15 +106,12 @@ if ($products) {
         echo ">$option</option>";
     }
     echo "</select>"; 
-    echo "<button onclick='previousPage()'>Previous</button>";
-    echo "<button onclick='nextPage()'>Next</button>";
+    echo "<button class='edit-btn' onclick='previousPage()'><i class='fa-solid fa-left-long'></i>Previous</button>";
+    echo "<button class='edit-btn' onclick='nextPage()'><i class='fa-solid fa-right-long'></i>Next</button>";
     echo "</div>";
 } else {
     echo "<p>No products found</p>";
 }
-
-// Close connection
-$conn->close();
 ?>
 
 <script>

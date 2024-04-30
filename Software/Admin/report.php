@@ -162,13 +162,7 @@
             <img src="img/Screenshot 2024-03-16 at 01.30.56.png" alt="" class="lo">
 
             <div class="search">
-              
             
-                <label>
-                    <input type="text" placeholder="Search here">
-                    <i class="fas fa-search"></i>
-
-                </label>
             </div>
 
             <div class="user">

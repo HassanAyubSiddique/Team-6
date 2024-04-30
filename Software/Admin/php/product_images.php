@@ -152,9 +152,9 @@ if(isset($_FILES['newImage']) && isset($_POST['image_number']) && isset($_POST['
     // Check if file is an image
     $fileName = $_FILES['newImage']['name'];
     $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
-    $allowedExtensions = ['tif', 'tiff', 'bmp', 'jpeg', 'jpg', 'gif', 'png', 'eps', 'raw'];
+    $allowedExtensions = ['tif', 'tiff', 'bmp', 'jpeg', 'jpg', 'gif', 'png', 'eps', 'raw', 'avif'];
     if (!in_array($fileExtension, $allowedExtensions)) {
-        echo "<script>alert('Only TIFF, BMP, JPEG, GIF, PNG, EPS, and RAW image files are allowed.');</script>";
+        echo "<script>alert('Only TIFF, BMP, JPEG, GIF, PNG, EPS, AVIF, and RAW image files are allowed.');</script>";
     } else {
         // Check file size
         $fileSize = $_FILES['newImage']['size'];

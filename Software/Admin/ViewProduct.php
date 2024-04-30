@@ -9,9 +9,9 @@
     <!--font awesome-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
 
+
     <!--css file-->
     <link rel="stylesheet" href="AdminDashboard.css"/>
-    <link rel="stylesheet" href="staff.css"/>
     <style>
         .hidden {
             display: none;
@@ -131,15 +131,15 @@
         </li>
 
         <li>
-            <a href="#" onclick="confirmSignout()">
-                <i class="fas fa-sign-out-alt"></i>
-                <span class="link-name">Signout</span>
-            </a>
-
-            <ul class="sub-menu blank">
-                <li><a href="#" onclick="confirmSignout()">Signout</a></li>
-            </ul>
-        </li>
+          <a href="#" onclick="confirmSignout()">
+              <i class="fas fa-sign-out-alt"></i>
+              <span class="link-name">Signout</span>
+          </a>
+      
+          <ul class="sub-menu blank">
+              <li><a href="#" onclick="confirmSignout()">Signout</a></li>
+          </ul>
+      </li>
 
 
     </ul>
@@ -164,13 +164,6 @@
          <img src="img/Screenshot 2024-03-16 at 01.30.56.png" alt="" class="lo"> 
 
             <div class="search">
-
-
-                <label>
-                    <input type="text" placeholder="Search here">
-                    <i class="fas fa-search"></i>
-
-                </label>
             </div>
 
             <div class="user">
@@ -179,27 +172,7 @@
 
         </div>
         
-        <!-- ============= this is for the  Edit Product ============= -->
-        <div id="editModal" class="modal hidden">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2 class="product-heading">Edit Product</h2>
-                <!-- ======= Edit Product form =========== -->
-                <form id="editForm" class="edit-form">
-                    <!-- ====== on clicking  Form will auto  fields like  (e.g., for product name, description, quantity, etc.) ========= -->
-                    <label for="productName">Product Name:</label>
-                    <input type="text" id="productName" name="productName">
-                    <label for="productDescription">Product Description:</label>
-                    <textarea id="productDescription" name="productDescription"></textarea>
-                    <div class="form-group">
-                        <label for="quantity">Quantity:</label>
-                        <input type="number" id="quantity" name="quantity" min="0">
-                    </div>
-                    <!-- =======  we add more filed if needed =====  -->
-                    <button type="submit">Update</button>
-                </form>
-            </div>
-        </div>
+      
 
         <!-- =========== this for the table ================ -->
         <div class="product-table-container">

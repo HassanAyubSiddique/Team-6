@@ -66,12 +66,12 @@ class StaffRetriever {
 
     private function displayActionButton($row) {
         if ($row["status"] == "Pending") {
-            echo "<button class='approve-button' onclick='approveStaff(" . $row["staff_id"] . ")'>Approve</button>";
-            echo "<button class='reject-button' onclick='rejectStaff(" . $row["staff_id"] . ")'>Reject</button>";
+            echo "<button class='edit-btn' onclick='approveStaff(" . $row["staff_id"] . ")'><i class='fas fa-check'></i>Approve</button>";
+            echo "<button class='edit-btn' onclick='rejectStaff(" . $row["staff_id"] . ")'> <i class='fas fa-trash'></i>Reject</button>";
         } elseif ($row["status"] == "Approved") {
-            echo "<button class='upgrade-button' onclick='upgradeStaff(" . $row["staff_id"] . ")'>Upgrade</button>";
+            echo "<button class='edit-btn' onclick='upgradeStaff(" . $row["staff_id"] . ")'><i class='fas fa-plus'></i>Upgrade</button>";
         }
-        echo "<button class='delete-button' onclick='deleteStaff(" . $row["staff_id"] . ")'>Delete</button>";
+        echo "<button class='delete-btn' onclick='deleteStaff(" . $row["staff_id"] . ")'><i class='fas fa-trash'></i>Delete</button>";
     }
 
     private function displayPaginationControls() {
@@ -88,8 +88,8 @@ class StaffRetriever {
         }
         
         echo "</select>"; 
-        echo "<button onclick='previousPage()'>Previous</button>";
-        echo "<button onclick='nextPage()'>Next</button>";
+        echo "<button class='edit-btn' onclick='previousPage()'><i class='fa-solid fa-left-long'></i>Previous</button>";
+        echo "<button class='edit-btn' onclick='nextPage()'><i class='fa-solid fa-right-long'></i>Next</button>";
         echo "</div>";
     }
 }

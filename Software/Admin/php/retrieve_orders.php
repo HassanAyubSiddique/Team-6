@@ -32,7 +32,7 @@ class OrderRetriever {
                     echo "<td>" . $row["status"] . "</td>";
                     echo "<td>" . $row["created_on"] . "</td>";
                     echo "<td>" . $row["delivery_reference"] . "</td>";
-                    echo "<td><button onclick='editOrder(" . $row["order_id"] . ")'>Edit</button></td>";
+                    echo "<td><button class='edit-btn' onclick='editOrder(" . $row["order_id"] . ")'><i class='fas fa-edit'></i>Edit</button></td>";
                     echo "</tr>";
                 }
                 
@@ -50,8 +50,8 @@ class OrderRetriever {
                     echo ">$option</option>";
                 }
                 echo "</select>"; 
-                echo "<button onclick='previousPage()'>Previous</button>";
-                echo "<button onclick='nextPage()'>Next</button>";
+                echo "<button class='edit-btn' onclick='previousPage()'><i class='fa-solid fa-left-long'></i>Previous</button>";
+                echo "<button class='edit-btn' onclick='nextPage()'><i class='fa-solid fa-right-long'></i>Next</button>";
                 echo "</div>";
             } else {
                 echo "<p>No orders found</p>";
