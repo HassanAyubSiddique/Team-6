@@ -1,30 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Order Raw Material</title>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dropdown Sidebar - Tivotal</title>
 
     <!--font awesome-->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
 
     <!--css file-->
-    <link rel="stylesheet" href="StaffDashboard.css" />
-  </head>
-  <body>
+    <link rel="stylesheet" href="AdminDashboard.css"/>
+</head>
+<body>
 
-  <!-- ======================= menu ================== -->
-    <div class="sidebar close">
-      <div class="logo">
+
+<!-- ======================= menu ================== -->
+<div class="sidebar close">
+    <div class="logo">
         <!-- if we want to add logo inside the menu -->
         <span class="logo-name"></span>
-      </div>
+    </div>
 
-      <ul class="nav-list">
+    <ul class="nav-list">
         <li>
           <div class="icon-link">
             <a href="ViewProduct.php">
@@ -37,6 +35,7 @@
           <ul class="sub-menu">
             <li><a href="#" class="link-name">Products</a></li>
             <li><a href="ViewProduct.php">View Product</a></li>
+            <li><a href="AddProduct.php">Add Product</a></li>
           </ul>
         </li>
 
@@ -90,60 +89,67 @@
           </ul>
       </li>
       </ul>
-      
-    </div>
-  
-    <div class="home-section">
-       <!-- ======================= navigation bar ================== -->
-      <div class="main">
-        
+
+</div>
+
+
+
+<div class="home-section">
+    <!-- ======================= nav ================== -->
+    <div class="main">
+
         <div class="topbar">
             <div class="toggle">
                 <ion-icon name="menu-outline"></ion-icon>
                 <div class="home-content">
-                  <i class="fas fa-bars"></i>
-                  
-              
+                    <i class="fas fa-bars"></i>
+
+
                 </div>
             </div>
             <img src="img/Screenshot 2024-03-16 at 01.30.56.png" alt="" class="lo">
 
             <div class="search">
-            
+
             </div>
 
             <div class="user">
                 <img src="img/Screenshot 2024-03-15 at 19.56.42.png" alt="">
             </div>
-       
+
+        </div>
+        
+        
+        <div class="product-table-container">
+            <h2 class="product-heading">List of Raw Material</h2>
+            <table class="product-table">
+                <thead>
+                    <tr>
+                        <th>Raw Material ID</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Total Quantity</th>
+                        <th>Status</th>
+                        <th>Image</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php include './retrieve_raw_materials.php'; ?>
+                </tbody>
+            </table>
+        </div>
+        
+        
+        
     </div>
 
-    
-
-    <div class="add-product-form">
-      <div>
-
-      </div>
-        <h2 class="product-heading"> Order Raw Material </h2>
-        <form action="submit_orderRawMaterial.php" method="post">
-          <div class="form-group">
-              <label for="rawMaterialProductName">Raw Material Product Name:</label>
-              <select id="rawMaterialProductName" name="rawMaterialProductName" required>
-                <?php include 'populate_raw_material_product_names.php'; ?>
-            </select>
-            
-          </div>
-          <div class="form-group">
-              <label for="quantity">Quantity:</label>
-              <input type="number" id="quantity" name="quantity" min="0" required>
-          </div>
-          <button type="submit" class="create-btn"><i class="fas fa-plus"></i> Order</button>
-      </form>
-      
-  </div>
+  
 </div>
-      
-    </div>
-    <script src="AdminDashboard.js"></script>
-  </body>
+
+
+<script src="AdminDashboard.js"></script>
+
+
+</body>
 </html>

@@ -1,5 +1,6 @@
 <?php
 require_once 'cart.php';
+require_once 'dbConfig.php'
 ?>
 
 <!DOCTYPE html>
@@ -39,7 +40,9 @@ require_once 'cart.php';
                 <li><a href="cart-page.php"><i class="fa-solid fa-cart-shopping"></i> 
                             <?php if(empty($count)){ ?>
                             <span> 0  </span>
-                            <?php }else{ ?>
+                            <?php 
+                        }else{ 
+                            ?>
                             <span> <?= $count ?>  </span>
                             <?php } ?>
                      </a>
@@ -154,45 +157,35 @@ require_once 'cart.php';
     <p></p>
 
     <div class="pro-container">
-
-
+    <?php 
+    $query1 = $conn->query("SELECT * FROM products LIMIT 4");
     
-                         <?php 
-								$query1 = $db->query("SELECT * FROM products LIMIT 4");
-                            
+    if($query1->num_rows > 0){
+        while($row1 = $query1->fetch_assoc()){
+    ?>
+    <div class="pro" onclick="window.location.href='productPage.php?id=<?= $row1['product_id'] ?>';">
+    <img src="data:image/jpeg;base64,<?= base64_encode($row1["main_image"]) ?>" alt="<?= $row1["name"] ?>">
 
-								if($query1->num_rows > 0){
-									while($row1 = $query1->fetch_assoc()){
-                        ?>
-
-                    <div class="pro" onclick="window.location.href='productPage.php?id=<?= $row1['id'] ?>';">
-                        <img  src="uploads/<?=$row1["main_photo"]?>" alt="">
-                            <div class="description">
-                                        
-                                        <span>  <?=$row1["name"]?></span>
-                                    <h5> <?= $row1["name"] ?></h5>
-                                       
-                                        <div class="star">
-                                            <i class="fas fa-star"> </i>
-                                            <i class="fas fa-star"> </i>
-                                            <i class="fas fa-star"> </i>
-                                            <i class="fas fa-star"> </i>
-                                            <i class="fas fa-star"> </i>
-                                            
-                                        </div>
-                                
-                                </div>
-                
-                      </div>
-
-                      <?php }
-                            }else{ ?>
-                                <p>No featured products added yet...</p>
-					  <?php } ?>
- 
-
-
+        <div class="description">
+            <span><?= $row1["name"] ?></span>
+            <h5><?= $row1["name"] ?></h5>
+            <div class="star">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+            </div>
+        </div>
+    </div>
+    <?php
+        }
+    } else { 
+    ?>
+    <p>No featured products added yet...</p>
+    <?php } ?>
 </div>
+
 </section>
 <!-- this is the footer -->
 <footer>
@@ -205,13 +198,11 @@ require_once 'cart.php';
             <a href="#"><i class="fab fa-envelope"></i></a>
         </div>
         <div class="footerNav">
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
-                <li><a href="#">Our Team</a></li>
-                <li><a href="#">Services</a></li>
-            </ul>
+        <ul>
+                <li><a href="landingpages.php">Home</a></li>
+                <li><a href="about.php">About</a></li>
+                <li><a href="contact.php">Contact</a></li> 
+        </ul>
         </div>
         <div class="footerBottom">
         </div>

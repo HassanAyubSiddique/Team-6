@@ -109,13 +109,13 @@
 
         <div class="pro-container">
             <?php 
-                $query1 = $db->query("SELECT * FROM products WHERE `category` = 'regular'");
+                $query1 = $conn->query("SELECT * FROM products");
 
                 if($query1->num_rows > 0){
                     while($row1 = $query1->fetch_assoc()){
             ?>
-            <div class="pro" onclick="window.location.href='productPage.php?id=<?= $row1['id'] ?>'; ">
-                <img src="uploads/<?= $row1["main_photo"] ?>" alt="">
+            <div class="pro" onclick="window.location.href='productPage.php?id=<?= $row1['product_id'] ?>'; ">
+            <img src="data:image/jpeg;base64,<?= base64_encode($row1["main_image"]) ?>" alt="<?= $row1["name"] ?>">
                 <div class="description">
                     <h5><?= $row1["name"] ?></h5>
                     <div class="star">
@@ -148,13 +148,11 @@
                 <a href="#"><i class="fab fa-envelope"></i></a>
             </div>
             <div class="footerNav">
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Contact</a></li>
-                    <li><a href="#">Our Team</a></li>
-                    <li><a href="#">Services</a></li>
-                </ul>
+            <ul>
+                <li><a href="landingpages.php">Home</a></li>
+                <li><a href="about.php">About</a></li>
+                <li><a href="contact.php">Contact</a></li> 
+            </ul>
             </div>
             <div class="footerBottom">
             </div>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Order Raw Material</title>
+    <title>Dropdown Sidebar - Tivotal</title>
 
     <!--font awesome-->
     <link
@@ -13,9 +13,10 @@
     />
 
     <!--css file-->
-    <link rel="stylesheet" href="StaffDashboard.css" />
+    <link rel="stylesheet" href="AdminDashboard.css" />
   </head>
   <body>
+
 
   <!-- ======================= menu ================== -->
     <div class="sidebar close">
@@ -37,6 +38,7 @@
           <ul class="sub-menu">
             <li><a href="#" class="link-name">Products</a></li>
             <li><a href="ViewProduct.php">View Product</a></li>
+            <li><a href="AddProduct.php">Add Product</a></li>
           </ul>
         </li>
 
@@ -63,8 +65,8 @@
 
           <ul class="sub-menu">
             <li><a href="#" class="link-name">Raw Materials</a></li>
-            <li><a href="ViewRawMaterial.php">View Raw Materials</a></li>
-            <li><a href="StaffOrderRawMaterial.html">Order Raw Materials</a></li>
+            <li><a href="StaffViewRawMaterials.html">View Raw Materials</a></li>
+            <li><a href="StaffOrderRawMaterial.html">Add Raw Materials</a></li>
           </ul>
         </li> 
 
@@ -89,12 +91,17 @@
               <li><a href="#" onclick="confirmSignout()">Signout</a></li>
           </ul>
       </li>
+      
+
+      
       </ul>
       
     </div>
-  
+    
+    
+
     <div class="home-section">
-       <!-- ======================= navigation bar ================== -->
+       <!-- ======================= nav ================== -->
       <div class="main">
         
         <div class="topbar">
@@ -109,7 +116,8 @@
             <img src="img/Screenshot 2024-03-16 at 01.30.56.png" alt="" class="lo">
 
             <div class="search">
-            
+              
+          
             </div>
 
             <div class="user">
@@ -124,26 +132,43 @@
       <div>
 
       </div>
-        <h2 class="product-heading"> Order Raw Material </h2>
-        <form action="submit_orderRawMaterial.php" method="post">
-          <div class="form-group">
-              <label for="rawMaterialProductName">Raw Material Product Name:</label>
-              <select id="rawMaterialProductName" name="rawMaterialProductName" required>
-                <?php include 'populate_raw_material_product_names.php'; ?>
-            </select>
-            
-          </div>
-          <div class="form-group">
-              <label for="quantity">Quantity:</label>
-              <input type="number" id="quantity" name="quantity" min="0" required>
-          </div>
-          <button type="submit" class="create-btn"><i class="fas fa-plus"></i> Order</button>
-      </form>
-      
+        <h2 class="product-heading">Add Product</h2>
+        <form id="add-product-form" action="./php/add_product_query.php" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="product-name">Product Name:</label>
+        <input type="text" id="product-name" name="product_name" required>
+    </div>
+    
+    <div class="form-group">
+        <div>
+            <label for="product-description">Product Description:</label>
+        </div>
+        <div>
+            <textarea id="product-description" name="product_description" required></textarea>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="product-image">Click to Add Image</label>
+        <input type="file" id="product-image" name="product_image" accept="image/*" required>
+    </div>
+    
+    <div class="form-group">
+        <button type="submit" name="submit">Create Product</button>
+    </div>
+</form>
+
   </div>
 </div>
       
     </div>
+
+
+     
+
+    
+    
+
     <script src="AdminDashboard.js"></script>
   </body>
 </html>

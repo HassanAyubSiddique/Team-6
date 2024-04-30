@@ -80,7 +80,7 @@ if ($resultOrders->num_rows > 0) {
     }
 }
 // Fetch order data from the database with a count for each day
-$queryOrders = "SELECT client_id, COUNT(*) AS order_count FROM orders WHERE YEAR(created_on) = 2023 GROUP BY client_id";
+$queryOrders = "SELECT client_id, COUNT(*) AS order_count FROM orders WHERE YEAR(created_on) = 2024 GROUP BY client_id";
 $resultOrders = $conn->query($queryOrders);
 
 // Initialize arrays to store client IDs and order counts

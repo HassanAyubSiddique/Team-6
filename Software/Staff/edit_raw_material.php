@@ -1,5 +1,5 @@
 <?php
-include 'DatabaseConnection.php';
+ include 'db_connection.php';
 
 
 // Get the raw material id from the URL parameter

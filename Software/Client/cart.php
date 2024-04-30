@@ -3,6 +3,8 @@ include 'dbConfig.php';
 $product_ids = array();
 error_reporting(0);
 //session_destroy();
+$decoded_image = base64_decode($_POST['photo']);
+
 
 if(filter_input(INPUT_POST, 'add_to_cart')){
 
@@ -23,8 +25,8 @@ if(!in_array(filter_input(INPUT_GET, 'id'), $product_ids)){
 
         "id" => filter_input(INPUT_GET, 'id'),
 		"name" => filter_input(INPUT_POST, 'name'),
-        "photo" => filter_input(INPUT_POST, 'photo'),
-		"price" => filter_input(INPUT_POST, 'price'),
+        // "photo" => filter_input(INPUT_POST, 'photo'),
+		// "price" => filter_input(INPUT_POST, 'price'),
 		"quantity" => filter_input(INPUT_POST, 'quantity')
 
   );
@@ -46,8 +48,8 @@ $count = count($_SESSION['shopping_cart']);
 
 		"id" => filter_input(INPUT_GET, 'id'),
 		"name" => filter_input(INPUT_POST, 'name'),
-        "photo" => filter_input(INPUT_POST, 'photo'),
-		"price" => filter_input(INPUT_POST, 'price'),
+        // "photo" => filter_input(INPUT_POST, 'photo'),
+		// "price" => filter_input(INPUT_POST, 'price'),
 		"quantity" => filter_input(INPUT_POST, 'quantity')
 
 

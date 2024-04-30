@@ -1,7 +1,7 @@
 <?php
 // Include database connection
-include 'php/db_connection.php';
-include 'php/edit_admin_profile.php'; // Include the AdminManagement class file
+include 'db_connection.php';
+include 'edit_admin_profile.php'; // Include the AdminManagement class file
 
 // Initialize variables
 $firstName = "";
@@ -12,17 +12,16 @@ $address = "";
 $city = "";
 $country = "";
 $postcode = "";
-$admin_id = 58;
-
+$staff_id = 12;
 // Create an instance of AdminManagement
 $adminManagement = new AdminManagement($conn);
 
 // Retrieve admin profile information from the database
-$adminManagement->retrieveAdminProfile($admin_id, $firstName, $lastName, $email, $phoneNumber, $address, $city, $country, $postcode);
+$adminManagement->retrieveAdminProfile($staff_id, $firstName, $lastName, $email, $phoneNumber, $address, $city, $country, $postcode);
 
-// Retrieve admin data for the table
-$sqlAdmins = "SELECT * FROM admins";
-$resultAdmins = $conn->query($sqlAdmins);
+// // Retrieve admin data for the table
+// $sqlAdmins = "SELECT * FROM admins";
+// $resultAdmins = $conn->query($sqlAdmins);
 
 // Close database connection
 $conn->close();
@@ -56,30 +55,8 @@ $conn->close();
 
       <ul class="nav-list">
         <li>
-          <a href="AdminDashboard.HTML">
-            <i class="fab fa-microsoft"></i>
-            <span class="link-name">Dashboard</span>
-          </a>
-
-          <ul class="sub-menu blank">
-            <li><a href="AdminDashboard.HTML" class="link-name">Dashboard</a></li>
-          </ul>
-        </li>
-
-        <li>
-        <a href="report.php">
-          <i class="fas fa-chart-bar"></i>
-          <span class="link-name">Report</span>
-        </a>
-
-        <ul class="sub-menu blank">
-          <li><a href="report.php" class="link-name">Report</a></li>
-        </ul>
-      </li>
-
-        <li>
           <div class="icon-link">
-            <a href="#">
+            <a href="ViewProduct.php">
               <i class="fas fa-box-open"></i>
               <span class="link-name">Products</span>
             </a>
@@ -107,7 +84,7 @@ $conn->close();
         
         <li>
           <div class="icon-link">
-            <a href="#">
+            <a href="StaffViewRawMaterials.html">
               <i class="fas fa-boxes"></i>
               <span class="link-name">Raw Materials</span>
             </a>
@@ -116,34 +93,10 @@ $conn->close();
 
           <ul class="sub-menu">
             <li><a href="#" class="link-name">Raw Materials</a></li>
-            <li><a href="ViewrawMaterial.php">View Raw Materials</a></li>
-            <li><a href="AddRawMaterial.php">Add Raw Materials</a></li>
+            <li><a href="ViewRawMaterial.php">View Raw Materials</a></li>
+            <li><a href="StaffOrderRawMaterial.html">Order Raw Materials</a></li>
           </ul>
         </li> 
-
-        
-        <li>
-        <a href="Staff.php">
-          <i class="fas fa-users"></i>
-          <span class="link-name">Staff</span>
-        </a>
-
-        <ul class="sub-menu blank">
-          <li><a href="Staff.php" class="link-name">Staff</a></li>
-        </ul>
-      </li>
-     
-
-        <li>
-          <a href="Customer.php">
-            <i class="fas fa-handshake"></i>
-            <span class="link-name">Customers</span>
-          </a>
-
-          <ul class="sub-menu blank">
-            <li><a href="Customer.php" class="link-name">Customers</a></li>
-          </ul>
-        </li>
 
         <li>
           <a href="AdProfile.php">
@@ -207,7 +160,7 @@ $conn->close();
 <!-- Update Information -->
 <div class="profile-section">
   <h2 class="product-heading">Update Information</h2>
-  <form id="updateForm" method="POST" action="php/edit_admin_profile.php">
+  <form id="updateForm" method="POST" action="edit_admin_profile.php">
     <div class="profile-info">
       <div class="info-item">
         <div class="form-group">
@@ -252,7 +205,7 @@ $conn->close();
           <input type="text" id="newPostcode" name="newPostcode" value="<?php echo $postcode; ?>">
         </div>
       </div>
-      <input type="hidden" name="admin_id" value="<?php echo $admin_id; ?>"> <!-- Assuming admin_id is fixed for the logged-in admin -->
+      <input type="hidden" name="admin_id" value="<?php echo $staff_id; ?>"> <!-- Assuming admin_id is fixed for the logged-in admin -->
     </div>
     <button type="submit" name="update_profile">Update</button>
   </form>
@@ -263,7 +216,7 @@ $conn->close();
 <!-- Change Password section -->
 <div class="change-password-section">
   <h2 class="product-heading">Change Password</h2>
-  <form id="changePasswordForm" method="POST" action="php/edit_admin_profile.php">
+  <form id="changePasswordForm" method="POST" action="edit_admin_profile.php">
     <div class="profile-info">
       <div class="info-item">
         <div class="form-group">
@@ -283,59 +236,11 @@ $conn->close();
           <input type="password" id="confirmPassword" name="confirmPassword">
         </div>
       </div>
-      <input type="hidden" name="admin_id" value="<?php echo $postcode; ?>"> <!-- Assuming admin_id is fixed for the logged-in admin -->
+      <input type="hidden" name="admin_id" value="<?php echo $staff_id; ?>"> <!-- Assuming admin_id is fixed for the logged-in admin -->
     </div>
     <button type="submit" name="change_password">Change Password</button>
   </form>
 </div>
-
-<!-- Admins Table -->
-<div class="admins-table-container">
-<h2 class="product-heading">Admins</h2>
-            <table class="product-table">
-                    <thead>
-                        <tr>
-                            <th>Admin ID</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Email</th> 
-                            <th>Phone Number</th>
-                            <th>Address</th>
-                            <th>City</th>
-                            <th>Country</th>
-                            <th>Postcode</th> 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-
-                        // Display admin data in the table rows
-                        if ($resultAdmins->num_rows > 0) {
-                            while($rowAdmin = $resultAdmins->fetch_assoc()) {
-                                echo "<tr>";
-                                echo "<td>" . $rowAdmin["admin_id"] . "</td>";
-                                echo "<td>" . $rowAdmin["first_name"] . "</td>";
-                                echo "<td>" . $rowAdmin["last_name"] . "</td>";
-                                echo "<td>" . $rowAdmin["email"] . "</td>";
-                                echo "<td>" . $rowAdmin["phone_number"] . "</td>";
-                                echo "<td>" . $rowAdmin["address"] . "</td>";
-                                echo "<td>" . $rowAdmin["city"] . "</td>";
-                                echo "<td>" . $rowAdmin["country"] . "</td>";
-                                echo "<td>" . $rowAdmin["postcode"] . "</td>"; 
-                                echo "</tr>";
-                            }
-                        } else {
-                            echo "<tr><td colspan='11'>No admins found</td></tr>";
-                        }
-                        ?>
-                    </tbody>
-                </table>
-            </div>
-
-
-</div>
-      
-    </div>
 
 
      

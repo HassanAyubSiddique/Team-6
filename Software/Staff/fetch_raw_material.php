@@ -1,5 +1,5 @@
 <?php
- include 'DatabaseConnection.php';
+ include 'db_connection.php';
 
 // Query to fetch raw material data from the database
 $query = "SELECT * FROM raw_materials";

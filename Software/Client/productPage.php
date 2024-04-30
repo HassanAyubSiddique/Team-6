@@ -1,18 +1,14 @@
 <?php
 require_once 'cart.php';
+require_once 'dbConfig.php';
+
 $statusMsg = '';
-
-
-
 $id = $_GET['id'];
 
-$qry = "SELECT * FROM products WHERE id = '$id'";
-$result = mysqli_query($db, $qry);
+$qry = "SELECT * FROM products WHERE product_id = '$id'";
+$result = mysqli_query($conn, $qry);
 $fetch = mysqli_fetch_array($result);
-
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -20,30 +16,20 @@ $fetch = mysqli_fetch_array($result);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
     <title>Product page</title>
-    <link rel="stylesheet" href="VendorCss/style.css">    <!-- link css -->
+    <link rel="stylesheet" href="VendorCss/style.css">
     <style>
-        button#add_to_cart{
-            background-color: #088178 !important;
-                color: #fff !important;
-                font-size: 1.2rem !important;
-                font-weight: bold !important;
-                padding: 10px 20px !important;
-                border-radius: 5px !important;
-                box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2) !important;
-                transition: all 0.3s ease !important;
-    
-        }
+        /* Your custom styles */
     </style>
 </head>
 <body>
-    <!-- this is for the nav bar of the page -->
+    <!-- Navbar code -->
     <section id="header">
-        <a href="landingpages.php"> <img src="img/Screenshot 2024-03-16 at 01.50.29.png" class="logo" al t=""></a>
+    <a href="landingpages.php"> <img src="img/Screenshot 2024-03-16 at 01.50.29.png" class="logo" al t=""></a>
         <div>
+
+              <!-- Search bar -->
             <ul id="navbar">
                 <li>
                     <div class="search-container">
@@ -51,27 +37,31 @@ $fetch = mysqli_fetch_array($result);
                         <i class="fas fa-search search-icon"></i>
                     </div>
                 </li>
-                
-                <li><a class="active" href="landingpage.php">Home</a></li>
+
+             
+
+                     <!-- Navigation links -->
+                <li><a class="active" href="landingpages.php">Home</a></li>
                 <li><a href="shop.php">Shop</a></li>
                 <li><a href="about.php">About</a></li>
                 <li><a href="contact.php">Contact</a></li>
                 <li><a href="cart-page.php"><i class="fa-solid fa-cart-shopping"></i> 
                             <?php if(empty($count)){ ?>
                             <span> 0  </span>
-                            <?php }else{ ?>
+                            <?php 
+                        }else{ 
+                            ?>
                             <span> <?= $count ?>  </span>
                             <?php } ?>
                      </a>
                 </li>
-
-                
-
             
              
-                <img src="img/user1.png"  class="user-pro" onclick="toggleMenu()">    
+                    <!-- User profile image -->
+                    <img src="img/user1.png"  class="user-pro" onclick="toggleMenu()">    
 
-                <div class="sub-menu-wrap" id="subMenu">
+                  <!-- Sub-menu for user profile -->
+                  <div class="sub-menu-wrap" id="subMenu">
                 <div class="sub-menu">
 
                 <?php if(isset($_SESSION['uname'])){ ?>
@@ -118,43 +108,37 @@ $fetch = mysqli_fetch_array($result);
             </ul>
         </div>
      </section>
-     <section id="prodetail" class="section-p1">
+
+
+    <!-- Product details section -->
+    <section id="prodetail" class="section-p1">
         <div class="single-prot-img">
-            <img src="uploads/<?= $fetch['main_photo'] ?>" width="100%" id="MainImg" alt="">
-    
-            
+            <!-- Display the main product image -->
+            <img src="data:image/jpeg;base64,<?= base64_encode($fetch["main_image"]) ?>" alt="<?= $fetch["name"] ?>">
+            <!-- Related images -->
             <div class="related-imgs-group">
                 <div class="related-img-col">
-                    <img src="uploads/<?= $fetch['photo_one'] ?>" width="100%" class="related-img" alt="">
+                    <img src="data:image/jpeg;base64,<?= base64_encode($fetch["image1"]) ?>" alt="<?= $fetch["name"] ?>">
                 </div>
                 <div class="related-img-col">
-                    <img src="uploads/<?= $fetch['photo_two'] ?>" width="100%" class="related-img" alt="">
+                    <img src="data:image/jpeg;base64,<?= base64_encode($fetch["image2"]) ?>" alt="<?= $fetch["name"] ?>">
                 </div>
                 <div class="related-img-col">
-                    <img src="uploads/<?= $fetch['photo_three'] ?>" width="100%" class="related-img" alt="">
+                    <img src="data:image/jpeg;base64,<?= base64_encode($fetch["image3"]) ?>" alt="<?= $fetch["name"] ?>">
                 </div>
-             
             </div>
-            
-
         </div>
-    
         <div class="single-prot-details">
+            <h6>Rakusen’s</h6>
+            <h4><?= $fetch['name'] ?></h4>
 
-        <h6> Rakusen’s</h6>
-           
-            <h4><?= $fetch['name'] ?> </h4>
-            
-          
             <form method="post" action="">
-            
-            <input type="hidden" name="id" value="<?php echo $fetch['id']; ?>" />
-            <input type="hidden" name="name" value="<?php echo $fetch['name']; ?>" />
-            <input type="hidden" name="photo" value="<?php echo $fetch['photo']; ?>" />
-            <input type="hidden" name="price" value="<?php echo $fetch['price']; ?>" />
-            <input type="number" name="quantity" class="form-control" value="1" />
-            
-            <input type="submit" style="background-color: #088178 !important;
+    <input type="hidden" name="id" value="<?= $fetch['product_id'] ?>">
+    <input type="hidden" name="name" value="<?= $fetch['name'] ?>">
+    <!-- Include the base64-encoded image data directly -->
+    <input type="hidden" name="photo" value="<?= base64_encode($fetch["main_image"]) ?>">
+    <input type="number" name="quantity" class="form-control" value="1" />
+                <input type="submit" style="background-color: #088178 !important;
     color: snow !important;
     font-size: 1.2rem !important;
     font-weight: bold !important;
@@ -164,31 +148,17 @@ $fetch = mysqli_fetch_array($result);
     transition: all 0.3s ease;
     position: absolute;
     top:320px;
-    left:800px;
+    left:850px;
     font-weight:bolder
 }" name="add_to_cart" id="add_to_cart" value="Add To Cart" class="btn btn-primary">
-
             </form>
             <div class=" m">
-             
             </div>
-            
             <h4>Product Detail</h4>
-            <span>
-
-             <?= $fetch['description'] ?>
-            </span>
-
-            
+            <span><?= $fetch['description'] ?></span>
         </div>
-      
-       
-       
-          
-     </section>
+    </section>
 
-   
-    
 
      <!-- here is the freature of the e-commers website offers to it's customers -->
 <section id="feature" class = "section-p1" >
@@ -216,16 +186,16 @@ $fetch = mysqli_fetch_array($result);
     <div class="pro-container">
      
     <?php 
-        	$query1 = $db->query("SELECT * FROM products WHERE `category` = 'regular'");
+        	$query1 = $conn->query("SELECT * FROM products");
 
         if($query1->num_rows > 0){
         while($row1 = $query1->fetch_assoc()){
     ?>
 
-        <div class="pro" onclick="window.location.href='productPage.php?id=<?= $row1['id'] ?>';">
-            <img src="uploads/<?= $row1["main_photo"] ?>" alt="">
+        <div class="pro" onclick="window.location.href='productPage.php?id=<?= $row1['product_id'] ?>';">
+        <img src="data:image/jpeg;base64,<?= base64_encode($row1["main_image"]) ?>" alt="<?= $row1["name"] ?>">
             <div class="description">
-                <span><?= $row1["price"] ?> </span>
+                <span><?= $row1["status"] ?> </span>
                 <h5><?= $row1["name"] ?></h5>
               
             
@@ -254,11 +224,9 @@ $fetch = mysqli_fetch_array($result);
         </div>
         <div class="footerNav">
             <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
-                <li><a href="#">Our Team</a></li>
-                <li><a href="#">Services</a></li>
+                <li><a href="landingpages.php">Home</a></li>
+                <li><a href="about.php">About</a></li>
+                <li><a href="contact.php">Contact</a></li> 
             </ul>
         </div>
         <div class="footerBottom">

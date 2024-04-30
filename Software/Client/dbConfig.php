@@ -1,16 +1,16 @@
 <?php
 session_start();
 // Database configuration
-$dbHost     = "localhost";
-$dbUsername = "root";
-$dbPassword = "root";
-$dbName     = "rakusen";
+$servername = "localhost"; // Change this to your database server name
+$username = "root"; // Change this to your database username
+$password = ""; 
+$database = "wms"; // Change this to your database name
 
-// Create database connection
-$db = new mysqli($dbHost, $dbUsername, $dbPassword, $dbName);
+// Create connection
+$conn = new mysqli($servername, $username, $password, $database);
 
 // Check connection
-if ($db->connect_error) {
-    die("Connection failed: " . $db->connect_error);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
 ?>

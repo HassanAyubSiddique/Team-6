@@ -1,6 +1,6 @@
 <?php
 // Include the database connection file
-include 'DatabaseConnection.php';
+include 'db_connection.php';
 
 // Check if database connection is successful
 if (!$con) {

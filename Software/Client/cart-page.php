@@ -1,13 +1,15 @@
 <?php
 require_once 'cart.php';
+$decoded_image = base64_decode($_POST['photo']);
+
 $statusMsg = '';
 
 
 
 $id = $_GET['id'];
 
-$qry = "SELECT * FROM products WHERE id = '$id'";
-$result = mysqli_query($db, $qry);
+$qry = "SELECT * FROM products WHERE product_id = '$id'";
+$result = mysqli_query($conn, $qry);
 $fetch = mysqli_fetch_array($result);
 
 ?>
@@ -226,7 +228,7 @@ $fetch = mysqli_fetch_array($result);
                                                         <?php if(isset($_SESSION['uname'])){ ?>
                                                         <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Proceed Checkout</button>
                                                         <?php } else{?>
-                                                            <a href="register-page.php"> Login first to complete checkout</a>
+                                                            <a href="../Admin/login.php"> Login first to complete checkout</a>
                                                         <?php }?>
 													</div>
 												</div>
