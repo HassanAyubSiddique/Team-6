@@ -5,7 +5,7 @@ include 'db_connection.php';
 /**
  * Represents a Raw Material with its details fetched from the database.
  */
-class RawMaterial {
+class add_batch_raw_material {
     private $rawMaterialId;
     private $rawMaterialDetails;
 
@@ -54,7 +54,7 @@ if (isset($_GET['raw_material_id'])) {
     $rawMaterialId = $_GET['raw_material_id'];
 
     // Create RawMaterial object
-    $rawMaterial = new RawMaterial($rawMaterialId);
+    $rawMaterial = new add_batch_raw_material($rawMaterialId);
 
     // Fetch raw material details
     $rawMaterial->fetchRawMaterialDetails($conn);

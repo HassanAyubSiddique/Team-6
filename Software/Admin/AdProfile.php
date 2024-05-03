@@ -12,7 +12,7 @@ $address = "";
 $city = "";
 $country = "";
 $postcode = "";
-$admin_id = 58;
+$admin_id = 53;
 
 // Create an instance of AdminManagement
 $adminManagement = new AdminManagement($conn);
@@ -283,7 +283,7 @@ $conn->close();
           <input type="password" id="confirmPassword" name="confirmPassword">
         </div>
       </div>
-      <input type="hidden" name="admin_id" value="<?php echo $postcode; ?>"> <!-- Assuming admin_id is fixed for the logged-in admin -->
+      <input type="hidden" name="admin_id" value="<?php echo $admin_id; ?>"> <!-- Assuming admin_id is fixed for the logged-in admin -->
     </div>
     <button type="submit" name="change_password">Change Password</button>
   </form>

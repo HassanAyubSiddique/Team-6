@@ -5,7 +5,7 @@ include 'db_connection.php';
 /**
  * Class ClientManager handles operations related to clients.
  */
-class ClientManager {
+class approve_client {
     private $conn;
 
     /**
@@ -36,13 +36,13 @@ class ClientManager {
  * Process the approval of a client.
  * @param mysqli $conn The database connection object.
  */
-function processClientApproval($conn) {
+function process_client($conn) {
     // Check if client ID is provided in the URL
     if (isset($_GET['client_id'])) {
         $clientId = $_GET['client_id'];
 
         // Create ClientManager object
-        $clientManager = new ClientManager($conn);
+        $clientManager = new approve_client($conn);
 
         // Update client status to "Approved"
         if ($clientManager->approveClient($clientId)) {
@@ -58,7 +58,7 @@ function processClientApproval($conn) {
 }
 
 // Process client approval
-processClientApproval($conn);
+process_client($conn);
 
 // Close connection
 $conn->close();

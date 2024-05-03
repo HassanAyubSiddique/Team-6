@@ -64,7 +64,7 @@ class AdminManagement {
             // Verify old password
             if ($oldPassword === $storedPassword) {
                 // Hash the new password
-                $hashedPassword = $newPassword;
+                $hashedPassword = password_hash($newPassword, PASSWORD_BCRYPT);
                 // Update password in the database
                 $updateSql = "UPDATE admins SET password = '$hashedPassword' WHERE admin_id = $admin_id";
                 if ($this->conn->query($updateSql) === TRUE) {

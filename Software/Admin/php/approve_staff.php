@@ -5,7 +5,7 @@ include 'db_connection.php';
 /**
  * Class StaffManager handles operations related to staff members.
  */
-class StaffManager {
+class approve_staff {
     private $conn;
 
     /**
@@ -42,7 +42,7 @@ function processStaffApproval($conn) {
         $staffId = $_GET['staff_id'];
 
         // Create StaffManager object
-        $staffManager = new StaffManager($conn);
+        $staffManager = new approve_staff($conn);
 
         // Approve staff member
         if ($staffManager->approveStaffMember($staffId)) {

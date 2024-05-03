@@ -67,7 +67,7 @@
 
           <ul class="sub-menu">
             <li><a href="#" class="link-name">Raw Materials</a></li>
-            <li><a href="StaffViewRawMaterials.html">View Raw Materials</a></li>
+            <li><a href="ViewRawMaterial.php">View Raw Materials</a></li>
             <li><a href="StaffOrderRawMaterial.html">Order Raw Materials</a></li>
           </ul>
         </li> 

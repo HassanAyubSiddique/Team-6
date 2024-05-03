@@ -35,7 +35,6 @@
           <ul class="sub-menu">
             <li><a href="#" class="link-name">Products</a></li>
             <li><a href="ViewProduct.php">View Product</a></li>
-            <li><a href="AddProduct.php">Add Product</a></li>
           </ul>
         </li>
 

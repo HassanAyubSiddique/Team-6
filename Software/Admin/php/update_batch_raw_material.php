@@ -74,23 +74,28 @@ class RawMaterialBatchManager {
     }
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $rawMaterialBatchManager = new RawMaterialBatchManager($conn);
+function handleFormSubmission($conn) {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $rawMaterialBatchManager = new RawMaterialBatchManager($conn);
 
-    // Validate and sanitize inputs
-    $rawMaterialId = $_POST['raw_material_id'];
-    $bbd = $_POST['bbd'];
-    $quantity = $_POST['quantity'];
+        // Validate and sanitize inputs
+        $rawMaterialId = $_POST['raw_material_id'];
+        $bbd = $_POST['bbd'];
+        $quantity = $_POST['quantity'];
 
-    // Add batch and handle result
-    $message = $rawMaterialBatchManager->addBatch($rawMaterialId, $bbd, $quantity);
-    echo "<script>alert('$message');</script>";
+        // Add batch and handle result
+        $message = $rawMaterialBatchManager->addBatch($rawMaterialId, $bbd, $quantity);
+        echo "<script>alert('$message');</script>";
 
-    // Redirect to raw materials page
-    echo "<script>window.location.href = '../ViewRawMaterial.php';</script>";
-} else {
-    echo "Invalid request";
+        // Redirect to raw materials page
+        echo "<script>window.location.href = '../ViewRawMaterial.php';</script>";
+    } else {
+        echo "Invalid request";
+    }
 }
+
+// Handle form submission
+handleFormSubmission($conn);
 
 // Close connection
 $conn->close();

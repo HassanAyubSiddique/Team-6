@@ -1,0 +1,31 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.graph-container {
+    position: relative;
+    width: 50%;
+    height: 50vh;
+    overflow-x: scroll;
+    white-space: nowrap;
+}
+.graph-container-3 {
+    position: relative;
+    width: 80%;
+    height: 80vh;
+    overflow-x: scroll;
+    white-space: nowrap;
+}
+.graph-container canvas {
+    width: 100%;
+    height: 100%;
+}
+
+.export-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    color: #007bff;
+}

@@ -22,43 +22,48 @@ class ProductUpdater {
     }
 }
 
-// Check if form is submitted
-if (isset($_POST['submit'])) {
-    // Retrieve form data
-    $productId = $_POST['product_id'];
-    $productName = $_POST['name'];
-    $productDescription = $_POST['description'];
+function handleFormSubmission($conn) {
+    // Check if form is submitted
+    if (isset($_POST['submit'])) {
+        // Retrieve form data
+        $productId = $_POST['product_id'];
+        $productName = $_POST['name'];
+        $productDescription = $_POST['description'];
 
-    // Check if an image is uploaded
-    if (isset($_FILES['image']) && $_FILES['image']['size'] > 0) {
-        // Initialize ProductUpdater
-        $productUpdater = new ProductUpdater($conn);
+        // Check if an image is uploaded
+        if (isset($_FILES['image']) && $_FILES['image']['size'] > 0) {
+            // Initialize ProductUpdater
+            $productUpdater = new ProductUpdater($conn);
 
-        // Update product with image
-        if ($productUpdater->updateProduct($productId, $productName, $productDescription, $_FILES['image'])) {
-            echo "Product updated successfully";
+            // Update product with image
+            if ($productUpdater->updateProduct($productId, $productName, $productDescription, $_FILES['image'])) {
+                echo "Product updated successfully";
+            } else {
+                echo "Error updating product: " . $conn->error;
+            }
         } else {
-            echo "Error updating product: " . $conn->error;
+            // Update product without image
+            $sql = "UPDATE products SET name = '$productName', description = '$productDescription' WHERE product_id = $productId";
+            if ($conn->query($sql) === TRUE) {
+                echo "Product updated successfully";
+            } else {
+                echo "Error updating product: " . $conn->error;
+            }
         }
+
+        // Close connection
+        $conn->close();
+
+        // Redirect back to ViewProduct.php
+        header("Location: ../ViewProduct.php");
+        exit();
     } else {
-        // Update product without image
-        $sql = "UPDATE products SET name = '$productName', description = '$productDescription' WHERE product_id = $productId";
-        if ($conn->query($sql) === TRUE) {
-            echo "Product updated successfully";
-        } else {
-            echo "Error updating product: " . $conn->error;
-        }
+        // If form is not submitted, redirect back to ViewProduct.php
+        header("Location: ../ViewProduct.php");
+        exit();
     }
-
-    // Close connection
-    $conn->close();
-
-    // Redirect back to ViewProduct.php
-    header("Location: ../ViewProduct.php");
-    exit();
-} else {
-    // If form is not submitted, redirect back to ViewProduct.php
-    header("Location: ../ViewProduct.php");
-    exit();
 }
+
+// Handle form submission
+handleFormSubmission($conn);
 ?>

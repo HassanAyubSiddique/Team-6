@@ -5,7 +5,7 @@ include 'db_connection.php';
 /**
  * Class to handle product operations
  */
-class ProductHandler {
+class add_product_query {
     private $conn;
 
     /**
@@ -43,30 +43,36 @@ class ProductHandler {
     }
 }
 
-// Check if the form is submitted
-if(isset($_POST['submit'])) {
-    // Retrieve form data
-    $productName = $_POST['product_name'];
-    $productDescription = $_POST['product_description'];
-    $productImage = file_get_contents($_FILES['product_image']['tmp_name']);
+// Function to handle form submission
+function handleFormSubmission($conn) {
+    // Check if the form is submitted
+    if(isset($_POST['submit'])) {
+        // Retrieve form data
+        $productName = $_POST['product_name'];
+        $productDescription = $_POST['product_description'];
+        $productImage = file_get_contents($_FILES['product_image']['tmp_name']);
 
-    // Create ProductHandler object
-    $productHandler = new ProductHandler($conn);
+        // Create ProductHandler object
+        $productHandler = new add_product_query($conn);
 
-    // Add product
-    if ($productHandler->addProduct($productName, $productDescription, $productImage)) {
-        // If execution is successful, redirect to AddProduct.php with success message
-        echo "<script>alert('Product added successfully'); window.location.href = '../AddProduct.php';</script>";
+        // Add product
+        if ($productHandler->addProduct($productName, $productDescription, $productImage)) {
+            // If execution is successful, redirect to AddProduct.php with success message
+            echo "<script>alert('Product added successfully'); window.location.href = '../AddProduct.php';</script>";
+        } else {
+            // If execution fails, redirect to AddProduct.php with error message
+            echo "<script>alert('Error adding product'); window.location.href = '../AddProduct.php';</script>";
+        }
+
+        // Close connection
+        $conn->close();
     } else {
-        // If execution fails, redirect to AddProduct.php with error message
-        echo "<script>alert('Error adding product'); window.location.href = '../AddProduct.php';</script>";
+        // If form is not submitted, redirect to AddProduct.php
+        header("Location: ../AddProduct.php");
+        exit(); // Stop further execution
     }
-
-    // Close connection
-    $conn->close();
-} else {
-    // If form is not submitted, redirect to AddProduct.php
-    header("Location: ../AddProduct.php");
-    exit(); // Stop further execution
 }
+
+// Call the function to handle form submission
+handleFormSubmission($conn);
 ?>

@@ -25,6 +25,32 @@ class ProductUnlister {
     }
 }
 
+// Function to handle form submission
+function handleFormSubmission() {
+    global $conn;
+
+    // Check if product_id is set
+    if (isset($_GET['product_id'])) {
+        // Retrieve product_id
+        $productId = $_GET['product_id'];
+
+        // Create an instance of ProductUnlister
+        $productUnlister = new ProductUnlister($conn);
+
+        // Unlist the product and get the message
+        $message = $productUnlister->unlistProduct($productId);
+    } else {
+        $message = "Product ID not specified";
+    }
+
+    // Close connection
+    $conn->close();
+
+    // Redirect back to ViewProduct.php
+    redirectToViewProduct($message);
+}
+
+// Function to redirect to ViewProduct.php
 function redirectToViewProduct($message) {
     header("Location: ../ViewProduct.php?message=" . urlencode($message));
     exit();
@@ -33,20 +59,6 @@ function redirectToViewProduct($message) {
 // Include database connection
 include 'db_connection.php';
 
-// Check if product_id is set
-if (isset($_GET['product_id'])) {
-    // Retrieve product_id
-    $productId = $_GET['product_id'];
-
-    $productUnlister = new ProductUnlister($conn);
-    $message = $productUnlister->unlistProduct($productId);
-} else {
-    $message = "Product ID not specified";
-}
-
-// Close connection
-$conn->close();
-
-// Redirect back to ViewProduct.php
-redirectToViewProduct($message);
+// Call the function to handle form submission
+handleFormSubmission();
 ?>

@@ -51,7 +51,7 @@
         
         <li>
           <div class="icon-link">
-            <a href="StaffViewRawMaterials.html">
+            <a href="ViewRawMaterial.php">
               <i class="fas fa-boxes"></i>
               <span class="link-name">Raw Materials</span>
             </a>
@@ -60,7 +60,7 @@
 
           <ul class="sub-menu">
             <li><a href="#" class="link-name">Raw Materials</a></li>
-            <li><a href="StaffViewRawMaterials.html">View Raw Materials</a></li>
+            <li><a href="ViewRawMaterial.php">View Raw Materials</a></li>
             <li><a href="StaffOrderRawMaterial.html">Order Raw Materials</a></li>
           </ul>
         </li> 

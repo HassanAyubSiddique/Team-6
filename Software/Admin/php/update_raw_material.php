@@ -22,43 +22,48 @@ class RawMaterialUpdater {
     }
 }
 
-// Check if form is submitted
-if (isset($_POST['submit'])) {
-    // Retrieve form data
-    $rawMaterialId = $_POST['raw_material_id'];
-    $rawMaterialName = $_POST['name'];
-    $rawMaterialDescription = $_POST['description'];
+function handleFormSubmission($conn) {
+    // Check if form is submitted
+    if (isset($_POST['submit'])) {
+        // Retrieve form data
+        $rawMaterialId = $_POST['raw_material_id'];
+        $rawMaterialName = $_POST['name'];
+        $rawMaterialDescription = $_POST['description'];
 
-    // Check if an image is uploaded
-    if (isset($_FILES['image']) && $_FILES['image']['size'] > 0) {
-        // Initialize RawMaterialUpdater
-        $rawMaterialUpdater = new RawMaterialUpdater($conn);
+        // Check if an image is uploaded
+        if (isset($_FILES['image']) && $_FILES['image']['size'] > 0) {
+            // Initialize RawMaterialUpdater
+            $rawMaterialUpdater = new RawMaterialUpdater($conn);
 
-        // Update raw material with image
-        if ($rawMaterialUpdater->updateRawMaterial($rawMaterialId, $rawMaterialName, $rawMaterialDescription, $_FILES['image'])) {
-            echo "Raw material updated successfully";
+            // Update raw material with image
+            if ($rawMaterialUpdater->updateRawMaterial($rawMaterialId, $rawMaterialName, $rawMaterialDescription, $_FILES['image'])) {
+                echo "Raw material updated successfully";
+            } else {
+                echo "Error updating raw material: " . $conn->error;
+            }
         } else {
-            echo "Error updating raw material: " . $conn->error;
+            // Update raw material without image
+            $sql = "UPDATE raw_materials SET name = '$rawMaterialName', description = '$rawMaterialDescription' WHERE raw_material_id = $rawMaterialId";
+            if ($conn->query($sql) === TRUE) {
+                echo "Raw material updated successfully";
+            } else {
+                echo "Error updating raw material: " . $conn->error;
+            }
         }
+
+        // Close connection
+        $conn->close();
+
+        // Redirect back to ViewRawMaterial.php
+        header("Location: ../ViewRawMaterial.php");
+        exit();
     } else {
-        // Update raw material without image
-        $sql = "UPDATE raw_materials SET name = '$rawMaterialName', description = '$rawMaterialDescription' WHERE raw_material_id = $rawMaterialId";
-        if ($conn->query($sql) === TRUE) {
-            echo "Raw material updated successfully";
-        } else {
-            echo "Error updating raw material: " . $conn->error;
-        }
+        // If form is not submitted, redirect back to ViewRawMaterial.php
+        header("Location: ../ViewRawMaterial.php");
+        exit();
     }
-
-    // Close connection
-    $conn->close();
-
-    // Redirect back to ViewRawMaterial.php
-    header("Location: ../ViewRawMaterial.php");
-    exit();
-} else {
-    // If form is not submitted, redirect back to ViewRawMaterial.php
-    header("Location: ../ViewRawMaterial.php");
-    exit();
 }
+
+// Handle form submission
+handleFormSubmission($conn);
 ?>

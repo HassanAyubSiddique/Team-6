@@ -39,22 +39,30 @@ class AdminProfileUpdater {
     }
 
 }
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $adminProfileUpdater = new AdminProfileUpdater($conn);
 
-    // Get profile information from the form
-    $firstName = $_POST["first-name"];
-    $lastName = $_POST["last-name"];
-    $profilePicture = $_FILES["profile-picture"];
+function handleFormSubmission($conn) {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $adminProfileUpdater = new AdminProfileUpdater($conn);
 
-    $message = $adminProfileUpdater->updateProfile($firstName, $lastName, $profilePicture);
-    
-    // Redirect to AdProfile.php with appropriate message
-    redirectToAdminProfile($message);
+        // Get profile information from the form
+        $firstName = $_POST["first-name"];
+        $lastName = $_POST["last-name"];
+        $profilePicture = $_FILES["profile-picture"];
+
+        $message = $adminProfileUpdater->updateProfile($firstName, $lastName, $profilePicture);
+        
+        // Redirect to AdProfile.php with appropriate message
+        redirectToAdminProfile($message);
+    }
 }
+
 function redirectToAdminProfile($message) {
     echo "<script>alert('" . $message . "'); window.location.href = '../AdProfile.php';</script>";
 }
+
+// Handle form submission
+handleFormSubmission($conn);
+
 // Close connection
 $conn->close();
 ?>

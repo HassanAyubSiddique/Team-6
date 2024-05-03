@@ -5,7 +5,7 @@ include 'db_connection.php';
 /**
  * Class RawMaterialHandler for handling raw material operations.
  */
-class RawMaterialHandler {
+class add_raw_material_query {
     private $conn;
 
     /**
@@ -72,7 +72,7 @@ class RawMaterialHandler {
 }
 
 // Create RawMaterialHandler object
-$rawMaterialHandler = new RawMaterialHandler($conn);
+$rawMaterialHandler = new add_raw_material_query($conn);
 
 // Handle form submission
 $rawMaterialHandler->handleFormSubmission();

@@ -5,7 +5,7 @@ include 'db_connection.php';
 /**
  * Represents a Product with its details fetched from the database.
  */
-class Product {
+class add_batch {
     private $productId;
     private $productDetails;
 
@@ -54,7 +54,7 @@ if (isset($_GET['product_id'])) {
     $productId = $_GET['product_id'];
 
     // Create Product object
-    $product = new Product($productId);
+    $product = new add_batch($productId);
 
     // Fetch product details
     $product->fetchProductDetails($conn);

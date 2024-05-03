@@ -5,7 +5,7 @@ include 'db_connection.php';
 /**
  * Class ClientManager handles client-related database operations.
  */
-class ClientManager {
+class delete_client {
     private $conn;
 
     /**
@@ -65,7 +65,7 @@ class ClientManager {
 }
 
 // Create ClientManager object
-$clientManager = new ClientManager($conn);
+$clientManager = new delete_client($conn);
 
 // Delete client and associated orders based on the client ID from the URL
 $clientManager->deleteClientAndOrdersFromURL();

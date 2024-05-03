@@ -25,23 +25,29 @@ class OrderUpdater {
     }
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $orderUpdater = new OrderUpdater($conn);
+function handleFormSubmission($conn) {
+    // Check if form is submitted
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $orderUpdater = new OrderUpdater($conn);
 
-    // Retrieve form data
-    $orderId = $_POST['order_id'];
-    $newStatus = $_POST['new_status'];
+        // Retrieve form data
+        $orderId = $_POST['order_id'];
+        $newStatus = $_POST['new_status'];
 
-    // Update order
-    $message = $orderUpdater->updateOrder($orderId, $newStatus);
+        // Update order
+        $message = $orderUpdater->updateOrder($orderId, $newStatus);
 
-    // Redirect to PurchaseOrder.php with appropriate message
-    echo "<script>alert('$message'); window.location.href = '../PurchaseOrder.php';</script>";
-} else {
-    // If form is not submitted, redirect back to PurchaseOrder.php
-    header("Location: ../PurchaseOrder.php");
-    exit();
+        // Redirect to PurchaseOrder.php with appropriate message
+        echo "<script>alert('$message'); window.location.href = '../PurchaseOrder.php';</script>";
+    } else {
+        // If form is not submitted, redirect back to PurchaseOrder.php
+        header("Location: ../PurchaseOrder.php");
+        exit();
+    }
 }
+
+// Handle form submission
+handleFormSubmission($conn);
 
 // Close connection
 $conn->close();
